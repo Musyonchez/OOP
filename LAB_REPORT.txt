@@ -1,0 +1,342 @@
+================================================================================
+                    OBJECT ORIENTED PROGRAMMING LAB REPORT
+                          STUDENT GRADE MANAGEMENT SYSTEM
+================================================================================
+
+STUDENT NAME: [Your Name]
+STUDENT ID: [Your ID]
+COURSE: Object Oriented Programming
+DATE: November 6, 2025
+
+================================================================================
+1. INTRODUCTION
+================================================================================
+
+This report documents the implementation of a Student Grade Management System
+that demonstrates core Object-Oriented Programming (OOP) concepts including
+classes, objects, variables, constants, methods, loops, and selection
+statements.
+
+The system manages student records, calculates averages, validates grades, and
+provides comprehensive reporting functionality. The implementation uses Java
+and follows OOP best practices.
+
+================================================================================
+2. SYSTEM OVERVIEW
+================================================================================
+
+The system consists of 6 Java classes:
+- Person.java: Parent class representing a person
+- Student.java: Child class extending Person, represents students
+- Grade.java: Helper class to store subject grades
+- GradeManager.java: Manages collection of students
+- InvalidGradeException.java: Custom exception for grade validation
+- Main.java: Entry point demonstrating all features
+
+================================================================================
+3. IMPLEMENTATION OF OOP CONCEPTS
+================================================================================
+
+3.1 CLASSES
+------------
+The system implements 5 custom classes, each with specific responsibilities:
+
+**Person Class (Parent Class)**
+The Person class serves as the base class with common attributes.
+
+[SCREENSHOT: Person.java lines 1-28]
+Caption: Person class showing instance variables and constructor
+
+**Student Class (Child Class)**
+Student extends Person and adds grade management functionality.
+
+[SCREENSHOT: Student.java lines 1-28]
+Caption: Student class declaration with inheritance and constants
+
+**Grade Class**
+A simple class to encapsulate subject and grade information.
+
+[SCREENSHOT: Grade.java lines 1-17]
+Caption: Grade helper class implementation
+
+**GradeManager Class**
+Manages a collection of students and provides search/statistics features.
+
+[SCREENSHOT: GradeManager.java lines 1-23]
+Caption: GradeManager class with student collection management
+
+**InvalidGradeException Class**
+Custom exception for grade validation errors.
+
+[SCREENSHOT: InvalidGradeException.java lines 1-6]
+Caption: Custom exception class for grade validation
+
+
+3.2 OBJECTS
+-----------
+Multiple objects are created and manipulated throughout the program.
+
+[SCREENSHOT: Main.java lines 3-13]
+Caption: Creating GradeManager and Student objects
+
+The program creates:
+- 1 GradeManager object to manage the system
+- Multiple Student objects (Alice, Bob, Carol, David)
+- Multiple Grade objects for each student's subjects
+- Person objects for polymorphism demonstration
+
+
+3.3 VARIABLES AND CONSTANTS
+----------------------------
+The system uses both instance variables and class constants.
+
+**Constants:**
+[SCREENSHOT: Student.java lines 5-7]
+Caption: Class constants PASSING_GRADE and MAX_GRADE
+
+**Instance Variables:**
+[SCREENSHOT: Student.java lines 9-11]
+Caption: Instance variables for Student class
+
+[SCREENSHOT: Person.java lines 2-5]
+Caption: Instance variables for Person class
+
+
+3.4 METHODS / FUNCTIONS
+------------------------
+The system implements numerous methods demonstrating different functionalities.
+
+**Grade Calculation Method:**
+[SCREENSHOT: Student.java lines 30-45]
+Caption: calculateAverage() method using while loop
+
+**Grade Validation Method:**
+[SCREENSHOT: Student.java lines 20-28]
+Caption: addGrade() method with exception handling
+
+**Status Determination Method:**
+[SCREENSHOT: Student.java lines 47-62]
+Caption: getStatus() method with multi-level decision making
+
+**Search Method:**
+[SCREENSHOT: GradeManager.java lines 15-23]
+Caption: findStudent() method demonstrating search functionality
+
+**Statistics Method:**
+[SCREENSHOT: GradeManager.java lines 45-68]
+Caption: getStatistics() method for class statistics
+
+
+3.5 LOOPS
+---------
+The program demonstrates all three types of loops in Java.
+
+**For-Each Loop:**
+[SCREENSHOT: Student.java lines 121-126]
+Caption: For-each loop iterating through grades in displayReport()
+
+**While Loop:**
+[SCREENSHOT: Student.java lines 38-42]
+Caption: While loop in calculateAverage() method
+
+[SCREENSHOT: Main.java lines 96-101]
+Caption: While loop demonstrating grade category iteration
+
+**Do-While Loop:**
+[SCREENSHOT: Student.java lines 136-148]
+Caption: Do-while loop in countFailingGrades() method
+
+
+3.6 SELECTION STATEMENTS / DECISION MAKING
+-------------------------------------------
+Multiple types of selection statements are implemented.
+
+**If-Else Chain:**
+[SCREENSHOT: Student.java lines 47-62]
+Caption: Multi-level if-else-if chain for status determination
+
+**If Statement with Validation:**
+[SCREENSHOT: Student.java lines 21-24]
+Caption: If statement for grade validation
+
+**Switch Statement:**
+[SCREENSHOT: Student.java lines 64-83]
+Caption: Switch statement for grade category assignment
+
+
+3.7 INHERITANCE
+---------------
+Student class extends Person class, demonstrating inheritance.
+
+[SCREENSHOT: Student.java lines 3-4]
+Caption: Student class declaration extending Person
+
+[SCREENSHOT: Student.java lines 13-18]
+Caption: Constructor using super() to call parent constructor
+
+
+3.8 POLYMORPHISM
+----------------
+The system demonstrates both method overriding and method overloading.
+
+**Method Overriding:**
+[SCREENSHOT: Student.java lines 85-96]
+Caption: Student overrides displayInfo() from Person class
+
+**Method Overloading:**
+[SCREENSHOT: Person.java lines 30-50]
+Caption: displayInfo() method overloaded with different parameters
+
+[SCREENSHOT: Student.java lines 98-108]
+Caption: displayInfo(String format) overload in Student class
+
+**Runtime Polymorphism:**
+[SCREENSHOT: Main.java lines 110-117]
+Caption: Runtime polymorphism with Person reference to Student object
+
+
+3.9 EXCEPTION HANDLING
+----------------------
+Custom exceptions with try-catch blocks for robust error handling.
+
+[SCREENSHOT: Main.java lines 54-75]
+Caption: Exception handling demonstration with try-catch blocks
+
+[SCREENSHOT: Main.java lines 38-46]
+Caption: Helper method using try-catch for grade addition
+
+
+3.10 ENCAPSULATION
+------------------
+Private fields with public getter/setter methods.
+
+[SCREENSHOT: Person.java lines 2-28]
+Caption: Private fields with public getters demonstrating encapsulation
+
+================================================================================
+4. PROGRAM EXECUTION AND OUTPUT
+================================================================================
+
+**Sample Output - Student Reports:**
+[SCREENSHOT: Terminal output showing first student report]
+Caption: Output showing Alice Johnson's grade report
+
+[SCREENSHOT: Terminal output showing class statistics]
+Caption: Output displaying class statistics with passing/failing counts
+
+**Sample Output - Exception Handling:**
+[SCREENSHOT: Terminal output showing exception handling]
+Caption: Output demonstrating grade validation and exception catching
+
+**Sample Output - Polymorphism Demonstration:**
+[SCREENSHOT: Terminal output showing polymorphism section]
+Caption: Output showing runtime polymorphism with different behaviors
+
+================================================================================
+5. CODE ORGANIZATION
+================================================================================
+
+The project demonstrates good code organization with helper methods:
+
+[SCREENSHOT: Main.java lines 37-52]
+Caption: Helper methods for better code organization
+
+This includes:
+- addStudentGrades(): Consolidates repetitive grade addition
+- displayStudentReports(): Uses varargs for flexible reporting
+- demonstrateExceptionHandling(): Isolated exception testing
+- demonstrateSearchAndLoops(): Search and loop demonstrations
+- demonstratePolymorphism(): Polymorphism examples
+
+================================================================================
+6. TESTING AND VALIDATION
+================================================================================
+
+The program includes comprehensive testing:
+
+1. Valid grade addition (0-100 range)
+2. Invalid grade rejection (< 0 or > 100)
+3. Average calculation accuracy
+4. Status determination correctness
+5. Search functionality
+6. Statistics calculation
+7. Polymorphic behavior verification
+
+[SCREENSHOT: Main.java lines 54-75]
+Caption: Test cases for exception handling with valid and invalid inputs
+
+================================================================================
+7. KEY FEATURES SUMMARY
+================================================================================
+
+✓ Classes: 5 custom classes with clear responsibilities
+✓ Objects: Multiple instances created and manipulated
+✓ Variables: Instance and local variables throughout
+✓ Constants: PASSING_GRADE and MAX_GRADE (static final)
+✓ Methods: 18+ methods with various functionalities
+✓ Inheritance: Student extends Person
+✓ Polymorphism: Method overriding and overloading
+✓ Loops: for-each, while, do-while loops
+✓ Selection: if-else, if-else-if chains, switch statements
+✓ Exception Handling: Custom exception with try-catch blocks
+✓ Encapsulation: Private fields with public accessors
+
+================================================================================
+8. CHALLENGES AND SOLUTIONS
+================================================================================
+
+Challenge 1: Demonstrating all three loop types naturally
+Solution: Used while loop for calculations, do-while for counting, and
+for-each for iterations - each where most appropriate.
+
+Challenge 2: Meaningful polymorphism implementation
+Solution: Implemented displayInfo() in both Person and Student classes with
+method overriding and multiple overloaded versions.
+
+Challenge 3: Realistic exception handling
+Solution: Created custom InvalidGradeException for grade validation with
+proper try-catch blocks throughout.
+
+================================================================================
+9. CONCLUSION
+================================================================================
+
+This Student Grade Management System successfully demonstrates all required
+Object-Oriented Programming concepts. The implementation showcases:
+
+- Strong understanding of OOP principles (Encapsulation, Inheritance,
+  Polymorphism, Abstraction)
+- Proper use of control structures (loops and selection statements)
+- Robust error handling with custom exceptions
+- Clean code organization with helper methods
+- Practical real-world application
+
+The system is fully functional, well-documented, and follows Java best
+practices. All code compiles without errors and produces expected output.
+
+Total Lines of Code: 441 lines across 6 Java files
+Concepts Demonstrated: 12+ core OOP and programming concepts
+
+================================================================================
+10. APPENDIX - COMPLETE CODE STRUCTURE
+================================================================================
+
+Project Structure:
+OOP/
+├── .gitignore
+├── Person.java (51 lines)
+├── Student.java (165 lines)
+├── Grade.java (17 lines)
+├── GradeManager.java (69 lines)
+├── InvalidGradeException.java (6 lines)
+└── Main.java (133 lines)
+
+[SCREENSHOT: Terminal showing directory structure with ls -la]
+Caption: Project directory structure
+
+[SCREENSHOT: Terminal showing successful compilation]
+Caption: Successful compilation of all Java files
+
+================================================================================
+END OF REPORT
+================================================================================

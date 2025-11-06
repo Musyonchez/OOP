@@ -1,0 +1,279 @@
+================================================================================
+                    SCREENSHOT GUIDE FOR LAB REPORT
+================================================================================
+
+This guide lists all screenshots needed for the PDF report. Take these
+screenshots in order and insert them where indicated in LAB_REPORT.txt.
+
+================================================================================
+CODE SCREENSHOTS (Take in your code editor with line numbers visible)
+================================================================================
+
+SCREENSHOT 1: Person class basics
+File: Person.java
+Lines: 1-28
+What to show: Class declaration, instance variables, constructor, and getters
+Caption: Person class showing instance variables and constructor
+
+SCREENSHOT 2: Student class header
+File: Student.java
+Lines: 1-28
+What to show: Class declaration with extends, constants, instance variables
+Caption: Student class declaration with inheritance and constants
+
+SCREENSHOT 3: Grade class
+File: Grade.java
+Lines: 1-17
+What to show: Complete Grade class
+Caption: Grade helper class implementation
+
+SCREENSHOT 4: GradeManager class
+File: GradeManager.java
+Lines: 1-23
+What to show: Class declaration, constructor, and addStudent method
+Caption: GradeManager class with student collection management
+
+SCREENSHOT 5: InvalidGradeException
+File: InvalidGradeException.java
+Lines: 1-6
+What to show: Complete exception class
+Caption: Custom exception class for grade validation
+
+SCREENSHOT 6: Main class object creation
+File: Main.java
+Lines: 3-13
+What to show: GradeManager and Student object instantiation
+Caption: Creating GradeManager and Student objects
+
+SCREENSHOT 7: Constants
+File: Student.java
+Lines: 5-7
+What to show: PASSING_GRADE and MAX_GRADE constants
+Caption: Class constants PASSING_GRADE and MAX_GRADE
+
+SCREENSHOT 8: Student instance variables
+File: Student.java
+Lines: 9-11
+What to show: grades ArrayList and major variable
+Caption: Instance variables for Student class
+
+SCREENSHOT 9: Person instance variables
+File: Person.java
+Lines: 2-5
+What to show: id, name, age variables
+Caption: Instance variables for Person class
+
+SCREENSHOT 10: calculateAverage method
+File: Student.java
+Lines: 30-45
+What to show: Complete calculateAverage method with while loop
+Caption: calculateAverage() method using while loop
+
+SCREENSHOT 11: addGrade method
+File: Student.java
+Lines: 20-28
+What to show: addGrade method with exception throwing
+Caption: addGrade() method with exception handling
+
+SCREENSHOT 12: getStatus method
+File: Student.java
+Lines: 47-62
+What to show: Complete getStatus method with if-else-if chain
+Caption: getStatus() method with multi-level decision making
+
+SCREENSHOT 13: findStudent method
+File: GradeManager.java
+Lines: 15-23
+What to show: Search method implementation
+Caption: findStudent() method demonstrating search functionality
+
+SCREENSHOT 14: getStatistics method
+File: GradeManager.java
+Lines: 45-68
+What to show: Complete statistics method
+Caption: getStatistics() method for class statistics
+
+SCREENSHOT 15: For-each loop
+File: Student.java
+Lines: 121-126
+What to show: For-each loop in displayReport
+Caption: For-each loop iterating through grades in displayReport()
+
+SCREENSHOT 16: While loop in calculateAverage
+File: Student.java
+Lines: 38-42
+What to show: While loop implementation
+Caption: While loop in calculateAverage() method
+
+SCREENSHOT 17: While loop in Main
+File: Main.java
+Lines: 96-101
+What to show: While loop for grade categories
+Caption: While loop demonstrating grade category iteration
+
+SCREENSHOT 18: Do-while loop
+File: Student.java
+Lines: 136-148
+What to show: Complete countFailingGrades method
+Caption: Do-while loop in countFailingGrades() method
+
+SCREENSHOT 19: If-else chain for status
+File: Student.java
+Lines: 47-62
+What to show: Multi-level if-else-if decision structure
+Caption: Multi-level if-else-if chain for status determination
+
+SCREENSHOT 20: If validation
+File: Student.java
+Lines: 21-24
+What to show: Grade validation if statement
+Caption: If statement for grade validation
+
+SCREENSHOT 21: Switch statement
+File: Student.java
+Lines: 64-83
+What to show: Complete getGradeCategory method with switch
+Caption: Switch statement for grade category assignment
+
+SCREENSHOT 22: Inheritance declaration
+File: Student.java
+Lines: 3-4
+What to show: "public class Student extends Person"
+Caption: Student class declaration extending Person
+
+SCREENSHOT 23: Super constructor call
+File: Student.java
+Lines: 13-18
+What to show: Constructor with super() call
+Caption: Constructor using super() to call parent constructor
+
+SCREENSHOT 24: Method overriding
+File: Student.java
+Lines: 85-96
+What to show: @Override annotation and displayInfo() method
+Caption: Student overrides displayInfo() from Person class
+
+SCREENSHOT 25: Method overloading in Person
+File: Person.java
+Lines: 30-50
+What to show: Two displayInfo() methods with different parameters
+Caption: displayInfo() method overloaded with different parameters
+
+SCREENSHOT 26: Method overloading in Student
+File: Student.java
+Lines: 98-108
+What to show: displayInfo(String format) method
+Caption: displayInfo(String format) overload in Student class
+
+SCREENSHOT 27: Runtime polymorphism
+File: Main.java
+Lines: 110-117
+What to show: Person reference variables pointing to different objects
+Caption: Runtime polymorphism with Person reference to Student object
+
+SCREENSHOT 28: Exception handling demonstration
+File: Main.java
+Lines: 54-75
+What to show: Try-catch blocks for exception handling
+Caption: Exception handling demonstration with try-catch blocks
+
+SCREENSHOT 29: Helper method with exception handling
+File: Main.java
+Lines: 38-46
+What to show: addStudentGrades() helper method
+Caption: Helper method using try-catch for grade addition
+
+SCREENSHOT 30: Encapsulation
+File: Person.java
+Lines: 2-28
+What to show: Private fields and public getters
+Caption: Private fields with public getters demonstrating encapsulation
+
+SCREENSHOT 31: Helper methods
+File: Main.java
+Lines: 37-52
+What to show: Multiple helper method signatures
+Caption: Helper methods for better code organization
+
+SCREENSHOT 32: Test cases
+File: Main.java
+Lines: 54-75
+What to show: Exception handling test cases
+Caption: Test cases for exception handling with valid and invalid inputs
+
+================================================================================
+OUTPUT SCREENSHOTS (Run the program and capture terminal output)
+================================================================================
+
+SCREENSHOT 33: Student report output
+Command: java Main
+What to show: First student report (Alice Johnson) with grades and average
+Caption: Output showing Alice Johnson's grade report
+
+SCREENSHOT 34: Class statistics output
+Command: java Main (scroll to statistics section)
+What to show: Class statistics showing total, passing, failing counts
+Caption: Output displaying class statistics with passing/failing counts
+
+SCREENSHOT 35: Exception handling output
+Command: java Main (scroll to exception section)
+What to show: "Caught exception" messages for invalid grades
+Caption: Output demonstrating grade validation and exception catching
+
+SCREENSHOT 36: Polymorphism output
+Command: java Main (scroll to polymorphism section)
+What to show: Polymorphism demonstration showing different behaviors
+Caption: Output showing runtime polymorphism with different behaviors
+
+================================================================================
+TERMINAL SCREENSHOTS (System commands)
+================================================================================
+
+SCREENSHOT 37: Directory structure
+Command: ls -la
+What to show: All files in the project directory
+Caption: Project directory structure
+
+SCREENSHOT 38: Compilation success
+Command: javac *.java
+What to show: Successful compilation (no errors shown)
+Caption: Successful compilation of all Java files
+
+================================================================================
+TIPS FOR TAKING SCREENSHOTS
+================================================================================
+
+1. Use a code editor with line numbers enabled (VS Code, IntelliJ, etc.)
+2. Use a readable font size (12-14pt recommended)
+3. Use a clean theme (light or dark, your preference)
+4. Ensure line numbers are clearly visible
+5. Crop screenshots to show only relevant code
+6. For terminal output, use full window width
+7. Save screenshots as PNG or JPG with descriptive names like:
+   - screenshot_01_person_class.png
+   - screenshot_02_student_class.png
+   - etc.
+
+8. When inserting into your PDF:
+   - Place screenshot where indicated in LAB_REPORT.txt
+   - Add the caption below each screenshot
+   - Ensure screenshots are readable (not too small)
+
+================================================================================
+CREATING THE PDF
+================================================================================
+
+1. Open LAB_REPORT.txt
+2. Copy content into a Word document or Google Docs
+3. Insert screenshots at each [SCREENSHOT: ...] location
+4. Format the document:
+   - Use appropriate headers (Heading 1, 2, 3)
+   - Use monospace font for code references
+   - Ensure page breaks between major sections
+5. Add page numbers
+6. Export/Save as PDF
+7. Review PDF to ensure all screenshots are clear and readable
+
+================================================================================
+END OF GUIDE
+================================================================================
