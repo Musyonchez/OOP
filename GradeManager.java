@@ -66,8 +66,4 @@ public class GradeManager {
         System.out.println("  Passing: " + passingCount);
         System.out.println("  Failing: " + failingCount);
     }
-
-    public ArrayList<Student> getStudents() {
-        return students;
-    }
 }
