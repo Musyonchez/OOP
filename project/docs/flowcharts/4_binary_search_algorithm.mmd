@@ -1,0 +1,33 @@
+flowchart TD
+    Start([Start Binary Search]) --> Input[Input: ISBN to find]
+    Input --> Sort[Sort Book List<br/>by ISBN<br/>Ascending Order]
+    Sort --> InitVars[Initialize:<br/>left = 0<br/>right = list size - 1]
+    InitVars --> CheckLoop{left <= right?}
+
+    CheckLoop -->|No| NotFound[Book Not Found<br/>Return null]
+    CheckLoop -->|Yes| CalcMid[Calculate Middle:<br/>mid = left + right / 2]
+
+    CalcMid --> GetMidBook[Get Book at<br/>index mid]
+    GetMidBook --> GetMidISBN[Get ISBN of<br/>Middle Book]
+    GetMidISBN --> Compare{Compare ISBNs}
+
+    Compare -->|Equal| Found[Book Found!<br/>Return Book]
+    Compare -->|Mid < Target| SearchRight[Target in Right Half<br/>Set left = mid + 1]
+    Compare -->|Mid > Target| SearchLeft[Target in Left Half<br/>Set right = mid - 1]
+
+    SearchRight --> CheckLoop
+    SearchLeft --> CheckLoop
+
+    Found --> End([End])
+    NotFound --> End
+
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style Found fill:#90EE90
+    style NotFound fill:#FF6B6B
+    style CheckLoop fill:#FFD700
+    style Compare fill:#FFD700
+    style CalcMid fill:#87CEEB
+    style SearchRight fill:#DDA0DD
+    style SearchLeft fill:#DDA0DD
+    style Sort fill:#87CEEB

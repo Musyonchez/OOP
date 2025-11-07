@@ -1,0 +1,52 @@
+flowchart TD
+    Start([Start Borrow Media]) --> Input1[Input: User ID]
+    Input1 --> Input2[Input: Media ID]
+    Input2 --> FindUser{Find User<br/>in System}
+
+    FindUser -->|Not Found| Error1[Display Error:<br/>User not found]
+    FindUser -->|Found| CheckType{Is User<br/>a Member?}
+
+    Error1 --> End([End])
+
+    CheckType -->|No| Error2[Display Error:<br/>Only members can borrow]
+    CheckType -->|Yes| CheckFines{Has Outstanding<br/>Fines?}
+
+    Error2 --> End
+
+    CheckFines -->|Yes| Error3[Display Error:<br/>Pay fines first]
+    CheckFines -->|No| FindMedia{Find Media<br/>in Catalog}
+
+    Error3 --> End
+
+    FindMedia -->|Not Found| Error4[Display Error:<br/>Media not found]
+    FindMedia -->|Found| CheckAvail{Is Media<br/>Available?}
+
+    Error4 --> End
+
+    CheckAvail -->|No| Error5[Display Error:<br/>Media already borrowed]
+    CheckAvail -->|Yes| CreateTrans[Create Transaction<br/>Generate Transaction ID]
+
+    Error5 --> End
+
+    CreateTrans --> SetDates[Set Borrow Date = Today<br/>Set Due Date = Today + 14 days]
+    SetDates --> UpdateMedia[Update Media:<br/>available = false<br/>borrowedBy = userID]
+    UpdateMedia --> UpdateMember[Update Member:<br/>Add to borrowed items list]
+    UpdateMember --> SaveTrans[Save Transaction to File]
+    SaveTrans --> SaveMedia[Save Media Updates to File]
+    SaveMedia --> SaveUser[Save User Updates to File]
+    SaveUser --> Success[Display Success Message<br/>Show Due Date]
+    Success --> End
+
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style Error1 fill:#FF6B6B
+    style Error2 fill:#FF6B6B
+    style Error3 fill:#FF6B6B
+    style Error4 fill:#FF6B6B
+    style Error5 fill:#FF6B6B
+    style Success fill:#90EE90
+    style FindUser fill:#FFD700
+    style CheckType fill:#FFD700
+    style CheckFines fill:#FFD700
+    style FindMedia fill:#FFD700
+    style CheckAvail fill:#FFD700

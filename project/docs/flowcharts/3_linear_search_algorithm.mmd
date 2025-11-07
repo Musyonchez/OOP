@@ -1,0 +1,37 @@
+flowchart TD
+    Start([Start Linear Search]) --> Input[Input: Search Term<br/>e.g., title to find]
+    Input --> Convert[Convert Search Term<br/>to Lowercase]
+    Convert --> InitResults[Initialize Empty<br/>Results List]
+    InitResults --> InitIndex[Set Index i = 0]
+    InitIndex --> CheckLoop{i < List Size?}
+
+    CheckLoop -->|No| CheckEmpty{Results List<br/>Empty?}
+    CheckLoop -->|Yes| GetItem[Get Media Item<br/>at index i]
+
+    GetItem --> GetTitle[Get Item Title<br/>Convert to Lowercase]
+    GetTitle --> Compare{Title Contains<br/>Search Term?}
+
+    Compare -->|No| Increment1[Increment i<br/>i = i + 1]
+    Compare -->|Yes| AddResult[Add Item to<br/>Results List]
+
+    AddResult --> Increment2[Increment i<br/>i = i + 1]
+    Increment1 --> CheckLoop
+    Increment2 --> CheckLoop
+
+    CheckEmpty -->|Yes| DisplayNone[Display:<br/>No matches found]
+    CheckEmpty -->|No| DisplayCount[Display:<br/>Found X results]
+
+    DisplayNone --> End([End])
+    DisplayCount --> DisplayLoop[Loop Through Results]
+    DisplayLoop --> DisplayItem[Display Each Item:<br/>Title, Type, Status]
+    DisplayItem --> End
+
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style CheckLoop fill:#FFD700
+    style Compare fill:#FFD700
+    style CheckEmpty fill:#FFD700
+    style GetItem fill:#87CEEB
+    style AddResult fill:#90EE90
+    style DisplayCount fill:#90EE90
+    style DisplayNone fill:#FFA500

@@ -1,0 +1,72 @@
+flowchart TD
+    Start([Start Library Management System]) --> Init[Initialize Library<br/>Load Data from Files]
+    Init --> MainMenu{Display Main Menu}
+
+    MainMenu -->|1| UserMgmt[User Management]
+    MainMenu -->|2| MediaMgmt[Media Management]
+    MainMenu -->|3| Borrowing[Borrowing Operations]
+    MainMenu -->|4| SearchSort[Search & Sort]
+    MainMenu -->|5| Reports[Reports & Statistics]
+    MainMenu -->|6| Exit([Exit System])
+
+    UserMgmt --> UserSub{User Submenu}
+    UserSub -->|Register| RegMember[Register New Member]
+    UserSub -->|Login| Login[User Login]
+    UserSub -->|View| ViewProfile[View User Profile]
+    UserSub -->|Back| MainMenu
+    RegMember --> UserSub
+    Login --> UserSub
+    ViewProfile --> UserSub
+
+    MediaMgmt --> CheckLibrarian{Is Librarian?}
+    CheckLibrarian -->|No| Denied[Access Denied]
+    CheckLibrarian -->|Yes| MediaSub{Media Submenu}
+    Denied --> MainMenu
+    MediaSub -->|Add Book| AddBook[Add New Book]
+    MediaSub -->|Add Magazine| AddMag[Add New Magazine]
+    MediaSub -->|Add DVD| AddDVD[Add New DVD]
+    MediaSub -->|Remove| Remove[Remove Media]
+    MediaSub -->|View| ViewAll[View All Media]
+    MediaSub -->|Back| MainMenu
+    AddBook --> MediaSub
+    AddMag --> MediaSub
+    AddDVD --> MediaSub
+    Remove --> MediaSub
+    ViewAll --> MediaSub
+
+    Borrowing --> BorrowSub{Borrowing Submenu}
+    BorrowSub -->|Borrow| BorrowItem[Borrow Media Item]
+    BorrowSub -->|Return| ReturnItem[Return Media Item]
+    BorrowSub -->|View| ViewBorrowed[View Borrowed Items]
+    BorrowSub -->|Back| MainMenu
+    BorrowItem --> BorrowSub
+    ReturnItem --> BorrowSub
+    ViewBorrowed --> BorrowSub
+
+    SearchSort --> SearchSub{Search & Sort Menu}
+    SearchSub -->|Search Title| SearchTitle[Linear Search by Title]
+    SearchSub -->|Search Author| SearchAuthor[Linear Search by Author]
+    SearchSub -->|Sort Title| SortTitle[Quick Sort by Title]
+    SearchSub -->|Sort Avail| SortAvail[Sort by Availability]
+    SearchSub -->|Back| MainMenu
+    SearchTitle --> SearchSub
+    SearchAuthor --> SearchSub
+    SortTitle --> SearchSub
+    SortAvail --> SearchSub
+
+    Reports --> ReportSub{Reports Menu}
+    ReportSub -->|Overdue| ViewOverdue[View Overdue Items]
+    ReportSub -->|Statistics| ViewStats[View System Statistics]
+    ReportSub -->|Back| MainMenu
+    ViewOverdue --> ReportSub
+    ViewStats --> ReportSub
+
+    Exit --> SaveData[Save All Data to Files]
+    SaveData --> End([End Program])
+
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style Exit fill:#FFB6C1
+    style MainMenu fill:#87CEEB
+    style CheckLibrarian fill:#FFD700
+    style Denied fill:#FF6B6B

@@ -1,0 +1,38 @@
+flowchart TD
+    Start([Start Quick Sort]) --> Input[Input: Media List<br/>low index, high index]
+    Input --> CheckBase{low < high?}
+
+    CheckBase -->|No| End([End - Already Sorted])
+    CheckBase -->|Yes| Partition[Call Partition Function<br/>Get pivot index]
+
+    Partition --> PartStart[Partition Process:<br/>Choose pivot = arr high]
+    PartStart --> InitI[Set i = low - 1]
+    InitI --> LoopJ[Loop j from low to high-1]
+
+    LoopJ --> CompareJ{arr j <= pivot?}
+    CompareJ -->|No| NextJ[Continue to next j]
+    CompareJ -->|Yes| IncrementI[Increment i]
+
+    IncrementI --> SwapIJ[Swap arr i with arr j]
+    SwapIJ --> NextJ
+
+    NextJ --> CheckJLoop{More elements<br/>to check?}
+    CheckJLoop -->|Yes| LoopJ
+    CheckJLoop -->|No| FinalSwap[Swap arr i+1 with pivot]
+
+    FinalSwap --> ReturnPivot[Return pivot index<br/>pivotIndex = i + 1]
+    ReturnPivot --> RecurseLeft[Recursive Call:<br/>QuickSort left, low, pivotIndex-1]
+
+    RecurseLeft --> RecurseRight[Recursive Call:<br/>QuickSort right, pivotIndex+1, high]
+    RecurseRight --> End
+
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style CheckBase fill:#FFD700
+    style CompareJ fill:#FFD700
+    style CheckJLoop fill:#FFD700
+    style Partition fill:#87CEEB
+    style SwapIJ fill:#DDA0DD
+    style FinalSwap fill:#DDA0DD
+    style RecurseLeft fill:#90EE90
+    style RecurseRight fill:#90EE90
