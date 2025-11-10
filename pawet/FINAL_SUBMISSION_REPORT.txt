@@ -206,29 +206,10 @@ IMPLEMENTATION IN PAWET-B:
 
 The Employee class serves as an abstract base class for all employee types:
 
-CODE EXCERPT:
-┌────────────────────────────────────────────────────────────────────┐
-│ public abstract class Employee {                                   │
-│     // Common fields for all employees                             │
-│     private String id;                                             │
-│     private String name;                                           │
-│     private String email;                                          │
-│     private String phone;                                          │
-│     private String departmentId;                                   │
-│     private String role;                                           │
-│     private double salary;                                         │
-│     private LocalDate hireDate;                                    │
-│                                                                    │
-│     // Abstract methods - contract for all subclasses             │
-│     public abstract void displayInfo();                            │
-│     public abstract String getRoleType();                          │
-│                                                                    │
-│     // Concrete methods - shared implementation                    │
-│     public int getYearsOfService() {                              │
-│         return LocalDate.now().getYear() - hireDate.getYear();   │
-│     }                                                              │
-│ }                                                                  │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Abstraction - Employee Abstract Class]
+File: src/models/Employee.java
+Lines: 1-50 (showing class declaration, fields, and abstract methods)
+Highlight: Lines 12-13 (abstract methods: displayInfo() and getRoleType())
 
 BENEFITS:
 • Defines common structure for all employee types
@@ -253,31 +234,10 @@ IMPLEMENTATION IN PAWET-B:
 
 All model classes use private fields with public getters and setters:
 
-CODE EXCERPT:
-┌────────────────────────────────────────────────────────────────────┐
-│ public class Manager extends Employee {                            │
-│     // Private fields - hidden from external access               │
-│     private List<String> teamList;                                │
-│     private double budgetAuthority;                               │
-│                                                                    │
-│     // Public getter - controlled read access                     │
-│     public double getBudgetAuthority() {                          │
-│         return budgetAuthority;                                   │
-│     }                                                              │
-│                                                                    │
-│     // Public setter - controlled write with validation           │
-│     public void setBudgetAuthority(double budgetAuthority) {      │
-│         if (budgetAuthority >= 0) {                               │
-│             this.budgetAuthority = budgetAuthority;               │
-│         }                                                          │
-│     }                                                              │
-│                                                                    │
-│     // Business logic encapsulated in methods                     │
-│     public boolean canApproveBudget(double amount) {              │
-│         return amount <= budgetAuthority;                         │
-│     }                                                              │
-│ }                                                                  │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Encapsulation - Manager Class]
+File: src/models/Manager.java
+Lines: 10-40 (showing private fields, getters, setters with validation)
+Highlight: Lines 18-19 (private fields) and Lines 62-66 (setter with validation)
 
 BENEFITS:
 • Data protection - fields cannot be accessed directly
@@ -325,28 +285,10 @@ HIERARCHY DIAGRAM:
     │Authority│        │+projectLst│  │ cations   │
     └─────────┘        └───────────┘  └───────────┘
 
-CODE EXCERPT - Manager extends Employee:
-┌────────────────────────────────────────────────────────────────────┐
-│ public class Manager extends Employee {                            │
-│     // Inherited fields (from Employee):                          │
-│     // - id, name, email, phone, departmentId, role, salary      │
-│                                                                    │
-│     // Additional Manager-specific fields:                        │
-│     private List<String> teamList;                                │
-│     private double budgetAuthority;                               │
-│                                                                    │
-│     // Constructor calls parent constructor                       │
-│     public Manager(String id, String name, ..., double budget) {  │
-│         super(id, name, email, phone, dept, role, salary, date); │
-│         this.budgetAuthority = budget;                            │
-│         this.teamList = new ArrayList<>();                        │
-│     }                                                              │
-│                                                                    │
-│     // Manager-specific methods                                   │
-│     public void addTeamMember(String employeeId) { ... }         │
-│     public boolean canApproveBudget(double amount) { ... }       │
-│ }                                                                  │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Inheritance - Manager extends Employee]
+File: src/models/Manager.java
+Lines: 1-45 (showing class declaration, inheritance, constructor with super() call)
+Highlight: Line 12 (extends Employee) and Lines 25-30 (super() call to parent constructor)
 
 BENEFITS:
 • CODE REUSE: Common fields defined once in Employee
@@ -376,62 +318,27 @@ IMPLEMENTATION IN PAWET-B:
 
 Method overriding demonstrates polymorphism:
 
-CODE EXCERPT - Different displayInfo() implementations:
+[SCREENSHOT: Polymorphism - Manager displayInfo() Override]
+File: src/models/Manager.java
+Lines: 85-100 (displayInfo() method implementation in Manager class)
+Highlight: Lines 86-87 (@Override annotation and method signature)
 
-┌────────────────────────────────────────────────────────────────────┐
-│ // In Manager class:                                               │
-│ @Override                                                          │
-│ public void displayInfo() {                                        │
-│     displayBasicInfo();  // Inherited method                      │
-│     System.out.println("Role Type: MANAGER");                     │
-│     System.out.println("Budget Authority: $" + budgetAuthority);  │
-│     System.out.println("Team Size: " + teamList.size());          │
-│     if (!teamList.isEmpty()) {                                    │
-│         System.out.println("Team Members: " + teamList);          │
-│     }                                                              │
-│ }                                                                  │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Polymorphism - Scientist displayInfo() Override]
+File: src/models/Scientist.java
+Lines: 85-100 (displayInfo() method implementation in Scientist class)
+Highlight: Lines 86-87 (@Override annotation showing different implementation)
 
-┌────────────────────────────────────────────────────────────────────┐
-│ // In Scientist class:                                             │
-│ @Override                                                          │
-│ public void displayInfo() {                                        │
-│     displayBasicInfo();  // Same inherited method                 │
-│     System.out.println("Role Type: SCIENTIST");                   │
-│     System.out.println("Specialization: " + specialization);      │
-│     System.out.println("Active Projects: " + projectList.size()); │
-│     if (!projectList.isEmpty()) {                                 │
-│         System.out.println("Projects: " + projectList);           │
-│     }                                                              │
-│ }                                                                  │
-└────────────────────────────────────────────────────────────────────┘
-
-┌────────────────────────────────────────────────────────────────────┐
-│ // In Technician class:                                            │
-│ @Override                                                          │
-│ public void displayInfo() {                                        │
-│     displayBasicInfo();  // Same inherited method                 │
-│     System.out.println("Role Type: TECHNICIAN");                  │
-│     System.out.println("Certifications: " + certifications);      │
-│     System.out.println("Equipment: " + equipmentHandled.size());  │
-│     if (!equipmentHandled.isEmpty()) {                            │
-│         System.out.println("Equipment IDs: " + equipmentHandled); │
-│     }                                                              │
-│ }                                                                  │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Polymorphism - Technician displayInfo() Override]
+File: src/models/Technician.java
+Lines: 85-100 (displayInfo() method implementation in Technician class)
+Highlight: Lines 86-87 (@Override annotation showing third variation)
 
 RUNTIME POLYMORPHISM:
 
-┌────────────────────────────────────────────────────────────────────┐
-│ // Code in Organization class:                                     │
-│ Employee employee = searchEmployeeById("M001");  // Returns Manager│
-│ employee.displayInfo();  // Calls Manager's displayInfo()         │
-│                                                                    │
-│ employee = searchEmployeeById("S001");  // Returns Scientist      │
-│ employee.displayInfo();  // Calls Scientist's displayInfo()       │
-│                                                                    │
-│ // Same method call, different behavior based on runtime type!    │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Polymorphism - Runtime Behavior]
+File: src/managers/Organization.java
+Lines: 45-60 (showing polymorphic method calls with Employee references)
+Highlight: Demonstrate same method name calling different implementations
 
 BENEFITS:
 • FLEXIBILITY: Same method name, different behaviors
@@ -936,56 +843,17 @@ Caption: File explorer showing pawet.db SQLite database file
 
 CREATE (INSERT):
 
-SQL EXAMPLE:
-┌────────────────────────────────────────────────────────────────────┐
-│ INSERT INTO employees (id, name, email, phone, department_id,     │
-│                        role, salary, hire_date, role_type, ...)   │
-│ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ...)                           │
-└────────────────────────────────────────────────────────────────────┘
-
-JAVA CODE EXCERPT:
-┌────────────────────────────────────────────────────────────────────┐
-│ public void saveEmployee(Employee employee) {                      │
-│     String sql = "INSERT INTO employees (...) VALUES (?,?,...)";  │
-│     PreparedStatement pstmt = connection.prepareStatement(sql);    │
-│     pstmt.setString(1, employee.getId());                         │
-│     pstmt.setString(2, employee.getName());                       │
-│     pstmt.setDouble(7, employee.getSalary());                     │
-│     // ... set remaining fields                                    │
-│     pstmt.executeUpdate();                                         │
-│ }                                                                  │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Database CRUD - INSERT Operation]
+File: src/database/DatabaseManager.java
+Lines: 85-115 (saveEmployee method with INSERT SQL)
+Highlight: Lines 87-88 (PreparedStatement with parameterized query)
 
 READ (SELECT):
 
-SQL EXAMPLE:
-┌────────────────────────────────────────────────────────────────────┐
-│ SELECT * FROM employees WHERE role_type = 'MANAGER'               │
-└────────────────────────────────────────────────────────────────────┘
-
-JAVA CODE EXCERPT:
-┌────────────────────────────────────────────────────────────────────┐
-│ public List<Employee> loadEmployees() {                           │
-│     List<Employee> employees = new ArrayList<>();                 │
-│     String sql = "SELECT * FROM employees";                        │
-│     ResultSet rs = statement.executeQuery(sql);                    │
-│                                                                    │
-│     while (rs.next()) {                                            │
-│         String id = rs.getString("id");                           │
-│         String name = rs.getString("name");                       │
-│         String roleType = rs.getString("role_type");              │
-│                                                                    │
-│         if (roleType.equals("MANAGER")) {                          │
-│             employee = new Manager(...);                           │
-│         } else if (roleType.equals("SCIENTIST")) {                 │
-│             employee = new Scientist(...);                         │
-│         } // ... create appropriate object                         │
-│                                                                    │
-│         employees.add(employee);                                   │
-│     }                                                              │
-│     return employees;                                              │
-│ }                                                                  │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Database CRUD - SELECT Operation]
+File: src/database/DatabaseManager.java
+Lines: 150-200 (loadEmployees method with SELECT SQL and polymorphic object creation)
+Highlight: Lines 165-175 (polymorphic object creation based on role_type)
 
 UPDATE:
 
@@ -996,24 +864,10 @@ SQL EXAMPLE:
 
 DELETE:
 
-SQL EXAMPLE:
-┌────────────────────────────────────────────────────────────────────┐
-│ DELETE FROM employees WHERE id = ?                                │
-└────────────────────────────────────────────────────────────────────┘
-
-JAVA CODE EXCERPT:
-┌────────────────────────────────────────────────────────────────────┐
-│ public void deleteEmployee(String employeeId) {                    │
-│     String sql = "DELETE FROM employees WHERE id = ?";            │
-│     PreparedStatement pstmt = connection.prepareStatement(sql);    │
-│     pstmt.setString(1, employeeId);                               │
-│     int rowsAffected = pstmt.executeUpdate();                     │
-│                                                                    │
-│     if (rowsAffected > 0) {                                        │
-│         System.out.println("Employee deleted successfully");      │
-│     }                                                              │
-│ }                                                                  │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Database CRUD - DELETE Operation]
+File: src/database/DatabaseManager.java
+Lines: 250-265 (deleteEmployee method with DELETE SQL)
+Highlight: Lines 253-254 (PreparedStatement preventing SQL injection)
 
 
 6.3 SQL IMPLEMENTATION
