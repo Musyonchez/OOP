@@ -209,7 +209,7 @@ The Employee class serves as an abstract base class for all employee types:
 [SCREENSHOT: Abstraction - Employee Abstract Class]
 File: src/models/Employee.java
 Lines: 1-50 (showing class declaration, fields, and abstract methods)
-Highlight: Lines 12-13 (abstract methods: displayInfo() and getRoleType())
+Note: Abstract methods are at lines 39 (displayInfo) and 44 (getRoleType)
 
 BENEFITS:
 • Defines common structure for all employee types
@@ -236,8 +236,8 @@ All model classes use private fields with public getters and setters:
 
 [SCREENSHOT: Encapsulation - Manager Class]
 File: src/models/Manager.java
-Lines: 10-40 (showing private fields, getters, setters with validation)
-Highlight: Lines 18-19 (private fields) and Lines 62-66 (setter with validation)
+Lines: 11-25 and 101-109 (showing private fields and setter with validation)
+Note: Private fields at lines 13-14, validated setter at lines 105-108
 
 BENEFITS:
 • Data protection - fields cannot be accessed directly
@@ -275,8 +275,8 @@ extension to render the diagram, then capture screenshot.
 
 [SCREENSHOT: Inheritance - Manager extends Employee Code]
 File: src/models/Manager.java
-Lines: 1-45 (showing class declaration, inheritance, constructor with super() call)
-Highlight: Line 12 (extends Employee) and Lines 25-30 (super() call to parent constructor)
+Lines: 1-36 (showing class declaration, inheritance, constructor with super() call)
+Note: Line 11 shows "extends Employee", lines 19-25 show constructor with super() at line 22
 
 BENEFITS:
 • CODE REUSE: Common fields defined once in Employee
@@ -308,25 +308,26 @@ Method overriding demonstrates polymorphism:
 
 [SCREENSHOT: Polymorphism - Manager displayInfo() Override]
 File: src/models/Manager.java
-Lines: 85-100 (displayInfo() method implementation in Manager class)
-Highlight: Lines 86-87 (@Override annotation and method signature)
+Lines: 38-52 (displayInfo() method implementation in Manager class)
+Note: @Override annotation at line 42, method shows Manager-specific output
 
 [SCREENSHOT: Polymorphism - Scientist displayInfo() Override]
 File: src/models/Scientist.java
-Lines: 85-100 (displayInfo() method implementation in Scientist class)
-Highlight: Lines 86-87 (@Override annotation showing different implementation)
+Lines: 38-52 (displayInfo() method implementation in Scientist class)
+Note: @Override annotation at line 42, method shows Scientist-specific output
 
 [SCREENSHOT: Polymorphism - Technician displayInfo() Override]
 File: src/models/Technician.java
-Lines: 85-100 (displayInfo() method implementation in Technician class)
-Highlight: Lines 86-87 (@Override annotation showing third variation)
+Lines: 38-52 (displayInfo() method implementation in Technician class)
+Note: @Override annotation at line 42, method shows Technician-specific output
 
 RUNTIME POLYMORPHISM:
 
 [SCREENSHOT: Polymorphism - Runtime Behavior]
-File: src/managers/Organization.java
-Lines: 45-60 (showing polymorphic method calls with Employee references)
-Highlight: Demonstrate same method name calling different implementations
+File: src/utils/SearchAlgorithms.java
+Lines: 219-227 (displaySingleResult method showing polymorphic method call)
+Note: Line 226 calls employee.displayInfo() - at runtime this resolves to Manager,
+Scientist, or Technician implementation based on actual object type
 
 BENEFITS:
 • FLEXIBILITY: Same method name, different behaviors
