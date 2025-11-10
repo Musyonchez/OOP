@@ -14,12 +14,29 @@ cd /home/musyonchez/Code/OOP/pawet
 ### Step 2: Compile (One-time)
 ```bash
 mkdir -p bin
-javac -d bin -cp ".:sqlite-jdbc-3.45.0.0.jar" src/models/*.java src/database/*.java src/utils/*.java src/managers/*.java src/Main.java
+javac -d bin -cp ".:sqlite-jdbc-3.45.0.0.jar" src/models/*.java src/database/*.java src/utils/*.java src/managers/*.java src/Main.java src/SeedData.java
 ```
 
-### Step 3: Run
+### Step 3: Seed Database (Optional - Recommended for Testing)
 ```bash
-java -cp "bin:sqlite-jdbc-3.45.0.0.jar" Main
+java --enable-native-access=ALL-UNNAMED -cp "bin:sqlite-jdbc-3.45.0.0.jar:slf4j-api-1.7.36.jar:slf4j-simple-1.7.36.jar" SeedData
+```
+
+This will populate your database with:
+- ✓ 5 Departments (Marine Conservation, Wildlife Research, Forestry, Tourism, Data Analytics)
+- ✓ 22 Employees (5 Managers, 10 Scientists, 7 Technicians)
+- ✓ 8 Active Projects
+- ✓ 12 Equipment Items
+
+**Skip this step if you want to start with an empty database.**
+
+### Step 4: Run
+```bash
+# Run the main application
+./run.sh
+
+# OR use the full command:
+java --enable-native-access=ALL-UNNAMED -cp "bin:sqlite-jdbc-3.45.0.0.jar:slf4j-api-1.7.36.jar:slf4j-simple-1.7.36.jar" Main
 ```
 
 ---

@@ -1,0 +1,28 @@
+# Database files
+data/pawet.db
+data/*.db
+data/*.db-journal
+
+# Compiled class files
+bin/
+*.class
+
+# Log files
+*.log
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*~

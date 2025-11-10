@@ -86,14 +86,23 @@ pawet/
 # 1. Navigate to project directory
 cd /home/musyonchez/Code/OOP/pawet
 
-# 2. Download SQLite JDBC driver (if not already present)
+# 2. Download SQLite JDBC driver and SLF4J logging (if not already present)
 wget https://github.com/xerial/sqlite-jdbc/releases/download/3.45.0.0/sqlite-jdbc-3.45.0.0.jar
+wget https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar
+wget https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/1.7.36/slf4j-simple-1.7.36.jar
 
-# 3. Compile all Java files
-javac -d bin -cp ".:sqlite-jdbc-3.45.0.0.jar" src/models/*.java src/database/*.java src/utils/*.java src/managers/*.java src/Main.java
+# 3. Compile all Java files (including SeedData)
+javac -d bin -cp ".:sqlite-jdbc-3.45.0.0.jar" src/models/*.java src/database/*.java src/utils/*.java src/managers/*.java src/Main.java src/SeedData.java
 
-# 4. Run the program
-java -cp "bin:sqlite-jdbc-3.45.0.0.jar" Main
+# 4. (Optional) Seed the database with sample data
+java --enable-native-access=ALL-UNNAMED -cp "bin:sqlite-jdbc-3.45.0.0.jar:slf4j-api-1.7.36.jar:slf4j-simple-1.7.36.jar" SeedData
+# This populates: 22 employees, 5 departments, 8 projects, 12 equipment items
+
+# 5. Run the program
+java --enable-native-access=ALL-UNNAMED -cp "bin:sqlite-jdbc-3.45.0.0.jar:slf4j-api-1.7.36.jar:slf4j-simple-1.7.36.jar" Main
+
+# OR use the convenient run script:
+./run.sh
 ```
 
 #### Option 2: Using IDE (IntelliJ IDEA / Eclipse)
@@ -148,8 +157,38 @@ On first startup, the system will:
 ════════════════════════════════════════════════════════
 ```
 
+### Database Seeding (Recommended for Testing)
+
+To quickly populate the database with realistic sample data, run:
+
+```bash
+java --enable-native-access=ALL-UNNAMED -cp "bin:sqlite-jdbc-3.45.0.0.jar:slf4j-api-1.7.36.jar:slf4j-simple-1.7.36.jar" SeedData
+```
+
+**This will create:**
+- 5 Departments (Marine Conservation, Wildlife Research, Forestry Management, Tourism Development, Data Analytics)
+- 22 Employees:
+  - 5 Managers (Alice Mbeki, David Osei, Fatima Hassan, Joseph Ndlovu, Sarah Kamau)
+  - 10 Scientists (various specializations)
+  - 7 Technicians (various certifications)
+- 8 Active Projects (Coral Reef Restoration, Lion Population Study, etc.)
+- 12 Equipment Items (Research vessels, drones, cameras, etc.)
+
+**Benefits of seeding:**
+- Instant demonstration-ready system
+- Test search algorithms with 22 employees
+- Compare sort algorithms with real data
+- Perfect for taking screenshots for assignment submission
+
 ### Sample Workflow
 
+**Option A: Using Seeded Data (Fast)**
+1. Run SeedData (as shown above)
+2. Launch Main program
+3. Explore pre-populated data in all menus
+4. Test search/sort algorithms immediately
+
+**Option B: Manual Entry (From Scratch)**
 1. **Create Departments** (Option 2 → 1)
    - Add: Marine Conservation, Wildlife Research, Forestry Management
 
