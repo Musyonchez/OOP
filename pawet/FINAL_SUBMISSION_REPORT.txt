@@ -324,10 +324,11 @@ Note: @Override annotation at line 42, method shows Technician-specific output
 RUNTIME POLYMORPHISM:
 
 [SCREENSHOT: Polymorphism - Runtime Behavior]
-File: src/utils/SearchAlgorithms.java
-Lines: 219-227 (displaySingleResult method showing polymorphic method call)
-Note: Line 226 calls employee.displayInfo() - at runtime this resolves to Manager,
-Scientist, or Technician implementation based on actual object type
+File: src/managers/Organization.java
+Lines: 199-217 (displayAllEmployees method showing polymorphic method call)
+Note: Line 208 loops through List<Employee>, line 212 calls employee.getRoleType()
+which resolves to Manager, Scientist, or Technician implementation at runtime based
+on actual object type. This demonstrates runtime polymorphism.
 
 BENEFITS:
 • FLEXIBILITY: Same method name, different behaviors
@@ -764,14 +765,15 @@ secure parameterized queries. Demonstrates proper PreparedStatement usage.
 
 Alternative: Can capture from DatabaseManager.java showing actual implementation
 File: src/database/DatabaseManager.java
-Lines: 85-95 (showing PreparedStatement with setString() parameters)
+Lines: 123-132 (showing PreparedStatement with setString() parameters in saveEmployee method)
+Note: Lines 123-132 show PreparedStatement initialization and parameterized setString() calls
 
 CONNECTION MANAGEMENT:
 
 [SCREENSHOT: Database Connection Management]
 File: src/database/DatabaseManager.java
-Lines: 20-35 (DatabaseManager constructor showing connection initialization)
-Highlight: Lines 24-26 (Class.forName, DriverManager.getConnection, connection setup)
+Lines: 21-36 (DatabaseManager constructor showing connection initialization)
+Note: Lines 24-26 show Class.forName("org.sqlite.JDBC"), DriverManager.getConnection(), and connection setup
 Description: Shows JDBC driver loading, connection string, and proper connection
 establishment to SQLite database.
 
