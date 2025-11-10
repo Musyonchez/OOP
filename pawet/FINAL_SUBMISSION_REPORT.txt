@@ -737,10 +737,10 @@ Highlight: Lines 165-175 (polymorphic object creation based on role_type)
 
 UPDATE:
 
-SQL EXAMPLE:
-┌────────────────────────────────────────────────────────────────────┐
-│ UPDATE employees SET salary = ?, role = ? WHERE id = ?            │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Database CRUD - UPDATE Operation]
+File: src/database/DatabaseManager.java
+Lines: 220-240 (updateEmployee method with UPDATE SQL)
+Highlight: Lines 223-225 (UPDATE SQL with prepared statement parameters)
 
 DELETE:
 
@@ -755,32 +755,24 @@ Highlight: Lines 253-254 (PreparedStatement preventing SQL injection)
 
 SECURITY: Prepared Statements (SQL Injection Prevention)
 
-VULNERABLE CODE (DON'T DO THIS):
-┌────────────────────────────────────────────────────────────────────┐
-│ String sql = "SELECT * FROM employees WHERE id = '" + userId + "'";│
-│ // DANGER! Allows SQL injection attacks                           │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: SQL Injection Prevention - Vulnerable vs Secure Code]
+File: docs/pseudocode/3_database_operations.txt
+Section: Lines 1-40 (SQL Injection comparison)
+Description: Side-by-side comparison showing vulnerable string concatenation vs
+secure parameterized queries. Demonstrates proper PreparedStatement usage.
 
-SECURE CODE (OUR IMPLEMENTATION):
-┌────────────────────────────────────────────────────────────────────┐
-│ String sql = "SELECT * FROM employees WHERE id = ?";              │
-│ PreparedStatement pstmt = connection.prepareStatement(sql);        │
-│ pstmt.setString(1, userId);  // Safe, parameterized               │
-│ // SAFE! Prevents SQL injection                                   │
-└────────────────────────────────────────────────────────────────────┘
+Alternative: Can capture from DatabaseManager.java showing actual implementation
+File: src/database/DatabaseManager.java
+Lines: 85-95 (showing PreparedStatement with setString() parameters)
 
 CONNECTION MANAGEMENT:
 
-┌────────────────────────────────────────────────────────────────────┐
-│ // Initialize connection                                           │
-│ Class.forName("org.sqlite.JDBC");                                 │
-│ connection = DriverManager.getConnection("jdbc:sqlite:data/pawet.db");│
-│                                                                    │
-│ // Use connection for operations...                               │
-│                                                                    │
-│ // Always close when done                                         │
-│ connection.close();                                                │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Database Connection Management]
+File: src/database/DatabaseManager.java
+Lines: 20-35 (DatabaseManager constructor showing connection initialization)
+Highlight: Lines 24-26 (Class.forName, DriverManager.getConnection, connection setup)
+Description: Shows JDBC driver loading, connection string, and proper connection
+establishment to SQLite database.
 
 DATA PERSISTENCE DEMONSTRATION:
 ┌────────────────────────────────────────────────────────────────────┐

@@ -7,7 +7,47 @@ This document provides detailed pseudocode for SQL database operations (CRUD)
 using SQLite with JDBC, demonstrating database integration with OOP.
 
 ================================================================================
-1. DATABASE INITIALIZATION
+1. SQL INJECTION PREVENTION
+================================================================================
+
+SECURITY CONCEPT: Prepared Statements vs String Concatenation
+
+VULNERABLE CODE (DON'T DO THIS):
+┌────────────────────────────────────────────────────────────────────┐
+│ FUNCTION searchEmployeeUnsafe(userId):                             │
+│     sql ← "SELECT * FROM employees WHERE id = '" + userId + "'"   │
+│     result ← statement.executeQuery(sql)                           │
+│                                                                    │
+│     // DANGER! If userId = "M001' OR '1'='1"                      │
+│     // SQL becomes: SELECT * FROM employees WHERE id = 'M001'      │
+│     //              OR '1'='1'                                     │
+│     // This returns ALL employees! (SQL Injection Attack)          │
+│ END FUNCTION                                                       │
+└────────────────────────────────────────────────────────────────────┘
+
+SECURE CODE (OUR IMPLEMENTATION):
+┌────────────────────────────────────────────────────────────────────┐
+│ FUNCTION searchEmployeeSafe(userId):                               │
+│     sql ← "SELECT * FROM employees WHERE id = ?"                  │
+│     pstmt ← connection.prepareStatement(sql)                       │
+│     pstmt.setString(1, userId)  // Parameterized - treats as data │
+│     result ← pstmt.executeQuery()                                  │
+│                                                                    │
+│     // SAFE! Even if userId = "M001' OR '1'='1"                   │
+│     // PreparedStatement treats entire input as literal string    │
+│     // Searches for employee with ID literally "M001' OR '1'='1"  │
+│     // (won't find match, returns nothing - no injection!)        │
+│ END FUNCTION                                                       │
+└────────────────────────────────────────────────────────────────────┘
+
+KEY BENEFITS:
+• Prevents SQL injection attacks by treating user input as data, not code
+• Automatically escapes special characters
+• Better performance (prepared statements are precompiled)
+• Industry best practice for database security
+
+================================================================================
+2. DATABASE INITIALIZATION
 ================================================================================
 
 ALGORITHM: InitializeDatabase()
