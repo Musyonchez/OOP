@@ -1169,8 +1169,8 @@ instantiate the correct subclass.
 
 [SCREENSHOT: Challenge 1 Solution - Polymorphic Object Creation]
 File: src/database/DatabaseManager.java
-Lines: 165-180 (loadEmployees method showing role_type-based instantiation)
-Highlight: Lines 172-178 (if-else chain creating Manager, Scientist, or Technician)
+Lines: 171-210 (loadEmployees method showing role_type-based instantiation)
+Note: Lines 191-206 show the if-else chain creating Manager, Scientist, or Technician based on roleType
 
 RESULT: Successfully stores and retrieves polymorphic objects.
 
@@ -1187,8 +1187,8 @@ for serialization (List → String) and deserialization (String → List).
 
 [SCREENSHOT: Challenge 2 Solution - List Serialization Helper Methods]
 File: src/models/Manager.java
-Lines: 110-125 (getTeamListAsString and parseTeamList helper methods)
-Highlight: String.join(",", teamList) and Arrays.asList(str.split(","))
+Lines: 114-129 (getTeamListAsString and parseTeamList helper methods)
+Note: Line 115 shows String.join(",", teamList) for serialization, lines 124-127 show split and parsing
 
 Alternative: Similar implementation in Scientist.java and Technician.java
 
@@ -1205,8 +1205,8 @@ Automatically sort before binary search and inform user.
 
 [SCREENSHOT: Challenge 3 Solution - Auto-Sort for Binary Search]
 File: src/managers/Organization.java
-Lines: 200-210 (binarySearchById method with automatic sorting)
-Highlight: Lines 202-204 (sort operation and user notification)
+Lines: 141-143 (binarySearchEmployeeById method with automatic sorting)
+Note: Line 142 shows SortAlgorithms.quickSortById() called automatically before binary search
 
 Alternative: src/utils/SearchAlgorithms.java showing the implementation
 
@@ -1224,8 +1224,8 @@ integrity across departments, projects, and equipment.
 
 [SCREENSHOT: Challenge 4 Solution - Cascade Delete Operations]
 File: src/managers/Organization.java
-Lines: 135-155 (removeEmployee method showing cascade updates)
-Highlight: Lines 138-148 (updating department count, removing from teams, unassigning equipment)
+Lines: 116-128 (removeEmployee method showing cascade updates)
+Note: Lines 123-125 show cascade operations: remove from list, delete from DB, update department count
 
 RESULT: Data consistency maintained across all entities.
 
@@ -1240,8 +1240,8 @@ Try-catch blocks with re-prompting loop for robust input validation.
 
 [SCREENSHOT: Challenge 5 Solution - Input Validation with Try-Catch]
 File: src/Main.java
-Lines: 660-675 (getIntInput method showing exception handling)
-Highlight: Lines 663-670 (while loop with try-catch and NumberFormatException)
+Lines: 658-668 (getIntInput method showing exception handling)
+Note: Lines 660-665 show while loop with try-catch handling NumberFormatException
 
 Similar implementations: getDoubleInput(), getDateInput() methods
 
