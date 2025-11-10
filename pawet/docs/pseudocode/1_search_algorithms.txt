@@ -1,0 +1,314 @@
+================================================================================
+                        SEARCH ALGORITHMS PSEUDOCODE
+                      PAWET-B Organizational Design System
+================================================================================
+
+This document provides detailed pseudocode for the search algorithms implemented
+in the system, along with complexity analysis and usage guidelines.
+
+================================================================================
+1. LINEAR SEARCH BY ID
+================================================================================
+
+ALGORITHM: LinearSearchById(employeeList, targetId)
+
+  INPUT:
+    employeeList: List of Employee objects
+    targetId: String ID to search for
+
+  OUTPUT:
+    Employee object if found, null otherwise
+
+  PSEUDOCODE:
+
+    FUNCTION LinearSearchById(employeeList, targetId):
+        comparisons ← 0
+
+        FOR EACH employee IN employeeList DO
+            comparisons ← comparisons + 1
+
+            IF employee.id EQUALS targetId (case-insensitive) THEN
+                PRINT "Search completed in " + comparisons + " comparisons"
+                RETURN employee
+            END IF
+        END FOR
+
+        PRINT "Search completed in " + comparisons + " comparisons - Not found"
+        RETURN null
+    END FUNCTION
+
+  COMPLEXITY ANALYSIS:
+    Time Complexity:  O(n)
+      - Best Case:    O(1) - target at first position
+      - Average Case: O(n/2) = O(n) - target in middle
+      - Worst Case:   O(n) - target at end or not found
+
+    Space Complexity: O(1)
+      - Only uses constant extra space (comparisons counter)
+
+    Comparisons:
+      - Minimum: 1 (if found at index 0)
+      - Maximum: n (if at end or not found)
+      - Average:  n/2
+
+  ADVANTAGES:
+    - Simple to implement
+    - Works on unsorted data
+    - No preprocessing required
+    - Supports partial matching (for name search variant)
+
+  DISADVANTAGES:
+    - Slow for large datasets
+    - Linear growth with data size
+    - Inefficient for repeated searches
+
+  USE CASES:
+    - Small datasets (< 100 items)
+    - Unsorted data
+    - Partial/fuzzy matching
+    - One-time searches
+
+================================================================================
+2. LINEAR SEARCH BY NAME (Partial Matching)
+================================================================================
+
+ALGORITHM: LinearSearchByName(employeeList, searchTerm)
+
+  INPUT:
+    employeeList: List of Employee objects
+    searchTerm: String name or partial name to search for
+
+  OUTPUT:
+    List of matching Employee objects (may be empty)
+
+  PSEUDOCODE:
+
+    FUNCTION LinearSearchByName(employeeList, searchTerm):
+        results ← empty List
+        comparisons ← 0
+        lowerSearchTerm ← toLowerCase(searchTerm)
+
+        FOR EACH employee IN employeeList DO
+            comparisons ← comparisons + 1
+            lowerName ← toLowerCase(employee.name)
+
+            IF lowerName CONTAINS lowerSearchTerm THEN
+                ADD employee TO results
+            END IF
+        END FOR
+
+        PRINT "Search completed in " + comparisons + " comparisons"
+        PRINT "Found " + results.size() + " matches"
+        RETURN results
+    END FUNCTION
+
+  COMPLEXITY ANALYSIS:
+    Time Complexity:  O(n * m)
+      - n = number of employees
+      - m = average length of names
+      - Must check every employee
+      - String comparison is O(m)
+
+    Space Complexity: O(k)
+      - k = number of matches found
+      - Stores all matching employees
+
+  ADVANTAGES:
+    - Flexible substring matching
+    - Case-insensitive
+    - Returns multiple matches
+    - User-friendly for partial names
+
+  USE CASES:
+    - "Alice" finds "Alice Mbeki"
+    - "Kofi" finds "Kofi Annan"
+    - Searching without knowing full name
+
+================================================================================
+3. BINARY SEARCH BY ID
+================================================================================
+
+ALGORITHM: BinarySearchById(sortedEmployeeList, targetId)
+
+  INPUT:
+    sortedEmployeeList: List of Employee objects SORTED by ID
+    targetId: String ID to search for
+
+  OUTPUT:
+    Employee object if found, null otherwise
+
+  PREREQUISITES:
+    - List MUST be sorted by ID in ascending order
+    - If not sorted, sort first using Quick Sort O(n log n)
+
+  PSEUDOCODE:
+
+    FUNCTION BinarySearchById(sortedEmployeeList, targetId):
+        left ← 0
+        right ← sortedEmployeeList.size() - 1
+        comparisons ← 0
+
+        WHILE left <= right DO
+            comparisons ← comparisons + 1
+            mid ← left + (right - left) / 2
+            midEmployee ← sortedEmployeeList.get(mid)
+
+            comparison ← COMPARE(targetId, midEmployee.id)
+
+            IF comparison == 0 THEN
+                // Found the employee
+                PRINT "Binary search completed in " + comparisons + " comparisons"
+                PRINT "Efficiency gain: Would take up to " + n + " with linear"
+                RETURN midEmployee
+
+            ELSE IF comparison < 0 THEN
+                // Target is in left half
+                right ← mid - 1
+
+            ELSE
+                // Target is in right half
+                left ← mid + 1
+            END IF
+        END WHILE
+
+        PRINT "Binary search completed in " + comparisons + " comparisons - Not found"
+        RETURN null
+    END FUNCTION
+
+  COMPLEXITY ANALYSIS:
+    Time Complexity:  O(log n)
+      - Divides search space in half each iteration
+      - Best Case:    O(1) - target at middle position
+      - Average Case: O(log n)
+      - Worst Case:   O(log n) - target at end or not found
+
+    Space Complexity: O(1)
+      - Iterative implementation uses constant space
+      - Recursive version would be O(log n) for call stack
+
+    Comparisons:
+      - Minimum: 1 (if found at initial mid)
+      - Maximum: log₂(n) rounded up
+      - Example:  10 items = 4 comparisons max
+                  100 items = 7 comparisons max
+                  1,000 items = 10 comparisons max
+                  1,000,000 items = 20 comparisons max
+
+  PERFORMANCE COMPARISON WITH LINEAR SEARCH:
+
+    Dataset Size | Linear Search | Binary Search | Speed Improvement
+    -------------|---------------|---------------|-------------------
+           10    |      10       |       4       |    2.5x faster
+          100    |     100       |       7       |     14x faster
+        1,000    |   1,000       |      10       |    100x faster
+       10,000    |  10,000       |      14       |    714x faster
+      100,000    | 100,000       |      17       |  5,882x faster
+    1,000,000    | 1,000,000     |      20       | 50,000x faster
+
+  ADVANTAGES:
+    - Extremely fast for large datasets
+    - Logarithmic scaling - doubles data, adds only one comparison
+    - Predictable performance
+    - Industry standard for sorted data
+
+  DISADVANTAGES:
+    - Requires sorted data (O(n log n) preprocessing)
+    - Only works for exact matching
+    - More complex to implement than linear
+
+  USE CASES:
+    - Large datasets (1000+ items)
+    - Frequent searches on same data
+    - Exact ID lookup
+    - Performance-critical applications
+
+================================================================================
+4. SEARCH BY DEPARTMENT
+================================================================================
+
+ALGORITHM: SearchByDepartment(employeeList, departmentId)
+
+  PSEUDOCODE:
+
+    FUNCTION SearchByDepartment(employeeList, departmentId):
+        results ← empty List
+
+        FOR EACH employee IN employeeList DO
+            IF employee.departmentId EQUALS departmentId THEN
+                ADD employee TO results
+            END IF
+        END FOR
+
+        PRINT "Found " + results.size() + " employees in department " + departmentId
+        RETURN results
+    END FUNCTION
+
+  COMPLEXITY:
+    Time: O(n) - must check all employees
+    Space: O(k) - k = employees in department
+
+================================================================================
+5. SEARCH BY SALARY RANGE
+================================================================================
+
+ALGORITHM: SearchBySalaryRange(employeeList, minSalary, maxSalary)
+
+  PSEUDOCODE:
+
+    FUNCTION SearchBySalaryRange(employeeList, minSalary, maxSalary):
+        results ← empty List
+
+        FOR EACH employee IN employeeList DO
+            salary ← employee.salary
+
+            IF salary >= minSalary AND salary <= maxSalary THEN
+                ADD employee TO results
+            END IF
+        END FOR
+
+        PRINT "Found " + results.size() + " employees in salary range"
+        RETURN results
+    END FUNCTION
+
+  COMPLEXITY:
+    Time: O(n) - must check all employees
+    Space: O(k) - k = employees in range
+
+================================================================================
+6. ALGORITHM SELECTION GUIDE
+================================================================================
+
+WHEN TO USE LINEAR SEARCH:
+  ✓ Dataset size < 100 items
+  ✓ Unsorted data (sorting would take longer than linear search)
+  ✓ One-time search
+  ✓ Need partial matching (substring search)
+  ✓ Simplicity is priority
+
+WHEN TO USE BINARY SEARCH:
+  ✓ Dataset size > 1,000 items
+  ✓ Data is already sorted OR will be searched multiple times
+  ✓ Exact matching only
+  ✓ Performance is critical
+  ✓ Logarithmic time required
+
+EXAMPLE SCENARIO:
+
+  Scenario 1: Search 25 employees once
+  Solution: Linear Search
+  Reason: Small dataset, sorting overhead not worth it
+
+  Scenario 2: Search 10,000 employees 100 times
+  Solution: Binary Search
+  Reason: Sort once (O(n log n)), then 100 binary searches (O(100 log n))
+          Total: O(n log n + 100 log n)
+          vs Linear: O(100n)
+          Binary Search wins massively
+
+  Scenario 3: Find all employees in a department
+  Solution: Linear Search (only option)
+  Reason: Need to check all employees, binary search doesn't help
+
+================================================================================
+                           END OF PSEUDOCODE
+================================================================================

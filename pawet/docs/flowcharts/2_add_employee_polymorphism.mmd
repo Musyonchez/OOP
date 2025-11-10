@@ -1,0 +1,45 @@
+flowchart TD
+    Start([User Selects: Add Employee]) --> ChooseType{Choose Employee Type}
+
+    ChooseType -->|Manager| GetMgrInput[Get Manager Input]
+    ChooseType -->|Scientist| GetSciInput[Get Scientist Input]
+    ChooseType -->|Technician| GetTechInput[Get Technician Input]
+
+    GetMgrInput --> MgrData[ID, Name, Email, Phone<br/>Dept, Role, Salary, Date]
+    MgrData --> MgrSpecific[+ Budget Authority<br/>+ Team List]
+    MgrSpecific --> CreateMgr[Create Manager Object]
+    CreateMgr --> MgrInherit[Inherits from Employee]
+    MgrInherit --> MgrPolymorphism[Override displayInfo<br/>Manager-specific display]
+    MgrPolymorphism --> AddToList1[Add to employees List]
+
+    GetSciInput --> SciData[ID, Name, Email, Phone<br/>Dept, Role, Salary, Date]
+    SciData --> SciSpecific[+ Specialization<br/>+ Project List]
+    SciSpecific --> CreateSci[Create Scientist Object]
+    CreateSci --> SciInherit[Inherits from Employee]
+    SciInherit --> SciPolymorphism[Override displayInfo<br/>Scientist-specific display]
+    SciPolymorphism --> AddToList2[Add to employees List]
+
+    GetTechInput --> TechData[ID, Name, Email, Phone<br/>Dept, Role, Salary, Date]
+    TechData --> TechSpecific[+ Certifications<br/>+ Equipment List]
+    TechSpecific --> CreateTech[Create Technician Object]
+    CreateTech --> TechInherit[Inherits from Employee]
+    TechInherit --> TechPolymorphism[Override displayInfo<br/>Technician-specific display]
+    TechPolymorphism --> AddToList3[Add to employees List]
+
+    AddToList1 --> SaveDB[Save to Database]
+    AddToList2 --> SaveDB
+    AddToList3 --> SaveDB
+
+    SaveDB --> UpdateDept[Update Department<br/>Employee Count]
+    UpdateDept --> Success[Display Success Message]
+    Success --> End([Return to Menu])
+
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style CreateMgr fill:#FFB347
+    style CreateSci fill:#87CEEB
+    style CreateTech fill:#DDA0DD
+    style MgrPolymorphism fill:#FFD700
+    style SciPolymorphism fill:#FFD700
+    style TechPolymorphism fill:#FFD700
+    style SaveDB fill:#98FB98

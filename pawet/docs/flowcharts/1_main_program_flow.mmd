@@ -1,0 +1,63 @@
+flowchart TD
+    Start([Start Program]) --> Init[Initialize Organization]
+    Init --> ConnectDB[Connect to SQLite Database]
+    ConnectDB --> CreateTables[Create Tables if Not Exist]
+    CreateTables --> LoadData[Load Data from Database]
+    LoadData --> LoadEmp[Load Employees]
+    LoadEmp --> LoadDept[Load Departments]
+    LoadDept --> LoadProj[Load Projects]
+    LoadProj --> LoadEquip[Load Equipment]
+    LoadEquip --> DisplayMenu[Display Main Menu]
+
+    DisplayMenu --> GetChoice{User Choice}
+
+    GetChoice -->|1| EmpMenu[Employee Management Menu]
+    GetChoice -->|2| DeptMenu[Department Management Menu]
+    GetChoice -->|3| ProjMenu[Project Management Menu]
+    GetChoice -->|4| EquipMenu[Equipment Management Menu]
+    GetChoice -->|5| SearchMenu[Search Operations Menu]
+    GetChoice -->|6| SortMenu[Sort Operations Menu]
+    GetChoice -->|7| ReportMenu[Reports & Statistics Menu]
+    GetChoice -->|0| CloseDB[Close Database Connection]
+    GetChoice -->|Invalid| ErrorMsg[Display Error Message]
+
+    EmpMenu --> EmpOperations[Add/Remove/View Employees]
+    EmpOperations --> SaveEmp[Save to Database]
+    SaveEmp --> DisplayMenu
+
+    DeptMenu --> DeptOperations[Add/View Departments]
+    DeptOperations --> SaveDept[Save to Database]
+    SaveDept --> DisplayMenu
+
+    ProjMenu --> ProjOperations[Add/View Projects]
+    ProjOperations --> SaveProj[Save to Database]
+    SaveProj --> DisplayMenu
+
+    EquipMenu --> EquipOperations[Add/Assign Equipment]
+    EquipOperations --> SaveEquip[Save to Database]
+    SaveEquip --> DisplayMenu
+
+    SearchMenu --> SearchOps[Linear/Binary Search]
+    SearchOps --> DisplayResults[Display Search Results]
+    DisplayResults --> DisplayMenu
+
+    SortMenu --> SortOps[Bubble/Quick Sort]
+    SortOps --> DisplaySorted[Display Sorted List]
+    DisplaySorted --> DisplayMenu
+
+    ReportMenu --> GenReports[Generate Statistics]
+    GenReports --> DisplayStats[Display Reports]
+    DisplayStats --> DisplayMenu
+
+    ErrorMsg --> DisplayMenu
+    CloseDB --> End([Exit Program])
+
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style LoadData fill:#87CEEB
+    style SaveEmp fill:#FFD700
+    style SaveDept fill:#FFD700
+    style SaveProj fill:#FFD700
+    style SaveEquip fill:#FFD700
+    style SearchOps fill:#DDA0DD
+    style SortOps fill:#F0E68C

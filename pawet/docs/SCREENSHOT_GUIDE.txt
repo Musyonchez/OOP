@@ -1,0 +1,430 @@
+================================================================================
+                          SCREENSHOT GUIDE
+        PAWET-B Organizational Design System - Part 2 Assignment
+================================================================================
+
+This guide provides a comprehensive checklist of screenshots needed to demonstrate
+all features, OOP principles, algorithms, and database integration for the
+assignment submission.
+
+TOTAL SCREENSHOTS REQUIRED: 35-40
+
+================================================================================
+SECTION 1: SYSTEM STARTUP & INITIALIZATION (3 screenshots)
+================================================================================
+
+[Screenshot 01] - System Startup
+  - Run: java -cp "bin:sqlite-jdbc-3.45.0.0.jar" Main
+  - Capture: System banner, database connection messages
+  - Shows: Database initialization, table creation
+  - File: 01_system_startup.png
+
+[Screenshot 02] - Main Menu
+  - Capture: Main menu with all 8 options
+  - Shows: Menu structure, navigation options
+  - File: 02_main_menu.png
+
+[Screenshot 03] - Empty System State
+  - Navigate to: Reports & Statistics → System Statistics
+  - Capture: Statistics showing 0 employees, 0 departments, etc.
+  - Shows: Clean initial state
+  - File: 03_empty_system.png
+
+================================================================================
+SECTION 2: DEPARTMENT MANAGEMENT (3 screenshots)
+================================================================================
+
+[Screenshot 04] - Add Department
+  - Navigate: Department Management → Add Department
+  - Add: D001 - Marine Conservation - Coastal Region - $1,000,000
+  - Capture: Input prompts and success message
+  - File: 04_add_department.png
+
+[Screenshot 05] - Add Multiple Departments
+  - Add 4 more departments (D002-D005)
+  - Capture: Confirmation messages
+  - File: 05_add_departments_multiple.png
+
+[Screenshot 06] - View All Departments
+  - Navigate: Department Management → View All Departments
+  - Capture: Table showing 5 departments
+  - Shows: Department list with budgets and regions
+  - File: 06_view_all_departments.png
+
+================================================================================
+SECTION 3: EMPLOYEE MANAGEMENT - DEMONSTRATING POLYMORPHISM (9 screenshots)
+================================================================================
+
+[Screenshot 07] - Add Manager (Polymorphism)
+  - Navigate: Employee Management → Add Manager
+  - Input: M001 - Alice Mbeki - D001 - $85,000 - Budget: $500,000
+  - Capture: Full input sequence and success message
+  - Shows: Manager-specific fields (budget authority, team list)
+  - Demonstrates: INHERITANCE & POLYMORPHISM
+  - File: 07_add_manager.png
+
+[Screenshot 08] - View Manager Details (Polymorphism)
+  - Navigate: Employee Management → View Employee Details
+  - Search: M001
+  - Capture: Complete employee display with Manager-specific info
+  - Shows: displayInfo() method override
+  - Demonstrates: POLYMORPHISM in action
+  - File: 08_view_manager_details.png
+
+[Screenshot 09] - Add Scientist (Polymorphism)
+  - Navigate: Employee Management → Add Scientist
+  - Input: S001 - Kofi Annan - D001 - $70,000 - Specialization: Marine Biology
+  - Capture: Input and success message
+  - Shows: Scientist-specific fields (specialization, projects)
+  - Demonstrates: INHERITANCE & POLYMORPHISM
+  - File: 09_add_scientist.png
+
+[Screenshot 10] - View Scientist Details (Polymorphism)
+  - Search: S001
+  - Capture: Scientist display with specialization
+  - Shows: Different displayInfo() implementation
+  - Demonstrates: POLYMORPHISM
+  - File: 10_view_scientist_details.png
+
+[Screenshot 11] - Add Technician (Polymorphism)
+  - Navigate: Employee Management → Add Technician
+  - Input: T001 - Amara Okafor - D001 - $45,000 - Certs: Diving, Boat Operation
+  - Capture: Input and success
+  - Shows: Technician-specific fields (certifications, equipment)
+  - Demonstrates: INHERITANCE & POLYMORPHISM
+  - File: 11_add_technician.png
+
+[Screenshot 12] - View Technician Details (Polymorphism)
+  - Search: T001
+  - Capture: Technician display with certifications
+  - Shows: Third displayInfo() variant
+  - Demonstrates: POLYMORPHISM
+  - File: 12_view_technician_details.png
+
+[Screenshot 13] - View All Employees (Polymorphism)
+  - Navigate: Employee Management → View All Employees
+  - Capture: List showing all 3 types (Manager, Scientist, Technician)
+  - Shows: Employee hierarchy in action
+  - Demonstrates: ABSTRACTION & POLYMORPHISM
+  - File: 13_view_all_employees.png
+
+[Screenshot 14] - Add More Employees
+  - Add 5-10 more employees of various types
+  - Capture: Confirmation messages
+  - Purpose: Build dataset for search/sort demonstrations
+  - File: 14_add_multiple_employees.png
+
+[Screenshot 15] - Updated Employee List
+  - View all employees again (now 15-20 total)
+  - Capture: Extended list
+  - Shows: Larger dataset ready for algorithms
+  - File: 15_employee_list_full.png
+
+================================================================================
+SECTION 4: PROJECT & EQUIPMENT MANAGEMENT (4 screenshots)
+================================================================================
+
+[Screenshot 16] - Add Project
+  - Navigate: Project Management → Add Project
+  - Input: P001 - Coral Reef Restoration - D001 - S001 - $250,000
+  - Capture: Input and assignment to scientist
+  - Shows: Object relationships
+  - File: 16_add_project.png
+
+[Screenshot 17] - View All Projects
+  - Navigate: Project Management → View All Projects
+  - Capture: Project list with details
+  - File: 17_view_projects.png
+
+[Screenshot 18] - Add Equipment
+  - Navigate: Equipment Management → Add Equipment
+  - Input: E001 - Underwater Camera - Photography - SN12345 - D001
+  - Capture: Equipment addition
+  - File: 18_add_equipment.png
+
+[Screenshot 19] - Assign Equipment to Technician
+  - Navigate: Equipment Management → Assign Equipment
+  - Assign: E001 to T001
+  - Capture: Assignment confirmation
+  - Shows: Object relationships and state changes
+  - File: 19_assign_equipment.png
+
+================================================================================
+SECTION 5: SEARCH ALGORITHMS (7 screenshots)
+================================================================================
+
+[Screenshot 20] - Linear Search by ID
+  - Navigate: Search Operations → Search by ID (Linear)
+  - Search: M001
+  - Capture: Search result with comparison count
+  - Shows: O(n) algorithm, comparison statistics
+  - Demonstrates: LINEAR SEARCH algorithm
+  - File: 20_linear_search_id.png
+
+[Screenshot 21] - Linear Search by Name (Partial Match)
+  - Navigate: Search Operations → Search by Name
+  - Search: "Kofi" (partial name)
+  - Capture: Search results showing partial matching
+  - Shows: Flexible search capability
+  - File: 21_linear_search_name.png
+
+[Screenshot 22] - Binary Search by ID
+  - Navigate: Search Operations → Search by ID (Binary)
+  - Search: S001
+  - Capture: Search result with comparison count AND efficiency message
+  - Shows: O(log n) algorithm, efficiency gain over linear
+  - Demonstrates: BINARY SEARCH algorithm with performance comparison
+  - File: 22_binary_search_id.png
+
+[Screenshot 23] - Search by Department
+  - Navigate: Search Operations → Search by Department
+  - Input: D001
+  - Capture: All employees in that department
+  - Shows: Filtering capability
+  - File: 23_search_by_department.png
+
+[Screenshot 24] - Search by Role Type
+  - Navigate: Search Operations → Search by Role Type
+  - Input: SCIENTIST
+  - Capture: All scientists
+  - Shows: Type-based filtering
+  - File: 24_search_by_role_type.png
+
+[Screenshot 25] - Search by Salary Range
+  - Navigate: Search Operations → Search by Salary Range
+  - Input: Min=$60,000, Max=$80,000
+  - Capture: Employees within range
+  - Shows: Range query capability
+  - File: 25_search_by_salary_range.png
+
+[Screenshot 26] - Search Not Found
+  - Search for non-existent employee (e.g., M999)
+  - Capture: "Not found" message with comparison count
+  - Shows: Error handling
+  - File: 26_search_not_found.png
+
+================================================================================
+SECTION 6: SORT ALGORITHMS (6 screenshots)
+================================================================================
+
+[Screenshot 27] - Bubble Sort by Name
+  - Navigate: Sort Operations → Sort by Name (Bubble Sort)
+  - Capture: Sorted list with statistics (comparisons, swaps, time)
+  - Shows: O(n²) algorithm with detailed metrics
+  - Demonstrates: BUBBLE SORT algorithm
+  - File: 27_bubble_sort_name.png
+
+[Screenshot 28] - Quick Sort by Name
+  - Navigate: Sort Operations → Sort by Name (Quick Sort)
+  - Capture: Sorted list with time in milliseconds
+  - Shows: O(n log n) algorithm performance
+  - Demonstrates: QUICK SORT algorithm
+  - File: 28_quick_sort_name.png
+
+[Screenshot 29] - Algorithm Performance Comparison
+  - Navigate: Sort Operations → Compare Algorithm Performance
+  - Capture: Side-by-side comparison showing:
+    - Bubble Sort: comparisons, swaps, time
+    - Quick Sort: time
+    - Speed improvement: "Xx faster"
+  - Shows: Performance analysis, O(n²) vs O(n log n)
+  - Demonstrates: ALGORITHM COMPLEXITY in practice
+  - File: 29_algorithm_comparison.png
+
+[Screenshot 30] - Sort by Salary (Ascending)
+  - Navigate: Sort Operations → Sort by Salary (Ascending)
+  - Capture: Employees sorted from lowest to highest salary
+  - Shows: Numeric sorting
+  - File: 30_sort_by_salary_asc.png
+
+[Screenshot 31] - Sort by Salary (Descending)
+  - Navigate: Sort Operations → Sort by Salary (Descending)
+  - Capture: Employees sorted from highest to lowest salary
+  - Shows: Reverse sorting capability
+  - File: 31_sort_by_salary_desc.png
+
+[Screenshot 32] - View Sorted List Details
+  - Pick one sorted list, view details of specific employee
+  - Shows: Sorted data maintains object integrity
+  - File: 32_sorted_list_details.png
+
+================================================================================
+SECTION 7: REPORTS & STATISTICS (3 screenshots)
+================================================================================
+
+[Screenshot 33] - System Statistics Report
+  - Navigate: Reports & Statistics → System Statistics
+  - Capture: Complete statistics showing:
+    - Personnel: Total, by type, payroll, average salary
+    - Organization: Departments, budgets
+    - Projects: Total, active
+    - Equipment: Total, available, in use
+  - Shows: Comprehensive system overview
+  - File: 33_system_statistics.png
+
+[Screenshot 34] - Employee Summary Report
+  - Navigate: Reports → Employee Summary
+  - Capture: Complete employee list (all types)
+  - File: 34_employee_summary.png
+
+[Screenshot 35] - Department Summary Report
+  - Navigate: Reports → Department Summary
+  - Capture: Department list with budgets and counts
+  - File: 35_department_summary.png
+
+================================================================================
+SECTION 8: DATABASE PERSISTENCE (3 screenshots)
+================================================================================
+
+[Screenshot 36] - Data Before Exit
+  - Show current state (e.g., employee count, department list)
+  - File: 36_before_exit.png
+
+[Screenshot 37] - Exit System
+  - Choose Exit (option 0)
+  - Capture: Database closure message
+  - Shows: Clean shutdown, connection closed
+  - File: 37_exit_system.png
+
+[Screenshot 38] - Data After Restart
+  - Restart program
+  - Navigate to System Statistics or View All Employees
+  - Capture: Same data still present
+  - Shows: Database persistence (data survives program restart)
+  - Demonstrates: SQL DATABASE integration working
+  - File: 38_data_persisted.png
+
+================================================================================
+SECTION 9: ERROR HANDLING (2 screenshots)
+================================================================================
+
+[Screenshot 39] - Invalid Input Handling
+  - Try entering letters when number expected
+  - Or enter invalid date format
+  - Capture: Error message and re-prompt
+  - Shows: Input validation
+  - File: 39_error_handling_input.png
+
+[Screenshot 40] - Business Rule Violation
+  - Try to assign already-assigned equipment
+  - Or delete non-existent employee
+  - Capture: Appropriate error message
+  - Shows: Business logic validation
+  - File: 40_error_handling_business.png
+
+================================================================================
+SECTION 10: OOP PRINCIPLES EVIDENCE (Reference)
+================================================================================
+
+The screenshots above demonstrate all four OOP principles:
+
+ABSTRACTION:
+  - Screenshots 07-12: Employee abstract class with abstract methods
+  - Different subclasses hiding implementation details
+
+ENCAPSULATION:
+  - All screenshots: Private fields accessed through getters/setters
+  - Data protection and controlled access
+
+INHERITANCE:
+  - Screenshots 07-15: Manager, Scientist, Technician extend Employee
+  - Shared fields and methods from parent class
+  - Specialized fields in children
+
+POLYMORPHISM:
+  - Screenshots 08, 10, 12: Different displayInfo() implementations
+  - Same method call, different behavior based on object type
+  - Runtime polymorphism in action
+
+================================================================================
+OPTIONAL BONUS SCREENSHOTS (If Time Permits)
+================================================================================
+
+[Bonus 1] - Database File
+  - Screenshot of data/ folder showing pawet.db file
+  - File explorer or ls -lh command
+
+[Bonus 2] - SQL Query Tool
+  - Use SQLite browser to show table structure
+  - Demonstrates actual SQL database
+
+[Bonus 3] - Code Structure
+  - Screenshot of src/ folder showing package organization
+  - Shows professional project structure
+
+================================================================================
+SCREENSHOT TIPS
+================================================================================
+
+QUALITY:
+  - Use high resolution (1920x1080 or higher)
+  - Clear, readable text
+  - Full terminal window visible
+  - No unnecessary background applications
+
+ANNOTATIONS (Optional but recommended):
+  - Add arrows/boxes highlighting key features
+  - Label sections (e.g., "Polymorphism demonstrated here")
+  - Number screenshots matching this guide
+
+ORGANIZATION:
+  - Name files exactly as specified (01_system_startup.png, etc.)
+  - Keep in chronological order
+  - Group by category in folders if many screenshots
+
+TIMING:
+  - Take screenshots during single run-through
+  - Follow this guide sequentially
+  - Build data progressively (start empty, add departments, then employees)
+
+COMMON MISTAKES TO AVOID:
+  - Missing comparison counts in search screenshots
+  - Missing algorithm statistics in sort screenshots
+  - Not showing polymorphism (all 3 employee types)
+  - Forgetting to demonstrate database persistence
+  - Poor image quality (text not readable)
+
+================================================================================
+SUBMISSION CHECKLIST
+================================================================================
+
+Before submitting, verify you have captured:
+
+ Employee Management:
+  ☐ Adding all 3 employee types (Manager, Scientist, Technician)
+  ☐ Viewing details of all 3 types (showing polymorphism)
+  ☐ List showing all employees together
+
+ Search Algorithms:
+  ☐ Linear search with comparison count
+  ☐ Binary search with efficiency message
+  ☐ At least 3 different search types
+
+ Sort Algorithms:
+  ☐ Bubble sort with statistics
+  ☐ Quick sort with timing
+  ☐ Performance comparison showing Quick Sort wins
+
+ Database:
+  ☐ System startup (database initialization)
+  ☐ Exit (database closure)
+  ☐ Restart showing data persisted
+
+ OOP Principles:
+  ☐ Inheritance (employee hierarchy)
+  ☐ Polymorphism (different displayInfo)
+  ☐ Encapsulation (controlled access)
+  ☐ Abstraction (abstract class)
+
+ Reports:
+  ☐ System statistics
+  ☐ Department/Employee summaries
+
+ Error Handling:
+  ☐ At least 1-2 error scenarios
+
+TOTAL: 35-40 screenshots covering all requirements
+
+================================================================================
+                          END OF SCREENSHOT GUIDE
+================================================================================

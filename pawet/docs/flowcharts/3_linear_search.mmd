@@ -1,0 +1,42 @@
+flowchart TD
+    Start([Start Linear Search]) --> GetTarget[Get Target ID/Name from User]
+    GetTarget --> InitVars[Initialize:<br/>comparisons = 0<br/>index = 0]
+    InitVars --> CheckList{index < list.size}
+
+    CheckList -->|Yes| IncrementComp[comparisons++]
+    IncrementComp --> GetEmployee[employee = list.get index]
+    GetEmployee --> Compare{Match Found?<br/>employee.id == target OR<br/>employee.name.contains target}
+
+    Compare -->|Yes| Found[Found Employee!]
+    Found --> DisplayComp1[Display: Completed in X comparisons]
+    DisplayComp1 --> DisplayResult[Display Employee Details]
+    DisplayResult --> ReturnEmployee[Return employee]
+    ReturnEmployee --> End([End Search])
+
+    Compare -->|No| IncrementIndex[index++]
+    IncrementIndex --> CheckList
+
+    CheckList -->|No| NotFound[Employee Not Found]
+    NotFound --> DisplayComp2[Display: Completed in X comparisons<br/>Not found]
+    DisplayComp2 --> ReturnNull[Return null]
+    ReturnNull --> End
+
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style Found fill:#98FB98
+    style NotFound fill:#FF6B6B
+    style Compare fill:#FFD700
+    style CheckList fill:#87CEEB
+    style DisplayResult fill:#DDA0DD
+
+    note1[Time Complexity: O n]
+    note2[Space Complexity: O 1]
+    note3[Best Case: O 1 - found at first position]
+    note4[Worst Case: O n - found at last position or not found]
+    note5[Use: Small datasets, partial matching, unsorted data]
+
+    style note1 fill:#FFF9C4
+    style note2 fill:#FFF9C4
+    style note3 fill:#FFF9C4
+    style note4 fill:#FFF9C4
+    style note5 fill:#FFF9C4

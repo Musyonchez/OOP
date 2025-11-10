@@ -1,0 +1,62 @@
+flowchart TD
+    Start([Start Quick Sort]) --> GetList[Get Employee List to Sort]
+    GetList --> CheckSize{list.size > 1}
+    CheckSize -->|No| ReturnList[Return list already sorted]
+    ReturnList --> End([End Sort])
+
+    CheckSize -->|Yes| CallQuickSort[Call quickSortHelper low=0, high=size-1]
+    CallQuickSort --> CheckBounds{low < high}
+
+    CheckBounds -->|Yes| Partition[Call partition low, high]
+    Partition --> ChoosePivot[Choose pivot = list.get high]
+    ChoosePivot --> InitI[i = low - 1]
+    InitI --> InitJ[j = low]
+
+    InitJ --> LoopJ{j < high}
+    LoopJ -->|Yes| CompareJPivot{list.get j .name <= pivot.name}
+
+    CompareJPivot -->|Yes| IncrementI[i++]
+    IncrementI --> Swap1[Swap list.get i with list.get j]
+    Swap1 --> NextJ[j++]
+
+    CompareJPivot -->|No| NextJ
+    NextJ --> LoopJ
+
+    LoopJ -->|No| FinalSwap[Swap list.get i+1 with list.get high]
+    FinalSwap --> ReturnPivot[Return pivotIndex = i + 1]
+
+    ReturnPivot --> RecurseLeft[Recursively sort LEFT:<br/>quickSortHelper low, pivotIndex-1]
+    RecurseLeft --> RecurseRight[Recursively sort RIGHT:<br/>quickSortHelper pivotIndex+1, high]
+    RecurseRight --> CheckBounds
+
+    CheckBounds -->|No| DoneRecursion[Recursion Complete]
+    DoneRecursion --> DisplayTime[Display: Completed in X ms]
+    DisplayTime --> End
+
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style Partition fill:#FFD700
+    style ChoosePivot fill:#FF6B6B
+    style Swap1 fill:#87CEEB
+    style FinalSwap fill:#87CEEB
+    style RecurseLeft fill:#DDA0DD
+    style RecurseRight fill:#DDA0DD
+    style CompareJPivot fill:#98FB98
+
+    note1[Time Complexity: O n log n average]
+    note2[Space Complexity: O log n stack]
+    note3[Worst Case: O n² rare]
+    note4[Divide-and-conquer algorithm]
+    note5[Partitions around pivot recursively]
+    note6[Example: 1000 items = 10K comparisons]
+    note7[vs 500K with bubble sort 50x faster]
+    note8[Industry standard for general sorting]
+
+    style note1 fill:#FFF9C4
+    style note2 fill:#FFF9C4
+    style note3 fill:#FFF9C4
+    style note4 fill:#FFF9C4
+    style note5 fill:#FFF9C4
+    style note6 fill:#FFF9C4
+    style note7 fill:#FFF9C4
+    style note8 fill:#FFF9C4

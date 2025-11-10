@@ -1,0 +1,362 @@
+================================================================================
+                         SORT ALGORITHMS PSEUDOCODE
+                      PAWET-B Organizational Design System
+================================================================================
+
+This document provides detailed pseudocode for the sorting algorithms implemented
+in the system, along with complexity analysis and performance comparisons.
+
+================================================================================
+1. BUBBLE SORT BY NAME
+================================================================================
+
+ALGORITHM: BubbleSortByName(employeeList)
+
+  INPUT:
+    employeeList: List of Employee objects (unsorted)
+
+  OUTPUT:
+    sortedList: List of Employee objects sorted by name (ascending)
+
+  PSEUDOCODE:
+
+    FUNCTION BubbleSortByName(employeeList):
+        sortedList ← COPY(employeeList)
+        n ← sortedList.size()
+        comparisons ← 0
+        swaps ← 0
+
+        FOR i ← 0 TO n-2 DO                    // Outer loop: n-1 passes
+            swapped ← false
+
+            FOR j ← 0 TO n-i-2 DO              // Inner loop: shrinks each pass
+                comparisons ← comparisons + 1
+                employee1 ← sortedList.get(j)
+                employee2 ← sortedList.get(j+1)
+
+                IF employee1.name > employee2.name THEN
+                    // Swap adjacent elements
+                    SWAP(sortedList[j], sortedList[j+1])
+                    swaps ← swaps + 1
+                    swapped ← true
+                END IF
+            END FOR
+
+            // Optimization: Early termination if no swaps
+            IF NOT swapped THEN
+                PRINT "Early termination at pass " + (i+1)
+                BREAK
+            END IF
+        END FOR
+
+        PRINT "Bubble Sort completed:"
+        PRINT "  Comparisons: " + comparisons
+        PRINT "  Swaps: " + swaps
+        PRINT "  Theoretical worst case: " + (n*(n-1)/2) + " comparisons"
+
+        RETURN sortedList
+    END FUNCTION
+
+  COMPLEXITY ANALYSIS:
+    Time Complexity:
+      - Best Case:    O(n) - already sorted (with optimization)
+      - Average Case: O(n²) - random order
+      - Worst Case:   O(n²) - reverse sorted
+
+    Space Complexity: O(1) - sorts in place (after initial copy)
+
+    Comparisons:
+      - Best:    n-1 (already sorted)
+      - Average: n(n-1)/4 ≈ n²/4
+      - Worst:   n(n-1)/2 ≈ n²/2
+
+    Swaps:
+      - Best:    0 (already sorted)
+      - Average: n(n-1)/4 ≈ n²/4
+      - Worst:   n(n-1)/2 ≈ n²/2
+
+  STEP-BY-STEP EXAMPLE (4 employees):
+
+    Initial: [David, Alice, Charlie, Bob]
+
+    Pass 1:
+      Compare David vs Alice  → Swap     [Alice, David, Charlie, Bob]
+      Compare David vs Charlie → Swap    [Alice, Charlie, David, Bob]
+      Compare David vs Bob    → Swap     [Alice, Charlie, Bob, David]
+      Result: Largest (David) bubbled to end
+
+    Pass 2:
+      Compare Alice vs Charlie → No swap [Alice, Charlie, Bob, David]
+      Compare Charlie vs Bob   → Swap    [Alice, Bob, Charlie, David]
+      Result: Second largest (Charlie) in place
+
+    Pass 3:
+      Compare Alice vs Bob     → No swap [Alice, Bob, Charlie, David]
+      Result: Third largest (Bob) in place
+
+    Final: [Alice, Bob, Charlie, David] ✓ SORTED
+
+    Total: 6 comparisons, 4 swaps
+
+  ADVANTAGES:
+    - Simple to understand and implement
+    - Stable sort (maintains relative order of equal elements)
+    - In-place sorting (minimal memory)
+    - Good for small datasets (< 50 items)
+    - Adaptive (O(n) if nearly sorted)
+
+  DISADVANTAGES:
+    - Very slow for large datasets
+    - O(n²) performance degrades quickly
+    - Much slower than modern algorithms
+
+================================================================================
+2. QUICK SORT BY NAME
+================================================================================
+
+ALGORITHM: QuickSortByName(employeeList)
+
+  INPUT:
+    employeeList: List of Employee objects (unsorted)
+
+  OUTPUT:
+    sortedList: List of Employee objects sorted by name (ascending)
+
+  MAIN FUNCTION:
+
+    FUNCTION QuickSortByName(employeeList):
+        sortedList ← COPY(employeeList)
+        startTime ← CURRENT_TIME()
+
+        CALL QuickSortHelper(sortedList, 0, sortedList.size()-1)
+
+        endTime ← CURRENT_TIME()
+        duration ← endTime - startTime
+
+        PRINT "Quick Sort completed in " + duration + " ms"
+        RETURN sortedList
+    END FUNCTION
+
+  RECURSIVE HELPER:
+
+    FUNCTION QuickSortHelper(list, low, high):
+        IF low < high THEN
+            // Partition array and get pivot index
+            pivotIndex ← Partition(list, low, high)
+
+            // Recursively sort elements before pivot
+            CALL QuickSortHelper(list, low, pivotIndex-1)
+
+            // Recursively sort elements after pivot
+            CALL QuickSortHelper(list, pivotIndex+1, high)
+        END IF
+    END FUNCTION
+
+  PARTITION FUNCTION:
+
+    FUNCTION Partition(list, low, high):
+        // Choose rightmost element as pivot
+        pivot ← list.get(high)
+        i ← low - 1                    // Index of smaller element
+
+        FOR j ← low TO high-1 DO
+            // If current element <= pivot
+            IF list.get(j).name <= pivot.name THEN
+                i ← i + 1
+                SWAP(list[i], list[j])
+            END IF
+        END FOR
+
+        // Swap pivot to correct position
+        SWAP(list[i+1], list[high])
+        RETURN i + 1                   // Return pivot index
+    END FUNCTION
+
+  COMPLEXITY ANALYSIS:
+    Time Complexity:
+      - Best Case:    O(n log n) - balanced partitions
+      - Average Case: O(n log n) - random pivots
+      - Worst Case:   O(n²) - already sorted (rare with good pivot selection)
+
+    Space Complexity: O(log n) - recursion stack depth
+
+    Comparisons:
+      - Average: n log n
+      - Example (n=1000): ≈ 10,000 comparisons
+                vs Bubble: ≈ 500,000 comparisons
+
+    Recursion Depth:
+      - Best: log₂(n) levels
+      - Example (n=1000): ≈ 10 levels deep
+
+  STEP-BY-STEP EXAMPLE (7 employees):
+
+    Initial: [David, Bob, Frank, Alice, Eve, Charlie, Grace]
+
+    Level 1: Partition (pivot = Grace)
+      [David, Bob, Frank, Alice, Eve, Charlie] | Grace | []
+      Pivot (Grace) moves to correct position
+
+    Level 2: Partition left (pivot = Charlie)
+      [Bob, Alice, Charlie] | David, Eve, Frank | Grace
+      Charlie at position 2
+
+    Level 3: Multiple sub-partitions
+      [Alice, Bob, Charlie] | David | [Eve, Frank] | Grace
+
+    Final: [Alice, Bob, Charlie, David, Eve, Frank, Grace] ✓ SORTED
+
+  ADVANTAGES:
+    - Very fast average case O(n log n)
+    - In-place sorting (minimal extra memory)
+    - Divide-and-conquer strategy
+    - Cache-friendly (good locality)
+    - Industry standard algorithm
+    - Used in Java's Arrays.sort()
+
+  DISADVANTAGES:
+    - Worst case O(n²) (rare)
+    - Not stable (may reorder equal elements)
+    - Recursive (stack overhead)
+    - Complex to implement
+
+  PIVOT SELECTION STRATEGIES:
+    1. Last element (our implementation)
+    2. First element
+    3. Middle element
+    4. Random element (prevents worst case)
+    5. Median-of-three (best practice)
+
+================================================================================
+3. PERFORMANCE COMPARISON: BUBBLE vs QUICK SORT
+================================================================================
+
+DATASET SIZE: 10 ITEMS
+  Bubble Sort:  ~45 comparisons,  ~23 swaps,      0.05 ms
+  Quick Sort:   ~29 comparisons,  ~15 swaps,      0.03 ms
+  Winner:       Quick Sort (1.7x faster)
+
+DATASET SIZE: 50 ITEMS
+  Bubble Sort:  ~1,225 comparisons,  ~613 swaps,   0.5 ms
+  Quick Sort:   ~282 comparisons,    ~141 swaps,   0.1 ms
+  Winner:       Quick Sort (5x faster)
+
+DATASET SIZE: 100 ITEMS
+  Bubble Sort:  ~4,950 comparisons,  ~2,475 swaps,  3 ms
+  Quick Sort:   ~664 comparisons,    ~332 swaps,    0.2 ms
+  Winner:       Quick Sort (15x faster)
+
+DATASET SIZE: 500 ITEMS
+  Bubble Sort:  ~124,750 comparisons,  ~62,375 swaps,  150 ms
+  Quick Sort:   ~4,482 comparisons,    ~2,241 swaps,   2 ms
+  Winner:       Quick Sort (75x faster)
+
+DATASET SIZE: 1,000 ITEMS
+  Bubble Sort:  ~499,500 comparisons,  ~249,750 swaps,  1,200 ms (1.2 sec)
+  Quick Sort:   ~9,965 comparisons,    ~4,983 swaps,    5 ms
+  Winner:       Quick Sort (240x faster)
+
+DATASET SIZE: 10,000 ITEMS
+  Bubble Sort:  ~49,995,000 comparisons,  ~24,997,500 swaps,  180,000 ms (3 min)
+  Quick Sort:   ~132,877 comparisons,     ~66,439 swaps,      80 ms
+  Winner:       Quick Sort (2,250x faster)
+
+GROWTH PATTERN:
+  Bubble Sort: Doubles data → 4x slower (quadratic)
+  Quick Sort:  Doubles data → 2x slower (linearithmic)
+
+================================================================================
+4. SORT BY SALARY
+================================================================================
+
+ALGORITHM: QuickSortBySalary(employeeList, ascending)
+
+  PSEUDOCODE:
+
+    FUNCTION QuickSortBySalary(employeeList, ascending):
+        sortedList ← COPY(employeeList)
+        CALL QuickSortBySalaryHelper(sortedList, 0, size-1, ascending)
+        RETURN sortedList
+    END FUNCTION
+
+    FUNCTION PartitionBySalary(list, low, high, ascending):
+        pivot ← list.get(high)
+        i ← low - 1
+
+        FOR j ← low TO high-1 DO
+            IF ascending THEN
+                condition ← (list.get(j).salary <= pivot.salary)
+            ELSE
+                condition ← (list.get(j).salary >= pivot.salary)
+            END IF
+
+            IF condition THEN
+                i ← i + 1
+                SWAP(list[i], list[j])
+            END IF
+        END FOR
+
+        SWAP(list[i+1], list[high])
+        RETURN i + 1
+    END FUNCTION
+
+  USE CASES:
+    - View highest paid employees (descending)
+    - View lowest paid employees (ascending)
+    - Salary analysis and statistics
+
+================================================================================
+5. ALGORITHM SELECTION GUIDE
+================================================================================
+
+WHEN TO USE BUBBLE SORT:
+  ✓ Learning/teaching sorting concepts
+  ✓ Very small datasets (< 20 items)
+  ✓ Nearly sorted data (with optimization)
+  ✓ Simplicity is priority over speed
+  ✓ Code size must be minimal
+
+WHEN TO USE QUICK SORT:
+  ✓ Large datasets (> 100 items)
+  ✓ Production code
+  ✓ Performance is critical
+  ✓ General-purpose sorting
+  ✓ Real-world applications
+
+DECISION MATRIX:
+
+  Data Size | Bubble Sort | Quick Sort | Recommendation
+  ----------|-------------|------------|----------------
+    < 10    |   0.05 ms   |  0.03 ms   | Either (negligible)
+   10-50    |   0.5 ms    |  0.1 ms    | Quick Sort (5x)
+  50-100    |   3 ms      |  0.2 ms    | Quick Sort (15x)
+  100-500   |   150 ms    |  2 ms      | Quick Sort (75x)
+  500-1000  |   1200 ms   |  5 ms      | Quick Sort (240x)
+   > 1000   | Minutes     |  < 100 ms  | MUST use Quick Sort
+
+MEMORY CONSIDERATIONS:
+  - Bubble Sort: O(1) extra space
+  - Quick Sort: O(log n) stack space
+  - For most applications, Quick Sort's space overhead is negligible
+
+================================================================================
+6. REAL-WORLD APPLICATION IN PAWET-B
+================================================================================
+
+SCENARIO 1: Sort 25 employees by name for report
+  Solution: Quick Sort
+  Reason: Fast, professional, minimal code difference
+  Time: < 1 ms
+
+SCENARIO 2: Educational demonstration
+  Solution: Run both, show comparison
+  Result: Students see Bubble Sort's simplicity but Quick Sort's speed
+
+SCENARIO 3: Sort 1000+ employees by salary
+  Solution: MUST use Quick Sort
+  Reason: Bubble Sort would take several seconds (poor UX)
+  Time: Quick Sort = 5-10 ms (instant to user)
+
+================================================================================
+                           END OF PSEUDOCODE
+================================================================================

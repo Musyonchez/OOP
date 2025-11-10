@@ -1,0 +1,52 @@
+flowchart TD
+    Start([Start Binary Search]) --> CheckSorted{Is List Sorted?}
+    CheckSorted -->|No| SortList[Sort List by ID<br/>Quick Sort O n log n]
+    CheckSorted -->|Yes| InitVars[Initialize:<br/>left = 0<br/>right = size - 1<br/>comparisons = 0]
+    SortList --> InitVars
+
+    InitVars --> GetTarget[Get Target ID from User]
+    GetTarget --> CheckBounds{left <= right}
+
+    CheckBounds -->|Yes| IncrementComp[comparisons++]
+    IncrementComp --> CalcMid[mid = left + right - left / 2]
+    CalcMid --> GetMid[midEmployee = list.get mid]
+    GetMid --> CompareTarget[Compare target with midEmployee.id]
+
+    CompareTarget -->|Equal| Found[Found Employee!]
+    Found --> DisplayComp1[Display: Completed in X comparisons<br/>Efficiency: Would take up to N with linear]
+    DisplayComp1 --> DisplayResult[Display Employee Details]
+    DisplayResult --> ReturnEmployee[Return employee]
+    ReturnEmployee --> End([End Search])
+
+    CompareTarget -->|Target < Mid| SearchLeft[Search Left Half<br/>right = mid - 1]
+    SearchLeft --> CheckBounds
+
+    CompareTarget -->|Target > Mid| SearchRight[Search Right Half<br/>left = mid + 1]
+    SearchRight --> CheckBounds
+
+    CheckBounds -->|No| NotFound[Employee Not Found]
+    NotFound --> DisplayComp2[Display: Completed in X comparisons<br/>Not found]
+    DisplayComp2 --> ReturnNull[Return null]
+    ReturnNull --> End
+
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style Found fill:#98FB98
+    style NotFound fill:#FF6B6B
+    style CompareTarget fill:#FFD700
+    style CheckBounds fill:#87CEEB
+    style SortList fill:#F0E68C
+
+    note1[Time Complexity: O log n]
+    note2[Space Complexity: O 1 iterative]
+    note3[Requirement: Sorted list]
+    note4[Divides search space in half each iteration]
+    note5[Example: 1M items = 20 comparisons vs 1M linear]
+    note6[50,000x faster than linear for large datasets]
+
+    style note1 fill:#FFF9C4
+    style note2 fill:#FFF9C4
+    style note3 fill:#FFF9C4
+    style note4 fill:#FFF9C4
+    style note5 fill:#FFF9C4
+    style note6 fill:#FFF9C4
