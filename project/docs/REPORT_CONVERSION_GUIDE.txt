@@ -1,0 +1,481 @@
+================================================================================
+                      REPORT CONVERSION GUIDE
+          Converting PROJECT_REPORT.txt to Final PDF
+================================================================================
+
+This guide helps you convert the text report into a professional PDF document
+for submission.
+
+METHODS AVAILABLE:
+1. Microsoft Word (Recommended - easiest)
+2. Google Docs (Online, free)
+3. LibreOffice Writer (Free, cross-platform)
+4. LaTeX (Advanced, professional)
+5. Markdown to PDF (Technical users)
+
+================================================================================
+                    METHOD 1: MICROSOFT WORD (Recommended)
+================================================================================
+
+STEP 1: OPEN THE TEXT FILE
+---------------------------
+1. Open Microsoft Word
+2. File → Open
+3. Select PROJECT_REPORT.txt
+4. Choose "Plain Text" encoding → OK
+
+STEP 2: FORMAT THE DOCUMENT
+----------------------------
+1. Select All (Ctrl+A)
+2. Font: Times New Roman or Calibri
+3. Size: 11pt or 12pt
+4. Line spacing: 1.5 or Double (as required)
+
+STEP 3: FORMAT HEADINGS
+------------------------
+Find lines with = symbols (like this):
+================================================================================
+These are section dividers.
+
+For each section:
+1. Remove the = lines
+2. Make the heading bold
+3. Apply Heading styles:
+   - Main sections (1. Introduction): Heading 1
+   - Subsections (1.1 Problem Definition): Heading 2
+   - Sub-subsections: Heading 3
+
+Example transformation:
+BEFORE:
+================================================================================
+                            1. INTRODUCTION
+================================================================================
+1.1 PROBLEM DEFINITION
+
+AFTER:
+1. INTRODUCTION (Heading 1, Bold, 14pt)
+1.1 Problem Definition (Heading 2, Bold, 12pt)
+
+STEP 4: FORMAT CODE BLOCKS
+---------------------------
+Find code sections (indented or between dashes):
+--------------------------------------------------------------------
+public class User {
+    private String name;
+}
+--------------------------------------------------------------------
+
+1. Select the code block
+2. Font: Consolas or Courier New (monospace)
+3. Size: 10pt
+4. Background: Light gray shading
+5. Border: Optional single border
+
+STEP 5: INSERT SCREENSHOTS
+---------------------------
+Find placeholders like:
+[INSERT SCREENSHOT HERE]
+Screenshot location: /home/musyonchez/Code/OOP/project/docs/flowcharts/
+File: 3_linear_search_algorithm.png
+
+1. Delete the placeholder text
+2. Insert → Pictures → select the screenshot
+3. Right-click image → Wrap Text → Top and Bottom
+4. Center the image
+5. Resize to 80% page width
+6. Add caption below:
+   - References → Insert Caption
+   - Label: Figure
+   - Caption: "Figure 1: Linear Search Algorithm Flowchart"
+
+STEP 6: CREATE TABLE OF CONTENTS
+---------------------------------
+1. Click at the beginning of the document (after cover page)
+2. References → Table of Contents → Automatic Table 1
+3. Update the TOC after formatting all headings
+
+STEP 7: ADD PAGE NUMBERS
+-------------------------
+1. Insert → Page Number → Bottom of Page → Plain Number 2
+2. Different First Page (if you want cover page without number)
+
+STEP 8: CREATE COVER PAGE
+--------------------------
+1. Insert → Cover Page → Choose a template
+2. Replace placeholders with:
+   - Title: "Library Management System"
+   - Subtitle: "Object-Oriented Programming Project Report"
+   - Course: [Your course code and name]
+   - Group Members: [List all names and IDs]
+   - Date: [Submission date]
+   - Instructor: [Instructor name]
+
+STEP 9: SAVE AS PDF
+--------------------
+1. File → Save As
+2. File type: PDF
+3. Options → check "Document structure tags for accessibility"
+4. Save
+
+FILE SIZE CHECK:
+If PDF is too large (>25MB):
+1. File → Save As → PDF
+2. Options → Minimum size (publishing online)
+
+================================================================================
+                       METHOD 2: GOOGLE DOCS (Free)
+================================================================================
+
+STEP 1: UPLOAD THE FILE
+------------------------
+1. Go to https://docs.google.com
+2. File → Open → Upload
+3. Select PROJECT_REPORT.txt
+4. Google Docs will convert it automatically
+
+STEP 2: FORMAT THE DOCUMENT
+----------------------------
+1. Select All (Ctrl+A)
+2. Format → Line spacing → 1.5
+3. Format → Font → Times New Roman, 12pt
+
+STEP 3: FORMAT HEADINGS
+------------------------
+1. Find section titles (surrounded by = lines)
+2. Remove the = decorations
+3. Apply heading styles:
+   - Format → Paragraph styles → Heading 1 (for main sections)
+   - Format → Paragraph styles → Heading 2 (for subsections)
+
+STEP 4: INSERT SCREENSHOTS
+---------------------------
+1. Upload screenshots to Google Drive first
+2. In document: Insert → Image → Drive
+3. Select screenshot
+4. Resize and center
+5. Add caption below
+
+STEP 5: ADD TABLE OF CONTENTS
+------------------------------
+1. Insert → Table of contents
+2. Choose "With page numbers"
+
+STEP 6: DOWNLOAD AS PDF
+------------------------
+1. File → Download → PDF Document (.pdf)
+
+================================================================================
+                   METHOD 3: LIBREOFFICE WRITER (Free)
+================================================================================
+
+STEP 1: OPEN THE FILE
+----------------------
+1. Open LibreOffice Writer
+2. File → Open
+3. Select PROJECT_REPORT.txt
+
+STEP 2: FORMAT
+--------------
+Follow same steps as Microsoft Word (very similar interface)
+
+STEP 3: EXPORT AS PDF
+----------------------
+1. File → Export as PDF
+2. General tab:
+   - Range: All
+   - Images: JPEG compression, Quality 90%
+3. Export
+
+================================================================================
+                      METHOD 4: LaTeX (Advanced)
+================================================================================
+
+Only for users familiar with LaTeX.
+
+STEP 1: CREATE TEX FILE
+------------------------
+Create a file: report.tex
+
+\documentclass[12pt,a4paper]{article}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\title{Library Management System\\Object-Oriented Programming Project Report}
+\author{[Group Member Names]}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\subsection{Problem Definition}
+[Copy text from PROJECT_REPORT.txt]
+
+\begin{lstlisting}[language=Java]
+[Copy code blocks here]
+\end{lstlisting}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{screenshot_01.png}
+\caption{Main Menu}
+\end{figure}
+
+% ... continue for all sections
+\end{document}
+
+STEP 2: COMPILE
+---------------
+pdflatex report.tex
+
+================================================================================
+                    METHOD 5: MARKDOWN → PDF
+================================================================================
+
+For technical users comfortable with command line.
+
+STEP 1: CONVERT TO MARKDOWN
+----------------------------
+1. Save PROJECT_REPORT.txt as PROJECT_REPORT.md
+2. Add markdown syntax:
+   - Headings: # for H1, ## for H2, ### for H3
+   - Code blocks: ```java ... ```
+   - Images: ![Caption](image.png)
+
+STEP 2: USE PANDOC
+------------------
+pandoc PROJECT_REPORT.md -o PROJECT_REPORT.pdf --toc
+
+Or with template:
+pandoc PROJECT_REPORT.md -o PROJECT_REPORT.pdf \
+  --toc \
+  --number-sections \
+  -V geometry:margin=1in
+
+================================================================================
+                         FORMATTING CHECKLIST
+================================================================================
+
+Before converting to PDF, ensure:
+
+STRUCTURE:
+[ ] Cover page with all required information
+[ ] Table of contents with page numbers
+[ ] All sections present (1-10)
+[ ] Page numbers (except cover page)
+
+TYPOGRAPHY:
+[ ] Consistent font (Times New Roman or Calibri)
+[ ] Font size: 11pt or 12pt for body text
+[ ] Line spacing: 1.5 or Double
+[ ] Margins: 1 inch all sides (or as specified)
+[ ] Headings formatted with hierarchy
+
+CODE FORMATTING:
+[ ] Code blocks in monospace font (Courier, Consolas)
+[ ] Code blocks have light background or border
+[ ] Code is readable and properly indented
+[ ] Syntax highlighting (optional but nice)
+
+IMAGES:
+[ ] All 31 screenshots inserted
+[ ] All 5 flowcharts inserted
+[ ] Images centered
+[ ] Images sized appropriately (not too large/small)
+[ ] Each image has a caption
+[ ] Captions numbered (Figure 1, Figure 2, etc.)
+
+SECTIONS:
+[ ] Cover page
+[ ] Table of Contents
+[ ] Introduction (1.1, 1.2, 1.3)
+[ ] OOP Concepts (2.1-2.4)
+[ ] System Architecture (3.1-3.3)
+[ ] Algorithms (4.1-4.3)
+[ ] Database Implementation (5.1-5.3)
+[ ] Source Code (6.1-6.3)
+[ ] System Demonstration (7.1-7.6)
+[ ] Challenges and Solutions (8.1-8.3)
+[ ] Conclusion (9)
+[ ] References (10)
+
+QUALITY:
+[ ] No spelling errors
+[ ] Consistent heading styles
+[ ] Professional appearance
+[ ] Readable font sizes
+[ ] Good contrast (text vs background)
+[ ] Clean, organized layout
+
+FILE:
+[ ] PDF file size < 25MB (if limit applies)
+[ ] PDF opens correctly
+[ ] All pages present
+[ ] Images visible and clear
+[ ] Hyperlinks work (if applicable)
+
+================================================================================
+                       COMMON FORMATTING ISSUES
+================================================================================
+
+ISSUE 1: File too large
+-----------------------
+SOLUTION:
+- Compress images before inserting (use JPEG instead of PNG)
+- Reduce image resolution to 1280x720
+- Use "Minimum size" when saving PDF
+- Online tool: https://www.ilovepdf.com/compress_pdf
+
+ISSUE 2: Code formatting lost
+------------------------------
+SOLUTION:
+- Select code blocks
+- Apply monospace font (Courier New, Consolas)
+- Use table with single cell for better control
+- Set background color to light gray (#F0F0F0)
+
+ISSUE 3: Table of Contents doesn't update
+------------------------------------------
+SOLUTION (Word):
+- Right-click TOC → Update Field → Update entire table
+
+SOLUTION (Google Docs):
+- Click on TOC → Click refresh icon
+
+ISSUE 4: Images too small/large
+--------------------------------
+SOLUTION:
+- Select image
+- Set width to 80% of page width
+- Maintain aspect ratio (lock ratio)
+- Center alignment
+
+ISSUE 5: Page numbers on cover page
+------------------------------------
+SOLUTION (Word):
+- Double-click header/footer area
+- Check "Different First Page"
+- Page numbers won't appear on page 1
+
+SOLUTION (Google Docs):
+- Insert → Page numbers → More options
+- Check "Skip first page"
+
+================================================================================
+                      PROFESSIONAL FORMATTING TIPS
+================================================================================
+
+1. CONSISTENT SPACING
+   - Use same spacing between all sections
+   - Don't mix single/double spacing
+   - Add extra space before headings
+
+2. FIGURE PLACEMENT
+   - Place figures close to related text
+   - Don't put figures in middle of paragraphs
+   - Group related figures together
+
+3. CAPTION STYLE
+   - Be descriptive: "Figure 1: Main Menu Showing All Six Options"
+   - Not just: "Figure 1: Screenshot"
+   - Use same format for all captions
+
+4. COLOR USAGE
+   - Black text on white background for body
+   - Light gray background for code blocks
+   - Keep it professional (avoid bright colors)
+
+5. HEADERS/FOOTERS
+   - Add document title to header (optional)
+   - Add page numbers to footer (required)
+   - Keep headers/footers consistent
+
+================================================================================
+                         FINAL QUALITY CHECK
+================================================================================
+
+Before submission:
+
+1. PRINT PREVIEW
+   - View entire document in print preview
+   - Check for orphan lines (single line at top of page)
+   - Check for awkward page breaks
+
+2. PDF VALIDATION
+   - Open PDF in different viewer (Chrome, Adobe Reader)
+   - Check all pages render correctly
+   - Verify images are clear
+   - Test any hyperlinks
+
+3. PEER REVIEW
+   - Have team member review formatting
+   - Check for consistency
+   - Verify all sections present
+
+4. FILE NAMING
+   - Good: Library_Management_System_Report_Group4.pdf
+   - Bad: report.pdf, final.pdf, project_v3_final_FINAL.pdf
+
+5. BACKUP
+   - Save both .docx and .pdf versions
+   - Keep original .txt file
+   - Upload to cloud storage
+
+================================================================================
+                            TIME ESTIMATES
+================================================================================
+
+METHOD 1 (Microsoft Word):     60-90 minutes
+METHOD 2 (Google Docs):        60-90 minutes
+METHOD 3 (LibreOffice):        60-90 minutes
+METHOD 4 (LaTeX):              120-180 minutes
+METHOD 5 (Markdown/Pandoc):    90-120 minutes
+
+Recommendation: Use Method 1 (Word) or Method 2 (Google Docs) for best results
+with least effort.
+
+================================================================================
+                           SUBMISSION CHECKLIST
+================================================================================
+
+Final submission should include:
+
+FILES:
+[ ] PROJECT_REPORT.pdf (main document)
+[ ] Source code (src/ folder)
+[ ] Data files (data/ folder)
+[ ] Flowcharts (docs/flowcharts/ folder)
+[ ] README.md
+
+PDF CONTENTS:
+[ ] Cover page with group members
+[ ] Table of contents
+[ ] All 10 sections complete
+[ ] 31 screenshots inserted
+[ ] 5 flowcharts inserted
+[ ] All code snippets formatted
+[ ] References in APA format
+[ ] Professional appearance
+
+VERIFICATION:
+[ ] File opens without errors
+[ ] File size acceptable (<25MB if limit)
+[ ] All images visible
+[ ] Text is searchable (not scanned)
+[ ] Page numbers correct
+
+================================================================================
+                              GOOD LUCK!
+================================================================================
+
+Take your time with formatting. A well-formatted report makes a strong
+impression and demonstrates attention to detail.
+
+Estimated total time for complete report formatting: 2-3 hours
+
+Remember to save frequently and keep backups!
+
+================================================================================

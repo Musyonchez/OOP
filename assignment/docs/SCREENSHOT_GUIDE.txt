@@ -1,0 +1,382 @@
+================================================================================
+                        SCREENSHOT CAPTURE GUIDE
+              Student Management System - Java Swing Application
+================================================================================
+
+TOTAL SCREENSHOTS NEEDED: 13-15
+
+TOOLS NEEDED:
+- Running Java application (java gui.MainFrame from src/)
+- Screenshot tool (Print Screen, Snipping Tool, Spectacle, etc.)
+
+NAMING CONVENTION:
+screenshot_01_main_window.png
+screenshot_02_student_table.png
+...etc.
+
+================================================================================
+                    SECTION 1: MAIN WINDOW (2 screenshots)
+================================================================================
+
+✓ SCREENSHOT 1: Main Window Overview
+  Steps:
+    1. cd /home/musyonchez/Code/OOP/assignment/src
+    2. java gui.MainFrame
+    3. Wait for window to open
+    4. Take screenshot of entire window
+
+  What to show: Main window with Students tab active, sample data loaded
+  Insert in report: Section 5.1
+  File: screenshot_01_main_window.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 2: Application with All Tabs Visible
+  Steps:
+    1. With application running
+    2. Make sure all three tabs are visible at top
+    3. Take screenshot showing tab bar clearly
+
+  What to show: JTabbedPane with Students, Grades, Statistics tabs
+  Insert in report: Section 3 (Swing Components)
+  File: screenshot_02_tabs.png
+
+================================================================================
+                  SECTION 2: STUDENT MANAGEMENT (6 screenshots)
+================================================================================
+
+✓ SCREENSHOT 3: Student Table with Data
+  Steps:
+    1. Click Students tab
+    2. Ensure sample data is displayed in table
+    3. Take screenshot
+
+  What to show: JTable with student data, columns, buttons on right
+  Insert in report: Section 5.2
+  File: screenshot_03_student_table.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 4: Add Student Dialog
+  Steps:
+    1. Click "Add Student" button
+    2. Dialog opens with empty fields
+    3. Take screenshot
+
+  What to show: JDialog with input fields for student information
+  Insert in report: Section 5.2
+  File: screenshot_04_add_student.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 5: Add Student - Filled Form
+  Steps:
+    1. In Add Student dialog
+    2. Fill in all fields:
+       - Student ID: S006
+       - Name: Test Student
+       - Email: test@university.edu
+       - Major: Biology
+    3. Take screenshot before clicking Save
+
+  What to show: Filled form ready to submit
+  Insert in report: Section 4.1
+  File: screenshot_05_add_student_filled.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 6: Edit Student Dialog
+  Steps:
+    1. Click on a row in student table (e.g., Alice Johnson)
+    2. Click "Edit Student" button
+    3. Dialog opens with current values
+    4. Take screenshot
+
+  What to show: Edit dialog with populated fields, ID field disabled
+  Insert in report: Section 5.2
+  File: screenshot_06_edit_student.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 7: Delete Confirmation Dialog
+  Steps:
+    1. Select a student row
+    2. Click "Delete Student"
+    3. Confirmation dialog appears
+    4. Take screenshot (don't click Yes yet!)
+
+  What to show: JOptionPane confirmation with Yes/No options
+  Insert in report: Section 5.2
+  File: screenshot_07_delete_confirmation.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 8: Search Results
+  Steps:
+    1. In search field, type: alice
+    2. Click Search button
+    3. Table filters to show only Alice Johnson
+    4. Take screenshot
+
+  What to show: Filtered table with search term visible in field
+  Insert in report: Section 5.2, Section 4.1
+  File: screenshot_08_search_results.png
+
+================================================================================
+                   SECTION 3: GRADE MANAGEMENT (4 screenshots)
+================================================================================
+
+✓ SCREENSHOT 9: Grade Management Tab
+  Steps:
+    1. Click "Grades" tab
+    2. Select student from dropdown (e.g., Alice Johnson)
+    3. Grades appear in table
+    4. Take screenshot
+
+  What to show: JComboBox with student selection, grade table, summary panel
+  Insert in report: Section 5.3
+  File: screenshot_09_grade_tab.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 10: Add Grade Dialog
+  Steps:
+    1. With student selected in Grades tab
+    2. Click "Add Grade" button
+    3. Dialog opens
+    4. Fill in:
+       - Subject: Machine Learning
+       - Score: 95.0
+       - Semester: Fall 2024
+    5. Take screenshot before saving
+
+  What to show: Add grade dialog with filled fields
+  Insert in report: Section 5.3, Section 4.2
+  File: screenshot_10_add_grade.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 11: Grade Summary Panel
+  Steps:
+    1. In Grades tab with student selected
+    2. Focus on summary panel at bottom
+    3. Take screenshot highlighting the summary
+
+  What to show: Summary showing Total Courses, Average, Letter Grade, Status
+  Insert in report: Section 5.3, Section 4.2
+  File: screenshot_11_grade_summary.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 12: Student with Multiple Grades
+  Steps:
+    1. Select a student with multiple grades (e.g., Alice with 3 grades)
+    2. Take screenshot showing full grade table
+
+  What to show: JTable with multiple grade entries for one student
+  Insert in report: Section 4.2
+  File: screenshot_12_multiple_grades.png
+
+================================================================================
+                    SECTION 4: STATISTICS (2-3 screenshots)
+================================================================================
+
+✓ SCREENSHOT 13: Statistics Dashboard
+  Steps:
+    1. Click "Statistics" tab
+    2. Wait for statistics to calculate and display
+    3. Take screenshot of full panel
+
+  What to show: Overview cards (4 colored cards at top) + detailed report
+  Insert in report: Section 5.4
+  File: screenshot_13_statistics.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 14: Detailed Statistics Report
+  Steps:
+    1. In Statistics tab
+    2. Scroll down in the text area to show different sections
+    3. Take screenshot showing grade distribution and top performer
+
+  What to show: JTextArea with formatted statistics report
+  Insert in report: Section 5.4, Section 4.3
+  File: screenshot_14_statistics_detail.png
+
+================================================================================
+                    SECTION 5: MENU SYSTEM (2 screenshots)
+================================================================================
+
+✓ SCREENSHOT 15: File Menu
+  Steps:
+    1. Click "File" menu
+    2. Menu drops down
+    3. Take screenshot
+
+  What to show: JMenuBar with File menu expanded, showing Save/Reload/Exit
+  Insert in report: Section 5.5
+  File: screenshot_15_file_menu.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 16: Help Dialog (Optional)
+  Steps:
+    1. Click Help → Help (or press F1)
+    2. Help dialog appears
+    3. Take screenshot
+
+  What to show: JOptionPane with help message and instructions
+  Insert in report: Section 5.5
+  File: screenshot_16_help_dialog.png
+
+================================================================================
+                          BONUS SCREENSHOTS (Optional)
+================================================================================
+
+✓ BONUS 1: Success Message
+  Steps:
+    1. Add a new student
+    2. Success message appears
+    3. Take screenshot
+
+  What to show: JOptionPane with success message
+  File: screenshot_bonus_success.png
+
+--------------------------------------------------------------------------------
+
+✓ BONUS 2: Error Message
+  Steps:
+    1. Try to add student with empty ID
+    2. Error message appears
+    3. Take screenshot
+
+  What to show: Validation error message
+  File: screenshot_bonus_error.png
+
+--------------------------------------------------------------------------------
+
+✓ BONUS 3: Window with Menu and Status Bar
+  Steps:
+    1. Take screenshot showing both menu bar and status bar clearly
+
+  What to show: Complete window layout
+  File: screenshot_bonus_full_window.png
+
+================================================================================
+                         SCREENSHOT QUALITY TIPS
+================================================================================
+
+BEST PRACTICES:
+✓ Maximize window for clarity
+✓ Use clean background (close other applications)
+✓ Ensure text is readable
+✓ Capture entire dialog boxes
+✓ Don't cut off edges
+✓ Save as PNG (better quality than JPG)
+
+RESOLUTION:
+- Minimum: 1024x768
+- Recommended: 1280x720 or higher
+- DPI: 96 minimum for screen, 300 for print
+
+LIGHTING/CONTRAST:
+- Use light theme for better contrast
+- Ensure all text is legible
+- Avoid glare from external lighting
+
+================================================================================
+                        INSERTING INTO REPORT
+================================================================================
+
+IN MICROSOFT WORD:
+1. Convert ASSIGNMENT_REPORT.txt to Word
+2. Find placeholder: [INSERT SCREENSHOT X: Description]
+3. Insert → Picture → From File
+4. Select appropriate screenshot
+5. Center and resize as needed
+6. Add caption: "Figure X: Description"
+
+IN GOOGLE DOCS:
+1. Open report
+2. Insert → Image → Upload from computer
+3. Select screenshot
+4. Resize and position
+5. Add caption below
+
+================================================================================
+                           QUICK CHECKLIST
+================================================================================
+
+Before submission, verify you have:
+
+REQUIRED SCREENSHOTS:
+[ ] 01 - Main window
+[ ] 02 - Tabs visible
+[ ] 03 - Student table
+[ ] 04 - Add student dialog
+[ ] 05 - Add student filled
+[ ] 06 - Edit student dialog
+[ ] 07 - Delete confirmation
+[ ] 08 - Search results
+[ ] 09 - Grade tab
+[ ] 10 - Add grade dialog
+[ ] 11 - Grade summary
+[ ] 12 - Multiple grades
+[ ] 13 - Statistics dashboard
+[ ] 14 - Statistics detail
+[ ] 15 - File menu
+
+QUALITY CHECK:
+[ ] All screenshots clear and readable
+[ ] All screenshots properly named
+[ ] All screenshots inserted into report
+[ ] Captions added
+[ ] Images centered
+[ ] Images sized appropriately
+[ ] File format is PNG
+
+================================================================================
+                        TIME ESTIMATE: 30-45 minutes
+================================================================================
+
+BREAKDOWN:
+- Setup and first run: 5 minutes
+- Student screenshots: 10 minutes
+- Grade screenshots: 10 minutes
+- Statistics screenshots: 5 minutes
+- Menu screenshots: 5 minutes
+- Review and quality check: 5-10 minutes
+
+TIP: Take all screenshots in one session to ensure consistency.
+
+================================================================================
+                              TROUBLESHOOTING
+================================================================================
+
+ISSUE: Application won't start
+SOLUTION:
+cd src
+javac gui/MainFrame.java
+java gui.MainFrame
+
+ISSUE: No data showing
+SOLUTION:
+Check that data/students.txt and data/grades.txt have sample data
+
+ISSUE: Screenshots too dark
+SOLUTION:
+Increase screen brightness or adjust screenshot tool settings
+
+ISSUE: Dialog too small in screenshot
+SOLUTION:
+Take screenshot, then crop to focus on dialog
+
+================================================================================
+                              GOOD LUCK!
+================================================================================
+
+Take your time and ensure all screenshots are clear and demonstrate
+the features properly. These screenshots are crucial for showing your
+working application!
+
+================================================================================

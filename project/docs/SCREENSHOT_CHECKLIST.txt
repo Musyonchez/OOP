@@ -1,0 +1,610 @@
+================================================================================
+                     SCREENSHOT CAPTURE CHECKLIST
+           Library Management System - Complete Guide
+================================================================================
+
+TOTAL SCREENSHOTS NEEDED: 31
+
+TOOLS NEEDED:
+- Running Java program (java Main from src/ directory)
+- Screenshot tool (Spectacle, Flameshot, GNOME Screenshot, or Ctrl+Print Screen)
+- Image viewer to verify quality
+
+NAMING CONVENTION:
+screenshot_01_main_menu.png
+screenshot_02_user_management_menu.png
+screenshot_03_member_profile_clean.png
+... etc.
+
+================================================================================
+                    SECTION 1: USER MANAGEMENT (7 screenshots)
+================================================================================
+
+✓ SCREENSHOT 1: Main Menu
+  Commands:
+    cd /home/musyonchez/Code/OOP/project/src
+    java Main
+
+  What to show: Main menu with 6 options
+  Insert in report: Section 7.1, first screenshot
+
+  File: screenshot_01_main_menu.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 2: User Management Menu
+  Commands:
+    java Main
+    1  (User Management)
+
+  What to show: User Management submenu (5 options)
+  Insert in report: Section 7.1, second screenshot
+
+  File: screenshot_02_user_management_menu.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 3: Member Profile (Clean Account)
+  Commands:
+    java Main
+    1  (User Management)
+    3  (View User Profile)
+    M001  (John Smith - no fines)
+
+  What to show: Member info with $0.00 fines, Active status
+  Insert in report: Section 7.1, third screenshot
+
+  File: screenshot_03_member_profile_clean.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 4: Member Profile (With Fines)
+  Commands:
+    java Main
+    1
+    3
+    M003  (Michael Brown - $15.50 fines)
+
+  What to show: Member info with $15.50 fines, Suspended status
+  Insert in report: Section 7.1, fourth screenshot
+
+  File: screenshot_04_member_profile_fines.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 5: Librarian Profile
+  Commands:
+    java Main
+    1
+    3
+    L001  (Alice Cooper)
+
+  What to show: Librarian info with employee ID, position, hire date
+  Insert in report: Section 7.1, fifth screenshot
+
+  File: screenshot_05_librarian_profile.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 6: Login as Member
+  Commands:
+    java Main
+    1
+    4  (Login)
+    M001
+
+  What to show: "Logged in as: John Smith"
+  Insert in report: Section 7.1, sixth screenshot
+
+  File: screenshot_06_login_member.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 7: Register New Member
+  Commands:
+    java Main
+    1
+    1  (Register New Member)
+    Test User
+    test@email.com
+    555-9999
+
+  What to show: Success message with new member ID
+  Insert in report: Section 7.1, seventh screenshot
+
+  File: screenshot_07_register_member.png
+
+
+================================================================================
+                 SECTION 2: MEDIA MANAGEMENT (3 screenshots)
+================================================================================
+
+✓ SCREENSHOT 8: Media Management Menu
+  Commands:
+    java Main
+    1
+    4  (Login)
+    L001  (Must login as librarian first!)
+    5  (Back)
+    2  (Media Management)
+
+  What to show: Media management menu (librarian only)
+  Insert in report: Section 7.2, first screenshot
+
+  File: screenshot_08_media_management_menu.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 9: Add New Book
+  Commands:
+    (Continue from above, logged in as L001)
+    1  (Add Book)
+    The Hunger Games
+    Suzanne Collins
+    978-0-439-02348-1
+    374
+    Scholastic
+
+  What to show: Success message with new book ID
+  Insert in report: Section 7.2, second screenshot
+
+  File: screenshot_09_add_book.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 10: View All Media (Sorted)
+  Commands:
+    (Continue from media management menu)
+    4  (View All Media)
+
+  What to show: List of books, magazines, DVDs sorted by title
+  Insert in report: Section 7.2, third screenshot
+
+  File: screenshot_10_view_all_media.png
+
+
+================================================================================
+              SECTION 3: BORROWING OPERATIONS (7 screenshots)
+================================================================================
+
+✓ SCREENSHOT 11: Borrowing Operations Menu
+  Commands:
+    java Main
+    3  (Borrowing Operations)
+
+  What to show: Borrow, Return, View Transactions menu
+  Insert in report: Section 7.3, first screenshot
+
+  File: screenshot_11_borrowing_menu.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 12: Successful Borrow
+  Commands:
+    java Main
+    1
+    4  (Login)
+    M002
+    5  (Back)
+    3  (Borrowing Operations)
+    1  (Borrow Media)
+    M002
+    B007  (The Hobbit - available)
+
+  What to show: Success message with due date
+  Insert in report: Section 7.3, second screenshot
+
+  File: screenshot_12_borrow_success.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 13: Failed Borrow - Fines Block
+  Commands:
+    java Main
+    3
+    1
+    M005  (Has $25 fines)
+    B001
+
+  What to show: Error "Cannot borrow. Pay fines first. Outstanding fines: $25.00"
+  Insert in report: Section 7.3, third screenshot
+
+  File: screenshot_13_borrow_fail_fines.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 14: Failed Borrow - Already Borrowed
+  Commands:
+    java Main
+    3
+    1
+    M002
+    B003  (Already borrowed by M001)
+
+  What to show: Error "Item already borrowed"
+  Insert in report: Section 7.3, fourth screenshot
+
+  File: screenshot_14_borrow_fail_unavailable.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 15: Return Media (On Time)
+  Commands:
+    java Main
+    3
+    2  (Return Media)
+    T001
+
+  What to show: "Item returned successfully." with $0 late fee
+  Insert in report: Section 7.3, fifth screenshot
+
+  File: screenshot_15_return_on_time.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 16: Return Media (Late - With Fee)
+  SPECIAL NOTE: This requires an actually overdue transaction.
+
+  Option 1 - Edit transactions.txt manually:
+    1. Open ../data/transactions.txt
+    2. Find a transaction with empty returnDate
+    3. Change dueDate to a date in the past (e.g., 2024-10-01)
+    4. Save and run program
+
+  Option 2 - Use existing completed late transaction:
+    T011 already has late fee: $6.50
+    Just show transaction details instead of returning
+
+  Commands:
+    java Main
+    3
+    2
+    T011  (or use modified transaction)
+
+  What to show: Late fee calculation and amount
+  Insert in report: Section 7.3, sixth screenshot
+
+  File: screenshot_16_return_late_fee.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 17: View Transaction History
+  Commands:
+    java Main
+    3
+    3  (View My Transactions)
+    M001
+
+  What to show: List of all transactions for user
+  Insert in report: Section 7.3, seventh screenshot
+
+  File: screenshot_17_transaction_history.png
+
+
+================================================================================
+                SECTION 4: SEARCH AND SORT (7 screenshots)
+================================================================================
+
+✓ SCREENSHOT 18: Search & Sort Menu
+  Commands:
+    java Main
+    4  (Search & Sort)
+
+  What to show: Search and sort options menu
+  Insert in report: Section 7.4, first screenshot
+
+  File: screenshot_18_search_sort_menu.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 19: Linear Search - Multiple Results
+  Commands:
+    java Main
+    4
+    1  (Search by Title - Linear)
+    the
+
+  What to show: Multiple results containing "the" (The Hobbit, The Great Gatsby, etc.)
+  Insert in report: Section 7.4, second screenshot
+
+  File: screenshot_19_linear_search_multiple.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 20: Linear Search - No Results
+  Commands:
+    java Main
+    4
+    1
+    xyz123
+
+  What to show: "No matches found."
+  Insert in report: Section 7.4, third screenshot
+
+  File: screenshot_20_linear_search_none.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 21: Binary Search - Found
+  Commands:
+    java Main
+    4
+    2  (Search by ISBN - Binary)
+    978-0-439-70818-8  (Harry Potter ISBN)
+
+  What to show: Book found with details
+  Insert in report: Section 7.4, fourth screenshot
+
+  File: screenshot_21_binary_search_found.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 22: Binary Search - Not Found
+  Commands:
+    java Main
+    4
+    2
+    999-9-99-999999-9
+
+  What to show: "Book not found."
+  Insert in report: Section 7.4, fifth screenshot
+
+  File: screenshot_22_binary_search_notfound.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 23: Before Sorting
+  Commands:
+    java Main
+    2  (Media Management - must be logged in as librarian)
+    4  (View All Media)
+
+  NOTE: Before taking this, make sure media is NOT sorted.
+  If already sorted, add a new book with title starting with "A" and one with "Z"
+
+  What to show: Media in unsorted/file order
+  Insert in report: Section 7.4, sixth screenshot
+
+  File: screenshot_23_before_sort.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 24: After Quick Sort
+  Commands:
+    java Main
+    4
+    3  (Sort Media by Title - Quick Sort)
+
+    Then view sorted list:
+    5  (Back)
+    2  (Media Management)
+    4  (View All Media)
+
+  What to show: All media sorted alphabetically
+  Insert in report: Section 7.4, seventh screenshot
+
+  File: screenshot_24_after_sort.png
+
+
+================================================================================
+                SECTION 5: REPORTS AND STATISTICS (4 screenshots)
+================================================================================
+
+✓ SCREENSHOT 25: Reports Menu
+  Commands:
+    java Main
+    5  (Reports & Statistics)
+
+  What to show: Reports menu options
+  Insert in report: Section 7.5, first screenshot
+
+  File: screenshot_25_reports_menu.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 26: System Statistics
+  Commands:
+    java Main
+    5
+    1  (System Statistics)
+
+  What to show: Total users, media, transactions counts
+  Insert in report: Section 7.5, second screenshot
+
+  File: screenshot_26_system_statistics.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 27: Overdue Items Report
+  Commands:
+    java Main
+    5
+    2  (Overdue Items)
+
+  NOTE: This may show "No overdue items" unless you have transactions past due.
+  To create overdue items, edit transactions.txt and set due dates in the past.
+
+  What to show: List of overdue transactions
+  Insert in report: Section 7.5, third screenshot
+
+  File: screenshot_27_overdue_items.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 28: Member Report
+  Commands:
+    java Main
+    5
+    3  (Member Report)
+    M003  (Has borrowed items and fines)
+
+  What to show: Member details with borrowed items list and fines
+  Insert in report: Section 7.5, fourth screenshot
+
+  File: screenshot_28_member_report.png
+
+
+================================================================================
+                  SECTION 6: ERROR HANDLING (3 screenshots)
+================================================================================
+
+✓ SCREENSHOT 29: Invalid User ID
+  Commands:
+    java Main
+    1
+    3  (View User Profile)
+    XXX999
+
+  What to show: "User not found."
+  Insert in report: Section 7.6, first screenshot
+
+  File: screenshot_29_error_invalid_user.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 30: Invalid Menu Choice
+  Commands:
+    java Main
+    99
+
+  What to show: Returns to menu or shows "Invalid choice"
+  Insert in report: Section 7.6, second screenshot
+
+  File: screenshot_30_error_invalid_menu.png
+
+--------------------------------------------------------------------------------
+
+✓ SCREENSHOT 31: Non-Member Trying to Borrow
+  Commands:
+    java Main
+    3
+    1  (Borrow Media)
+    L001  (Librarian, not member)
+    B001
+
+  What to show: "Error: Only members can borrow items."
+  Insert in report: Section 7.6, third screenshot
+
+  File: screenshot_31_error_librarian_borrow.png
+
+
+================================================================================
+                         BONUS SCREENSHOTS (Optional)
+================================================================================
+
+✓ BONUS 1: Flowchart - Main Program Flow
+  Location: /home/musyonchez/Code/OOP/project/docs/flowcharts/1_main_program_flow.png
+  Already created by you
+  Insert in report: Section 4 (Algorithms)
+
+✓ BONUS 2: Flowchart - Borrow Media Algorithm
+  Location: /home/musyonchez/Code/OOP/project/docs/flowcharts/2_borrow_media_algorithm.png
+  Already created by you
+  Insert in report: Section 4 (Algorithms)
+
+✓ BONUS 3: Flowchart - Linear Search
+  Location: /home/musyonchez/Code/OOP/project/docs/flowcharts/3_linear_search_algorithm.png
+  Already created by you
+  Insert in report: Section 4.1
+
+✓ BONUS 4: Flowchart - Binary Search
+  Location: /home/musyonchez/Code/OOP/project/docs/flowcharts/4_binary_search_algorithm.png
+  Already created by you
+  Insert in report: Section 4.2
+
+✓ BONUS 5: Flowchart - Quick Sort
+  Location: /home/musyonchez/Code/OOP/project/docs/flowcharts/5_quick_sort_algorithm.png
+  Already created by you
+  Insert in report: Section 4.3
+
+
+================================================================================
+                          SCREENSHOT QUALITY TIPS
+================================================================================
+
+BEST PRACTICES:
+✓ Use full terminal window (maximize for clarity)
+✓ Use readable font size (14pt or larger)
+✓ Ensure good contrast (dark theme recommended)
+✓ Capture entire relevant output (don't cut off)
+✓ Save as PNG (better quality than JPG)
+✓ Name files descriptively
+
+RESOLUTION:
+- Minimum: 1280x720
+- Recommended: 1920x1080
+- DPI: 300 for print quality
+
+LIGHTING/CONTRAST:
+- Dark terminal theme works best for screenshots
+- Ensure text is clearly readable
+- Avoid screenshots of screenshots (take fresh ones)
+
+
+================================================================================
+                        INSERTING INTO REPORT
+================================================================================
+
+IN WORD/GOOGLE DOCS:
+1. Convert PROJECT_REPORT.txt to Word document
+2. Find placeholder: [INSERT SCREENSHOT HERE]
+3. Insert → Image → From File
+4. Select appropriate screenshot
+5. Add caption: "Figure X: Screenshot Name"
+6. Ensure image is centered and properly sized
+
+IN LATEX:
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{screenshot_01_main_menu.png}
+\caption{Main Menu of Library Management System}
+\label{fig:main_menu}
+\end{figure}
+
+IN MARKDOWN:
+![Main Menu](screenshots/screenshot_01_main_menu.png)
+*Figure 1: Main Menu of Library Management System*
+
+
+================================================================================
+                           QUICK CHECKLIST
+================================================================================
+
+Before submission, verify you have:
+
+[ ] All 31 screenshots captured
+[ ] All screenshots are clear and readable
+[ ] All screenshots are properly named
+[ ] Flowcharts (5) are included
+[ ] Screenshots inserted into report document
+[ ] Figure captions added
+[ ] Images centered and sized appropriately
+[ ] Final PDF generated from report
+[ ] PDF is under 25MB (compress images if needed)
+
+
+================================================================================
+                        TIME ESTIMATE: 45-60 minutes
+================================================================================
+
+BREAKDOWN:
+- Setup and first run: 5 minutes
+- User Management screenshots: 10 minutes
+- Media Management screenshots: 5 minutes
+- Borrowing Operations screenshots: 15 minutes
+- Search and Sort screenshots: 10 minutes
+- Reports and Error screenshots: 10 minutes
+- Review and quality check: 10 minutes
+
+TIPS TO SAVE TIME:
+- Take multiple screenshots in one session
+- Use script to automate inputs (echo -e "1\n3\nM001" | java Main)
+- Review all screenshots before closing terminal
+- Keep a checklist and mark off as you go
+
+
+================================================================================
+                              END OF CHECKLIST
+================================================================================
+
+Good luck! Take your time and ensure all screenshots are clear and complete.

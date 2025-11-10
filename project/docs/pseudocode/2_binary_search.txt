@@ -1,0 +1,117 @@
+================================================================================
+BINARY SEARCH ALGORITHM - Pseudocode
+================================================================================
+
+Purpose: Efficiently search for a book by ISBN in a sorted list
+Time Complexity: O(log n) - halves search space each iteration
+Space Complexity: O(1) - constant space (iterative version)
+Best for: Sorted data, exact matches, large datasets
+
+================================================================================
+
+ALGORITHM BinarySearchByISBN(bookList, targetISBN)
+
+INPUT:
+    bookList: List of Book objects (must be sorted by ISBN)
+    targetISBN: String ISBN to find
+
+OUTPUT:
+    Book object if found, NULL if not found
+
+BEGIN
+    1. SORT bookList by ISBN in ascending order
+
+    2. INITIALIZE left = 0
+    3. INITIALIZE right = SIZE(bookList) - 1
+
+    4. WHILE left <= right DO
+        4.1 SET mid = left + (right - left) / 2
+        4.2 SET midBook = bookList[mid]
+        4.3 SET midISBN = midBook.isbn
+
+        4.4 IF midISBN == targetISBN THEN
+            4.4.1 DISPLAY "Book found!"
+            4.4.2 RETURN midBook
+        ELSE IF midISBN < targetISBN THEN
+            4.5.1 SET left = mid + 1    // Search right half
+        ELSE
+            4.6.1 SET right = mid - 1   // Search left half
+        END IF
+    END WHILE
+
+    5. DISPLAY "Book not found"
+    6. RETURN NULL
+END
+
+================================================================================
+
+EXAMPLE TRACE:
+
+Given sorted bookList by ISBN:
+Index:  0           1           2           3           4           5           6
+ISBN:   111-1111    222-2222    333-3333    444-4444    555-5555    666-6666    777-7777
+
+Search for: "555-5555"
+
+Iteration 1:
+    left = 0, right = 6
+    mid = 0 + (6 - 0) / 2 = 3
+    midISBN = "444-4444"
+    "444-4444" < "555-5555" → Search right half
+    left = 4
+
+Iteration 2:
+    left = 4, right = 6
+    mid = 4 + (6 - 4) / 2 = 5
+    midISBN = "666-6666"
+    "666-6666" > "555-5555" → Search left half
+    right = 4
+
+Iteration 3:
+    left = 4, right = 4
+    mid = 4 + (4 - 4) / 2 = 4
+    midISBN = "555-5555"
+    "555-5555" == "555-5555" → FOUND!
+    Return bookList[4]
+
+Total comparisons: 3 (vs 5 comparisons for linear search)
+
+================================================================================
+
+SEARCH SPACE REDUCTION:
+
+For a list of size n:
+- After 1 comparison: n/2 elements remain
+- After 2 comparisons: n/4 elements remain
+- After 3 comparisons: n/8 elements remain
+- After k comparisons: n/(2^k) elements remain
+
+For 1,000,000 books:
+- Binary search: max 20 comparisons (log₂ 1,000,000 ≈ 20)
+- Linear search: max 1,000,000 comparisons
+
+Efficiency gain: 50,000x faster!
+
+================================================================================
+
+ADVANTAGES:
+- Extremely fast for large datasets
+- Predictable performance (logarithmic growth)
+- Efficient memory usage (in-place search)
+- Industry standard for sorted data
+
+DISADVANTAGES:
+- Requires sorted data (sorting cost: O(n log n))
+- Only works for exact matches (not substring search)
+- More complex to implement than linear search
+- Not suitable if data changes frequently (re-sorting needed)
+
+USE CASES IN LIBRARY SYSTEM:
+- Find book by exact ISBN
+- Lookup user by sorted member ID
+- Search catalog numbers
+- Any scenario with large, sorted, stable datasets
+
+PREREQUISITE:
+The list MUST be sorted before binary search. If unsorted, sorting adds
+O(n log n) overhead, which may negate the benefit for small datasets.

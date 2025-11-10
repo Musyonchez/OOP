@@ -1,0 +1,30 @@
+B001|To Kill a Mockingbird|BOOK|true||Harper Lee|978-0-06-112008-4|324|Harper Perennial
+B002|1984|BOOK|true||George Orwell|978-0-452-28423-4|328|Signet Classic
+B003|The Great Gatsby|BOOK|false|M001|F. Scott Fitzgerald|978-0-7432-7356-5|180|Scribner
+B004|Pride and Prejudice|BOOK|true||Jane Austen|978-0-14-143951-8|279|Penguin Classics
+B005|The Catcher in the Rye|BOOK|false|M002|J.D. Salinger|978-0-316-76948-0|277|Little Brown and Company
+B006|Harry Potter and the Sorcerer's Stone|BOOK|false|M004|J.K. Rowling|978-0-439-70818-8|309|Scholastic
+B007|The Hobbit|BOOK|true||J.R.R. Tolkien|978-0-547-92822-7|310|Mariner Books
+B008|Brave New World|BOOK|true||Aldous Huxley|978-0-06-085052-4|268|Harper Perennial
+B009|The Lord of the Rings|BOOK|true||J.R.R. Tolkien|978-0-544-00341-5|1178|Mariner Books
+B010|Animal Farm|BOOK|true||George Orwell|978-0-452-28424-1|112|Signet Classic
+B011|Moby Dick|BOOK|true||Herman Melville|978-0-14-243724-7|654|Penguin Classics
+B012|Jane Eyre|BOOK|true||Charlotte Bronte|978-0-14-144114-6|532|Penguin Classics
+M001|National Geographic|MAGAZINE|false|M003|202|National Geographic Society|2024-01-01
+M002|Time Magazine|MAGAZINE|true||15|Time Inc.|2024-02-15
+M003|Scientific American|MAGAZINE|false|M004|8|Springer Nature|2024-03-01
+M004|The Economist|MAGAZINE|true||45|The Economist Group|2024-04-10
+M005|Wired|MAGAZINE|false|M006|12|Conde Nast|2024-05-05
+M006|Reader's Digest|MAGAZINE|false|M008|9|Trusted Media Brands|2024-08-01
+M007|Smithsonian|MAGAZINE|true||3|Smithsonian Institution|2024-07-01
+M008|Popular Science|MAGAZINE|true||7|Popular Science|2024-06-01
+D001|The Shawshank Redemption|DVD|true||Frank Darabont|142|Drama|1994
+D002|The Godfather|DVD|true||Francis Ford Coppola|175|Crime|1972
+D003|The Dark Knight|DVD|false|M006|Christopher Nolan|152|Action|2008
+D004|Pulp Fiction|DVD|true||Quentin Tarantino|154|Crime|1994
+D005|Forrest Gump|DVD|false|M008|Robert Zemeckis|142|Drama|1994
+D006|Inception|DVD|false|M010|Christopher Nolan|148|Sci-Fi|2010
+D007|The Matrix|DVD|true||Lana Wachowski|136|Sci-Fi|1999
+D008|Interstellar|DVD|true||Christopher Nolan|169|Sci-Fi|2014
+D009|The Lion King|DVD|true||Roger Allers|88|Animation|1994
+D010|Spirited Away|DVD|true||Hayao Miyazaki|125|Animation|2001

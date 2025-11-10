@@ -1,0 +1,102 @@
+================================================================================
+LINEAR SEARCH ALGORITHM - Pseudocode
+================================================================================
+
+Purpose: Search for media items by title using substring matching
+Time Complexity: O(n) - checks every element in the list
+Space Complexity: O(k) - where k is the number of matching results
+Best for: Unsorted data, substring matching, small datasets
+
+================================================================================
+
+ALGORITHM LinearSearchByTitle(mediaList, searchTerm)
+
+INPUT:
+    mediaList: List of MediaItem objects
+    searchTerm: String to search for in titles
+
+OUTPUT:
+    results: List of MediaItem objects that match the search term
+
+BEGIN
+    1. SET searchTerm = LOWERCASE(searchTerm)
+    2. INITIALIZE results = empty list
+    3. INITIALIZE index = 0
+
+    4. WHILE index < SIZE(mediaList) DO
+        4.1 SET currentItem = mediaList[index]
+        4.2 SET currentTitle = LOWERCASE(currentItem.title)
+
+        4.3 IF currentTitle CONTAINS searchTerm THEN
+            4.3.1 ADD currentItem TO results
+        END IF
+
+        4.4 INCREMENT index by 1
+    END WHILE
+
+    5. IF results is empty THEN
+        5.1 DISPLAY "No matches found"
+    ELSE
+        5.2 DISPLAY "Found " + SIZE(results) + " results"
+        5.3 FOR EACH item IN results DO
+            5.3.1 DISPLAY item details
+        END FOR
+    END IF
+
+    6. RETURN results
+END
+
+================================================================================
+
+EXAMPLE TRACE:
+
+Given mediaList = ["Harry Potter", "The Hobbit", "1984", "The Great Gatsby"]
+Search for: "the"
+
+Step 1: searchTerm = "the"
+Step 2: results = []
+Step 3: index = 0
+
+Iteration 1 (index=0):
+    currentTitle = "harry potter"
+    "harry potter" contains "the"? NO
+    index = 1
+
+Iteration 2 (index=1):
+    currentTitle = "the hobbit"
+    "the hobbit" contains "the"? YES
+    results = ["The Hobbit"]
+    index = 2
+
+Iteration 3 (index=2):
+    currentTitle = "1984"
+    "1984" contains "the"? NO
+    index = 3
+
+Iteration 4 (index=3):
+    currentTitle = "the great gatsby"
+    "the great gatsby" contains "the"? YES
+    results = ["The Hobbit", "The Great Gatsby"]
+    index = 4
+
+Step 5: Display 2 results
+Step 6: Return results
+
+================================================================================
+
+ADVANTAGES:
+- Works on unsorted data
+- Finds all matches (not just first one)
+- Supports substring matching (flexible search)
+- Simple to implement and understand
+
+DISADVANTAGES:
+- Slow for large datasets (must check every element)
+- No early termination if multiple results needed
+- Less efficient than binary search for exact matches on sorted data
+
+USE CASES IN LIBRARY SYSTEM:
+- Search books by partial title
+- Find media items by author name
+- Search by publisher
+- Any scenario where data is unsorted or substring matching is needed

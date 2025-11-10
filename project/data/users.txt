@@ -1,0 +1,12 @@
+M001|John Smith|john.smith@email.com|555-0101|MEMBER|2023-01-15|0.0
+M002|Sarah Johnson|sarah.j@email.com|555-0102|MEMBER|2023-02-20|0.0
+M003|Michael Brown|m.brown@email.com|555-0103|MEMBER|2023-03-10|15.50
+M004|Emily Davis|emily.davis@email.com|555-0104|MEMBER|2023-04-05|0.0
+M005|James Wilson|j.wilson@email.com|555-0105|MEMBER|2023-05-12|25.00
+M006|Lisa Anderson|lisa.a@email.com|555-0106|MEMBER|2023-06-08|0.0
+M007|David Martinez|david.m@email.com|555-0107|MEMBER|2023-07-22|0.0
+M008|Jennifer Taylor|jenny.t@email.com|555-0108|MEMBER|2023-08-14|0.0
+M009|Robert Thomas|rob.thomas@email.com|555-0109|MEMBER|2023-09-03|0.0
+M010|Mary Garcia|mary.garcia@email.com|555-0110|MEMBER|2023-10-18|5.00
+L001|Alice Cooper|alice.cooper@library.com|555-0201|LIBRARIAN|EMP001|Head Librarian|2020-01-10
+L002|Bob Williams|bob.w@library.com|555-0202|LIBRARIAN|EMP002|Assistant Librarian|2021-06-15

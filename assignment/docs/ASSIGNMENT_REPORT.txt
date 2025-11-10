@@ -1,0 +1,976 @@
+================================================================================
+                  STUDENT MANAGEMENT SYSTEM
+            Java Swing GUI Application - Assignment Report
+================================================================================
+
+                       GROUP ASSIGNMENT REPORT
+                  Object-Oriented Programming Course
+                          [Course Code]
+                        [University Name]
+                         [Semester/Year]
+
+--------------------------------------------------------------------------------
+                            GROUP MEMBERS
+--------------------------------------------------------------------------------
+
+1. [Student Name 1]          - [Student ID]    - [Role/Contribution]
+2. [Student Name 2]          - [Student ID]    - [Role/Contribution]
+3. [Student Name 3]          - [Student ID]    - [Role/Contribution]
+4. [Student Name 4]          - [Student ID]    - [Role/Contribution]
+
+Date of Submission: [Date]
+Instructor: [Instructor Name]
+
+================================================================================
+                            TABLE OF CONTENTS
+================================================================================
+
+1. Introduction
+   1.1 Project Overview
+   1.2 Objectives
+   1.3 Features
+
+2. System Design
+   2.1 Architecture
+   2.2 Class Structure
+   2.3 Data Model
+
+3. Swing Components
+   3.1 Components Used
+   3.2 Layout Managers
+   3.3 Event Handling
+
+4. Implementation Details
+   4.1 Student Management
+   4.2 Grade Management
+   4.3 Statistics Dashboard
+   4.4 File Operations
+
+5. Screenshots and Demonstration
+   5.1 Main Application Window
+   5.2 Student Operations
+   5.3 Grade Operations
+   5.4 Statistics View
+   5.5 Menu System
+
+6. Challenges and Solutions
+   6.1 Technical Challenges
+   6.2 Design Decisions
+   6.3 Lessons Learned
+
+7. Conclusion
+
+8. References
+
+================================================================================
+                          1. INTRODUCTION
+================================================================================
+
+1.1 PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+
+The Student Management System is a desktop GUI application built using Java
+Swing components. The application provides a comprehensive solution for managing
+student records and their academic performance through an intuitive graphical
+interface.
+
+The system allows users to:
+- Add, edit, and delete student records
+- Manage grades for multiple subjects per student
+- View comprehensive statistics about student performance
+- Search and filter student information
+- Save and load data from persistent storage
+
+This project demonstrates practical application of Java Swing components,
+event-driven programming, and object-oriented design principles.
+
+
+1.2 OBJECTIVES
+--------------------------------------------------------------------------------
+
+The primary objectives of this project were:
+
+1. DEMONSTRATE SWING COMPONENTS:
+   - Implement a variety of Swing GUI components
+   - Use different layout managers appropriately
+   - Handle user events effectively
+
+2. APPLY OOP PRINCIPLES:
+   - Create well-designed classes with clear responsibilities
+   - Use encapsulation for data protection
+   - Implement model-view separation
+
+3. PROVIDE USEFUL FUNCTIONALITY:
+   - Create a real-world application
+   - Implement full CRUD operations (Create, Read, Update, Delete)
+   - Provide meaningful user feedback
+
+4. ENSURE USABILITY:
+   - Design intuitive user interface
+   - Provide helpful error messages
+   - Implement data validation
+
+
+1.3 FEATURES
+--------------------------------------------------------------------------------
+
+STUDENT MANAGEMENT:
+- Add new students with ID, name, email, and major
+- Edit existing student information
+- Delete students with confirmation
+- Search students by name or ID
+- View detailed student information
+
+GRADE MANAGEMENT:
+- Select student from dropdown
+- Add grades for subjects with scores and semesters
+- Edit existing grades
+- Delete grades with confirmation
+- View student grade summary (average, letter grade, status)
+
+STATISTICS DASHBOARD:
+- Overview cards showing key metrics
+- Detailed statistics report
+- Grade distribution (A/B/C/D/F counts)
+- Major distribution
+- Top performer identification
+- Pass/fail rate calculation
+
+DATA PERSISTENCE:
+- Save data to text files
+- Load data on startup
+- Auto-save on exit
+- Manual save option (Ctrl+S)
+
+USER INTERFACE:
+- Tabbed interface for easy navigation
+- Menu bar with File, Edit, and Help menus
+- Keyboard shortcuts (Ctrl+S, Ctrl+N, Ctrl+Q, F5, F1)
+- Responsive design with proper layouts
+
+
+================================================================================
+                         2. SYSTEM DESIGN
+================================================================================
+
+2.1 ARCHITECTURE
+--------------------------------------------------------------------------------
+
+The application follows a modular architecture with clear separation of concerns:
+
+PACKAGES:
+1. models/     - Data models (Student, Grade)
+2. gui/        - User interface components
+3. utils/      - Utility classes (DataManager)
+
+DESIGN PATTERN:
+The system uses a simplified MVC-inspired pattern:
+- Models: Student and Grade classes
+- Views: GUI panels (StudentPanel, GradePanel, StatisticsPanel)
+- Controller: Event handlers in GUI classes
+- Data Layer: DataManager for file operations
+
+
+2.2 CLASS STRUCTURE
+--------------------------------------------------------------------------------
+
+MODEL CLASSES:
+
+1. Student.java (150 lines)
+   - Represents a student with personal information
+   - Manages list of grades
+   - Calculates average, letter grade, and status
+   - Provides data validation
+
+2. Grade.java (100 lines)
+   - Represents a grade for a subject
+   - Validates score (0-100 range)
+   - Calculates letter grade
+   - Determines pass/fail status
+
+GUI CLASSES:
+
+3. MainFrame.java (200 lines)
+   - Main application window
+   - Creates tabbed interface
+   - Implements menu bar
+   - Handles application lifecycle
+
+4. StudentPanel.java (400 lines)
+   - Student management interface
+   - JTable for displaying students
+   - Add/Edit/Delete dialogs
+   - Search functionality
+
+5. GradePanel.java (400 lines)
+   - Grade management interface
+   - Student selection dropdown
+   - Grade table display
+   - Add/Edit/Delete operations
+   - Summary panel
+
+6. StatisticsPanel.java (300 lines)
+   - Statistics dashboard
+   - Overview cards (summary metrics)
+   - Detailed statistics report
+   - Refresh functionality
+
+UTILITY CLASSES:
+
+7. DataManager.java (150 lines)
+   - File I/O operations
+   - Save/load students and grades
+   - File initialization
+   - Error handling
+
+
+2.3 DATA MODEL
+--------------------------------------------------------------------------------
+
+STUDENT ENTITY:
+Fields:
+- studentId (String)  - Unique identifier
+- name (String)       - Student name
+- email (String)      - Contact email
+- major (String)      - Field of study
+- grades (List)       - List of Grade objects
+
+Methods:
+- addGrade(), removeGrade()
+- calculateAverage()
+- getLetterGrade()
+- getStatus()
+
+GRADE ENTITY:
+Fields:
+- subject (String)    - Course name
+- score (double)      - Numerical score (0-100)
+- semester (String)   - Academic term
+
+Methods:
+- setScore() with validation
+- getLetterGrade()
+- isPassing()
+
+FILE FORMAT:
+students.txt:  ID|Name|Email|Major
+grades.txt:    StudentID|Subject|Score|Semester
+
+
+================================================================================
+                        3. SWING COMPONENTS
+================================================================================
+
+3.1 COMPONENTS USED
+--------------------------------------------------------------------------------
+
+CONTAINER COMPONENTS:
+✓ JFrame          - Main application window
+✓ JPanel          - Content panels for each tab
+✓ JTabbedPane     - Tabbed interface (Students, Grades, Statistics)
+✓ JScrollPane     - Scrollable content for tables and text areas
+✓ JDialog         - Modal dialogs for add/edit operations
+
+DISPLAY COMPONENTS:
+✓ JTable          - Student list and grade list tables
+✓ JLabel          - Text labels and headers
+✓ JTextArea       - Multi-line statistics display
+
+INPUT COMPONENTS:
+✓ JTextField      - Single-line text input (name, email, etc.)
+✓ JComboBox       - Dropdown for student selection
+✓ JButton         - Action buttons (Add, Edit, Delete, etc.)
+
+MENU COMPONENTS:
+✓ JMenuBar        - Top menu bar
+✓ JMenu           - File, Edit, Help menus
+✓ JMenuItem       - Individual menu items
+
+DIALOG COMPONENTS:
+✓ JOptionPane     - Message dialogs, confirmations, input
+
+
+3.2 LAYOUT MANAGERS
+--------------------------------------------------------------------------------
+
+BORDERLAYOUT:
+- Used in: All main panels
+- Purpose: Divide panel into regions (North, South, East, West, Center)
+- Example: Title at North, content at Center, buttons at East
+
+GRIDLAYOUT:
+- Used in: Button panels, dialog forms, summary cards
+- Purpose: Arrange components in grid
+- Example: 5x1 grid for buttons, 2x2 grid for form fields
+
+FLOWLAYOUT:
+- Used in: Search panels, horizontal groupings
+- Purpose: Arrange components in a row
+- Example: Search label + text field + button in a row
+
+
+3.3 EVENT HANDLING
+--------------------------------------------------------------------------------
+
+ACTION LISTENERS:
+Used for button clicks, menu items, combo box selection
+
+Example:
+addButton.addActionListener(e -> showAddDialog());
+
+WINDOW LISTENERS:
+Used for window closing event to save data
+
+Example:
+addWindowListener(new WindowAdapter() {
+    @Override
+    public void windowClosing(WindowEvent e) {
+        saveData();
+    }
+});
+
+CHANGE LISTENERS:
+Used for tab changes to refresh statistics
+
+Example:
+tabbedPane.addChangeListener(e -> {
+    if (tabbedPane.getSelectedIndex() == 2) {
+        statisticsPanel.refreshStatistics();
+    }
+});
+
+KEY ACCELERATORS:
+Keyboard shortcuts for common actions
+
+Examples:
+- Ctrl+S: Save
+- Ctrl+N: Add Student
+- Ctrl+Q: Exit
+- F5: Refresh
+- F1: Help
+
+
+================================================================================
+                     4. IMPLEMENTATION DETAILS
+================================================================================
+
+4.1 STUDENT MANAGEMENT
+--------------------------------------------------------------------------------
+
+ADD STUDENT OPERATION:
+1. User clicks "Add Student" button
+2. Dialog opens with input fields
+3. User enters: ID, Name, Email, Major
+4. Validation:
+   - Check ID and Name are not empty
+   - Check for duplicate student ID
+5. Create new Student object
+6. Add to student list
+7. Refresh table
+8. Show success message
+
+CODE EXAMPLE:
+Student student = new Student(id, name, email, major);
+students.add(student);
+refreshTable();
+
+EDIT STUDENT OPERATION:
+1. User selects student in table
+2. User clicks "Edit Student"
+3. Dialog opens with current values
+4. User modifies fields (ID is read-only)
+5. Update Student object
+6. Refresh table
+7. Show success message
+
+DELETE STUDENT OPERATION:
+1. User selects student in table
+2. User clicks "Delete Student"
+3. Confirmation dialog appears
+4. If confirmed:
+   - Remove student from list
+   - Refresh table
+   - Show success message
+
+SEARCH OPERATION:
+1. User enters search term in text field
+2. User clicks "Search" or presses Enter
+3. Filter table to show only matching students
+4. Match on: Student ID or Name (case-insensitive)
+5. Clear button restores full list
+
+
+4.2 GRADE MANAGEMENT
+--------------------------------------------------------------------------------
+
+STUDENT SELECTION:
+1. ComboBox populated with all students
+2. Format: "ID - Name"
+3. User selects from dropdown
+4. Load and display grades for selected student
+5. Update summary panel
+
+ADD GRADE OPERATION:
+1. Ensure student is selected
+2. User clicks "Add Grade"
+3. Dialog with fields: Subject, Score, Semester
+4. Validation:
+   - Subject and Score required
+   - Score must be number between 0-100
+5. Create Grade object
+6. Add to student's grade list
+7. Refresh grade table
+8. Update summary
+
+CODE EXAMPLE:
+Grade grade = new Grade(subject, score, semester);
+currentStudent.addGrade(grade);
+refreshGradeTable();
+
+EDIT GRADE OPERATION:
+1. User selects grade in table
+2. User clicks "Edit Grade"
+3. Dialog with current values
+4. User modifies fields
+5. Validation same as add
+6. Update Grade object
+7. Refresh table
+
+SUMMARY PANEL:
+Displays:
+- Total courses enrolled
+- Overall average score
+- Letter grade
+- Status (Pass/Fail)
+
+Automatically updates when grades change
+
+
+4.3 STATISTICS DASHBOARD
+--------------------------------------------------------------------------------
+
+OVERVIEW CARDS:
+Display four key metrics:
+1. Total Students      - Count of all students
+2. Passing Students    - Students with average >= 50
+3. Failing Students    - Students with average < 50
+4. Average Score       - System-wide average
+
+DETAILED STATISTICS REPORT:
+Shows:
+- Overall statistics (total, with grades, without grades)
+- Academic performance (passing, failing, pass rate, average)
+- Top performer (name, ID, average, letter grade)
+- Grade distribution (A/B/C/D/F counts)
+- Major distribution (students per major)
+
+CALCULATION LOGIC:
+for (Student student : students) {
+    double avg = student.calculateAverage();
+    totalAverage += avg;
+    if (student.getStatus().equals("Pass")) {
+        passingStudents++;
+    }
+}
+systemAverage = totalAverage / studentsWithGrades;
+
+
+4.4 FILE OPERATIONS
+--------------------------------------------------------------------------------
+
+FILE FORMAT:
+Pipe-delimited text files for simplicity and readability
+
+SAVE OPERATION:
+1. Open file for writing
+2. For each student:
+   - Write: ID|Name|Email|Major
+3. For each student's grade:
+   - Write: StudentID|Subject|Score|Semester
+4. Close files
+
+CODE EXAMPLE:
+try (BufferedWriter writer = new BufferedWriter(new FileWriter(STUDENTS_FILE))) {
+    for (Student student : students) {
+        writer.write(student.toString());
+        writer.newLine();
+    }
+}
+
+LOAD OPERATION:
+1. Check if files exist
+2. Read line by line
+3. Split by pipe delimiter
+4. Parse fields
+5. Create objects
+6. Associate grades with students
+
+ERROR HANDLING:
+- Try-catch for IOException
+- Validate file exists before reading
+- Handle NumberFormatException for scores
+- Skip malformed lines
+- Display error messages
+
+
+================================================================================
+                  5. SCREENSHOTS AND DEMONSTRATION
+================================================================================
+
+5.1 MAIN APPLICATION WINDOW
+--------------------------------------------------------------------------------
+
+[INSERT SCREENSHOT 1: Main window with all tabs visible]
+File: screenshot_01_main_window.png
+
+Shows:
+- Title bar with application name
+- Menu bar (File, Edit, Help)
+- Three tabs (Students, Grades, Statistics)
+- Status bar at bottom
+- Students tab active with sample data
+
+
+5.2 STUDENT OPERATIONS
+--------------------------------------------------------------------------------
+
+[INSERT SCREENSHOT 2: Student table with data]
+File: screenshot_02_student_table.png
+
+Shows:
+- Student list in JTable format
+- Columns: ID, Name, Email, Major, Average, Grade, Status
+- Search functionality at top
+- Action buttons on right side
+
+[INSERT SCREENSHOT 3: Add student dialog]
+File: screenshot_03_add_student.png
+
+Shows:
+- Modal dialog for adding student
+- Input fields: Student ID, Name, Email, Major
+- Save and Cancel buttons
+
+[INSERT SCREENSHOT 4: Edit student dialog]
+File: screenshot_04_edit_student.png
+
+Shows:
+- Edit dialog with populated fields
+- Student ID field disabled (read-only)
+- Modified values ready to save
+
+[INSERT SCREENSHOT 5: Delete confirmation]
+File: screenshot_05_delete_confirmation.png
+
+Shows:
+- Confirmation dialog before deleting
+- Student name shown in message
+- Yes/No options
+
+[INSERT SCREENSHOT 6: Search results]
+File: screenshot_06_search_results.png
+
+Shows:
+- Search field with term entered
+- Filtered table showing only matching students
+
+
+5.3 GRADE OPERATIONS
+--------------------------------------------------------------------------------
+
+[INSERT SCREENSHOT 7: Grade management tab]
+File: screenshot_07_grade_tab.png
+
+Shows:
+- Student selection dropdown at top
+- Grade table with subjects and scores
+- Summary panel at bottom
+- Add/Edit/Delete buttons on right
+
+[INSERT SCREENSHOT 8: Add grade dialog]
+File: screenshot_08_add_grade.png
+
+Shows:
+- Dialog for adding new grade
+- Fields: Subject, Score, Semester
+- Input validation
+
+[INSERT SCREENSHOT 9: Student grade summary]
+File: screenshot_09_grade_summary.png
+
+Shows:
+- Summary panel highlighting
+- Total courses, average, letter grade, status
+
+
+5.4 STATISTICS VIEW
+--------------------------------------------------------------------------------
+
+[INSERT SCREENSHOT 10: Statistics dashboard]
+File: screenshot_10_statistics.png
+
+Shows:
+- Four overview cards at top
+- Detailed statistics report below
+- Grade distribution
+- Major distribution
+
+[INSERT SCREENSHOT 11: Detailed statistics report]
+File: screenshot_11_statistics_detail.png
+
+Shows:
+- Scrollable text area with formatted report
+- All statistical calculations
+- Top performer information
+
+
+5.5 MENU SYSTEM
+--------------------------------------------------------------------------------
+
+[INSERT SCREENSHOT 12: File menu]
+File: screenshot_12_file_menu.png
+
+Shows:
+- File menu dropdown
+- Save, Reload, Exit options
+- Keyboard shortcuts shown
+
+[INSERT SCREENSHOT 13: Help dialog]
+File: screenshot_13_help_dialog.png
+
+Shows:
+- Help message dialog
+- Instructions for using the system
+- Keyboard shortcuts list
+
+
+================================================================================
+                     6. CHALLENGES AND SOLUTIONS
+================================================================================
+
+6.1 TECHNICAL CHALLENGES
+--------------------------------------------------------------------------------
+
+CHALLENGE 1: Table Refresh After Data Changes
+PROBLEM:
+JTable not updating automatically when underlying data changed.
+
+SOLUTION:
+Created refreshTable() methods in panels that:
+1. Clear existing rows: tableModel.setRowCount(0)
+2. Re-add all data from current list
+3. Call after every add/edit/delete operation
+
+CODE:
+public void refreshTable() {
+    tableModel.setRowCount(0);
+    for (Student student : students) {
+        Object[] row = {...};
+        tableModel.addRow(row);
+    }
+}
+
+LESSON LEARNED:
+Swing components don't auto-update. Must manually refresh views after model
+changes.
+
+
+CHALLENGE 2: ComboBox and Tab Coordination
+PROBLEM:
+When switching between tabs, student selection in GradePanel was lost, and
+statistics weren't updating.
+
+SOLUTION:
+1. Added ChangeListener to JTabbedPane
+2. Refresh statistics panel when Statistics tab selected
+3. Keep current student selection when returning to Grades tab
+
+CODE:
+tabbedPane.addChangeListener(e -> {
+    if (tabbedPane.getSelectedIndex() == 2) {
+        statisticsPanel.refreshStatistics();
+    }
+});
+
+LESSON LEARNED:
+Tab changes need explicit handling to keep UI synchronized.
+
+
+CHALLENGE 3: Dialog Modal Behavior
+PROBLEM:
+Initially used JFrame for dialogs, which allowed multiple add/edit dialogs
+simultaneously, causing confusion.
+
+SOLUTION:
+Changed to JDialog with modal=true:
+JDialog dialog = new JDialog(parentFrame, "Title", true);
+
+This blocks interaction with main window until dialog is closed.
+
+LESSON LEARNED:
+Use modal dialogs for forms to prevent confusion and data integrity issues.
+
+
+6.2 DESIGN DECISIONS
+--------------------------------------------------------------------------------
+
+DECISION 1: Tabbed Interface vs Single Window
+CHOICE: Tabbed interface (JTabbedPane)
+
+RATIONALE:
+- Cleaner UI, less clutter
+- Logical separation of concerns
+- Easy navigation
+- Industry standard for multi-function apps
+
+ALTERNATIVE CONSIDERED:
+Single scrollable window with all functions
+
+REJECTED BECAUSE:
+Would be too crowded and confusing
+
+
+DECISION 2: File-Based vs Database Storage
+CHOICE: Text files with pipe delimiter
+
+RATIONALE:
+- Simple to implement
+- No external dependencies
+- Easy to debug (can view files in text editor)
+- Sufficient for assignment scope
+- Demonstrates file I/O
+
+ALTERNATIVE CONSIDERED:
+SQLite or embedded database
+
+REJECTED BECAUSE:
+- Assignment focus is on Swing, not databases
+- Adds complexity without matching learning goals
+
+
+DECISION 3: Layout Manager Strategy
+CHOICE: Different managers for different needs
+
+BORDER LAYOUT: Main panels (regions)
+GRID LAYOUT: Buttons, forms (equal sizing)
+FLOW LAYOUT: Search bars (horizontal flow)
+
+RATIONALE:
+Each layout manager has strengths for specific use cases
+
+ALTERNATIVE CONSIDERED:
+Using only one layout manager throughout
+
+REJECTED BECAUSE:
+Would result in poor UI or complex nested panels
+
+
+6.3 LESSONS LEARNED
+--------------------------------------------------------------------------------
+
+1. EVENT-DRIVEN PROGRAMMING:
+   Understanding that GUI applications are reactive - they respond to user
+   actions rather than following a linear flow.
+
+2. SWING COMPONENT HIERARCHY:
+   Learning proper nesting of components and how layout managers affect
+   appearance.
+
+3. MODEL-VIEW SEPARATION:
+   Benefits of separating data (Student, Grade) from display (Panels).
+
+4. USER EXPERIENCE MATTERS:
+   Small details like confirmation dialogs, input validation, and helpful
+   error messages make big difference.
+
+5. TESTING IMPORTANCE:
+   GUI applications need thorough testing of all user interaction paths.
+
+6. CODE ORGANIZATION:
+   Modular design with clear package structure makes maintenance easier.
+
+
+================================================================================
+                           7. CONCLUSION
+================================================================================
+
+SUMMARY
+--------------------------------------------------------------------------------
+
+The Student Management System successfully demonstrates comprehensive usage of
+Java Swing components to build a functional GUI application. The system provides
+practical features for managing student records and grades through an intuitive
+interface.
+
+KEY ACHIEVEMENTS:
+✓ Implemented 12+ different Swing components
+✓ Created fully functional CRUD operations
+✓ Designed user-friendly interface
+✓ Implemented data persistence
+✓ Provided comprehensive statistics
+✓ Added helpful features (search, menus, shortcuts)
+
+
+PROJECT STATISTICS
+--------------------------------------------------------------------------------
+
+CODE METRICS:
+- Total Classes: 7
+- Total Lines of Code: ~1,200
+- Model Classes: 2
+- GUI Classes: 4
+- Utility Classes: 1
+
+SWING COMPONENTS:
+- Container Components: 5
+- Display Components: 3
+- Input Components: 3
+- Menu Components: 3
+- Dialog Components: 1
+- Layout Managers: 3
+
+FEATURES:
+- Student Operations: 5 (Add, Edit, Delete, Search, View)
+- Grade Operations: 4 (Add, Edit, Delete, View Summary)
+- Statistics: 7 (Overview cards, detailed report, distributions)
+- Menu Items: 7
+- Keyboard Shortcuts: 5
+
+
+LEARNING OUTCOMES
+--------------------------------------------------------------------------------
+
+Through this project, we gained practical experience with:
+
+1. SWING GUI DEVELOPMENT
+   - Component selection and usage
+   - Layout management
+   - Event handling
+
+2. OBJECT-ORIENTED DESIGN
+   - Class design and responsibilities
+   - Encapsulation
+   - Model-view separation
+
+3. SOFTWARE ENGINEERING
+   - Modular architecture
+   - Code organization
+   - Documentation
+
+4. USER INTERFACE DESIGN
+   - Usability principles
+   - User feedback
+   - Error handling
+
+
+FUTURE ENHANCEMENTS
+--------------------------------------------------------------------------------
+
+Given more time, the system could be improved with:
+
+1. DATABASE INTEGRATION
+   - Replace text files with SQL database
+   - Better performance for large datasets
+
+2. ADVANCED FEATURES
+   - Export reports to PDF/Excel
+   - Email grade reports to students
+   - Graphical charts for statistics
+   - Course catalog management
+   - Attendance tracking
+
+3. ENHANCED UI
+   - Custom themes
+   - Student photos
+   - Drag-and-drop functionality
+   - Responsive window resizing
+
+4. SECURITY
+   - User authentication
+   - Role-based access control
+   - Password protection
+
+5. REPORTING
+   - Transcript generation
+   - Progress reports
+   - Semester summaries
+
+
+REFLECTION
+--------------------------------------------------------------------------------
+
+This assignment provided valuable hands-on experience with Java Swing and GUI
+application development. The process of designing, implementing, and refining
+the user interface taught important lessons about usability and user experience.
+
+The modular design approach made the code maintainable and extensible. Working
+as a group helped us understand different perspectives on design decisions and
+the importance of code organization for collaboration.
+
+Overall, the project successfully demonstrates comprehensive understanding of
+Java Swing components and GUI application development principles.
+
+
+================================================================================
+                          8. REFERENCES
+================================================================================
+
+JAVA DOCUMENTATION
+--------------------------------------------------------------------------------
+
+Oracle. (2024). Java SE 8 Documentation.
+    https://docs.oracle.com/javase/8/docs/
+
+Oracle. (2024). Java Swing Tutorial.
+    https://docs.oracle.com/javase/tutorial/uiswing/
+
+Oracle. (2024). Java AWT and Swing API.
+    https://docs.oracle.com/javase/8/docs/api/java/awt/package-summary.html
+
+
+SWING PROGRAMMING RESOURCES
+--------------------------------------------------------------------------------
+
+Horstmann, C. S. (2019). Core Java Volume I: Fundamentals (11th ed.).
+    Pearson Education.
+
+Horstmann, C. S. (2019). Core Java Volume II: Advanced Features (11th ed.).
+    Pearson Education.
+
+
+GUI DESIGN PRINCIPLES
+--------------------------------------------------------------------------------
+
+Nielsen, J. (1994). Usability Engineering. Morgan Kaufmann.
+
+Shneiderman, B., et al. (2016). Designing the User Interface: Strategies for
+    Effective Human-Computer Interaction (6th ed.). Pearson.
+
+
+ONLINE RESOURCES
+--------------------------------------------------------------------------------
+
+Oracle Java Tutorials - Creating a GUI with Swing.
+    https://docs.oracle.com/javase/tutorial/uiswing/
+
+Stack Overflow - Java Swing Questions.
+    https://stackoverflow.com/questions/tagged/swing
+
+JavaTPoint - Java Swing Tutorial.
+    https://www.javatpoint.com/java-swing
+
+
+================================================================================
+                            END OF REPORT
+================================================================================
+
+Total Lines of Code: ~1,200 lines across 7 classes
+Development Time: [Fill in actual hours]
+Group Members: [List all contributors]
+
+Submitted: [Date]
+Course: Object-Oriented Programming
+Instructor: [Instructor Name]
+Institution: [University Name]
+
+================================================================================

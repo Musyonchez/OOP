@@ -1,0 +1,158 @@
+================================================================================
+QUICK SORT ALGORITHM - Pseudocode
+================================================================================
+
+Purpose: Sort media items by title using divide-and-conquer approach
+Time Complexity: O(n log n) average case, O(n²) worst case
+Space Complexity: O(log n) - recursive call stack
+Best for: General-purpose sorting, large datasets, in-place sorting
+
+================================================================================
+
+MAIN ALGORITHM: QuickSort(mediaList, low, high)
+
+INPUT:
+    mediaList: List of MediaItem objects to sort
+    low: Starting index of the portion to sort
+    high: Ending index of the portion to sort
+
+OUTPUT:
+    mediaList sorted in-place by title (ascending order)
+
+BEGIN
+    1. IF low < high THEN
+        1.1 SET pivotIndex = PARTITION(mediaList, low, high)
+        1.2 CALL QuickSort(mediaList, low, pivotIndex - 1)      // Sort left
+        1.3 CALL QuickSort(mediaList, pivotIndex + 1, high)     // Sort right
+    END IF
+
+    2. RETURN (list is now sorted)
+END
+
+================================================================================
+
+PARTITION SUBROUTINE: Partition(mediaList, low, high)
+
+PURPOSE:
+    Place pivot in correct position and arrange elements so that:
+    - All elements ≤ pivot are to the left
+    - All elements > pivot are to the right
+
+BEGIN
+    1. SET pivot = mediaList[high]          // Choose last element as pivot
+    2. SET i = low - 1                      // Index of smaller element
+
+    3. FOR j = low TO high - 1 DO
+        3.1 IF mediaList[j].title <= pivot.title THEN
+            3.1.1 INCREMENT i by 1
+            3.1.2 SWAP mediaList[i] WITH mediaList[j]
+        END IF
+    END FOR
+
+    4. SWAP mediaList[i + 1] WITH mediaList[high]   // Place pivot correctly
+    5. RETURN i + 1                                 // Return pivot index
+END
+
+================================================================================
+
+EXAMPLE TRACE:
+
+Initial array (by title):
+["Moby Dick", "1984", "The Hobbit", "Dune", "Brave New World"]
+Indices: 0=M, 1=1, 2=T, 3=D, 4=B
+
+QuickSort(list, 0, 4):
+├─ Partition(list, 0, 4):
+│   pivot = "Brave New World" (index 4)
+│   i = -1
+│
+│   j=0: "Moby Dick" > "Brave New World"? NO → i stays -1
+│   j=1: "1984" <= "Brave New World"? YES → i=0, swap list[0] with list[1]
+│        ["1984", "Moby Dick", "The Hobbit", "Dune", "Brave New World"]
+│   j=2: "The Hobbit" > "Brave New World"? NO → i stays 0
+│   j=3: "Dune" > "Brave New World"? NO → i stays 0
+│
+│   Final swap: list[1] with list[4]
+│   ["1984", "Brave New World", "The Hobbit", "Dune", "Moby Dick"]
+│   Return pivotIndex = 1
+│
+├─ QuickSort(list, 0, 0)       // Left partition: ["1984"] → already sorted
+│
+└─ QuickSort(list, 2, 4)       // Right partition: ["The Hobbit", "Dune", "Moby Dick"]
+    ├─ Partition(list, 2, 4):
+    │   pivot = "Moby Dick" (index 4)
+    │   i = 1
+    │
+    │   j=2: "The Hobbit" > "Moby Dick"? NO → i stays 1
+    │   j=3: "Dune" <= "Moby Dick"? YES → i=2, swap list[2] with list[3]
+    │        ["1984", "Brave New World", "Dune", "The Hobbit", "Moby Dick"]
+    │
+    │   Final swap: list[3] with list[4]
+    │   ["1984", "Brave New World", "Dune", "Moby Dick", "The Hobbit"]
+    │   Return pivotIndex = 3
+    │
+    ├─ QuickSort(list, 2, 2)   // ["Dune"] → already sorted
+    │
+    └─ QuickSort(list, 4, 4)   // ["The Hobbit"] → already sorted
+
+Final sorted array:
+["1984", "Brave New World", "Dune", "Moby Dick", "The Hobbit"]
+
+================================================================================
+
+COMPLEXITY ANALYSIS:
+
+BEST CASE - O(n log n):
+    Occurs when pivot always divides the list into two equal halves
+    - Depth of recursion tree: log n
+    - Work at each level: n (partition operation)
+    - Total: n * log n
+
+AVERAGE CASE - O(n log n):
+    Most random pivots result in reasonably balanced partitions
+    Expected depth: ~1.39 log n
+    Still yields O(n log n) performance
+
+WORST CASE - O(n²):
+    Occurs when pivot is always the smallest or largest element
+    - Happens with already sorted or reverse sorted data
+    - Depth of recursion: n
+    - Total comparisons: n + (n-1) + (n-2) + ... + 1 = n²/2
+    - Mitigation: Use randomized pivot selection or median-of-three
+
+SPACE COMPLEXITY:
+    O(log n) for recursion stack in average case
+    O(n) in worst case (unbalanced partitions)
+
+================================================================================
+
+ADVANTAGES:
+- Fast average-case performance O(n log n)
+- In-place sorting (minimal extra memory)
+- Cache-efficient (good locality of reference)
+- Practical and widely used in production systems
+- Performs well on large datasets
+
+DISADVANTAGES:
+- Worst-case O(n²) if poorly implemented
+- Not stable (equal elements may change order)
+- Recursive implementation uses stack space
+- Poor performance on already sorted data (without optimization)
+
+OPTIMIZATIONS:
+1. Random pivot selection → prevents worst case on sorted data
+2. Median-of-three → choose median of first, middle, last elements
+3. Insertion sort for small subarrays (< 10 elements)
+4. Three-way partitioning → handles duplicates efficiently
+
+USE CASES IN LIBRARY SYSTEM:
+- Sort media catalog by title for display
+- Order books by publication year
+- Arrange users alphabetically
+- Prepare data for binary search (requires sorted input)
+- Any general-purpose sorting need
+
+COMPARISON WITH OTHER SORTS:
+- Bubble Sort: O(n²) → QuickSort is much faster
+- Merge Sort: O(n log n) guaranteed, but needs O(n) extra space
+- QuickSort: O(n log n) average, in-place, but unstable

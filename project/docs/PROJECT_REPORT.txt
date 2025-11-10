@@ -1,0 +1,2090 @@
+================================================================================
+                    LIBRARY MANAGEMENT SYSTEM
+                Object-Oriented Programming Project Report
+================================================================================
+
+                           GROUP PROJECT REPORT
+                        Object-Oriented Programming
+                              [Course Code]
+                            [University Name]
+                             [Semester/Year]
+
+--------------------------------------------------------------------------------
+                              GROUP MEMBERS
+--------------------------------------------------------------------------------
+
+1. [Student Name 1]          - [Student ID]
+2. [Student Name 2]          - [Student ID]
+3. [Student Name 3]          - [Student ID]
+4. [Student Name 4]          - [Student ID]
+
+Date of Submission: [Date]
+Instructor: [Instructor Name]
+
+================================================================================
+                              TABLE OF CONTENTS
+================================================================================
+
+1. Introduction
+   1.1 Problem Definition
+   1.2 Proposed Solution
+   1.3 System Overview
+
+2. Object-Oriented Programming Concepts
+   2.1 Abstraction
+   2.2 Encapsulation
+   2.3 Polymorphism
+   2.4 Inheritance
+
+3. System Architecture
+   3.1 Class Diagram Overview
+   3.2 Package Structure
+   3.3 Design Patterns
+
+4. Algorithms
+   4.1 Linear Search Algorithm
+   4.2 Binary Search Algorithm
+   4.3 Quick Sort Algorithm
+
+5. Database Implementation
+   5.1 File-Based Database Design
+   5.2 Data Format and Structure
+   5.3 CRUD Operations
+
+6. Source Code
+   6.1 Core Classes
+   6.2 Key Methods
+   6.3 Code Comments
+
+7. System Demonstration
+   7.1 Screenshots - User Management
+   7.2 Screenshots - Media Management
+   7.3 Screenshots - Borrowing Operations
+   7.4 Screenshots - Search and Sort
+   7.5 Screenshots - Reports
+
+8. Challenges and Solutions
+   8.1 Technical Challenges
+   8.2 Design Challenges
+   8.3 Lessons Learned
+
+9. Conclusion
+
+10. References
+
+================================================================================
+                            1. INTRODUCTION
+================================================================================
+
+1.1 PROBLEM DEFINITION
+--------------------------------------------------------------------------------
+
+Libraries face numerous challenges in managing their resources efficiently:
+
+- MANUAL TRACKING: Traditional paper-based systems are time-consuming and
+  error-prone, making it difficult to track borrowed items, due dates, and
+  member information.
+
+- RESOURCE AVAILABILITY: Without real-time tracking, librarians cannot quickly
+  determine which books, magazines, or DVDs are available for borrowing.
+
+- FINE MANAGEMENT: Calculating and tracking late fees manually leads to
+  inconsistencies and potential revenue loss.
+
+- SEARCH EFFICIENCY: Finding specific items in a large catalog without proper
+  search algorithms is time-consuming for both staff and members.
+
+- DATA INTEGRITY: Manual record-keeping increases the risk of data loss,
+  duplication, and inconsistencies.
+
+- SCALABILITY: As the library grows, manual systems become increasingly
+  unmanageable, requiring significant additional staff time.
+
+
+1.2 PROPOSED SOLUTION
+--------------------------------------------------------------------------------
+
+The Library Management System is a comprehensive software solution designed to
+automate and streamline library operations. The system addresses the identified
+problems through:
+
+AUTOMATED TRACKING:
+- Digital records for all users, media items, and transactions
+- Automatic calculation of due dates and late fees
+- Real-time status updates for borrowed items
+
+EFFICIENT SEARCH AND RETRIEVAL:
+- Linear search algorithm for flexible, substring-based title searches
+- Binary search algorithm for fast, exact ISBN lookups
+- Quick sort algorithm for organized catalog displays
+
+ROBUST DATA MANAGEMENT:
+- File-based database for persistent storage
+- CRUD operations (Create, Read, Update, Delete) for all entities
+- Data validation and error handling
+
+USER-FRIENDLY INTERFACE:
+- Interactive console menu system
+- Clear feedback messages
+- Role-based access control (Member vs. Librarian)
+
+
+1.3 SYSTEM OVERVIEW
+--------------------------------------------------------------------------------
+
+The Library Management System is built using Java and demonstrates core
+Object-Oriented Programming principles:
+
+KEY FEATURES:
+✓ User management (Members and Librarians)
+✓ Media catalog (Books, Magazines, DVDs)
+✓ Borrowing and returning operations
+✓ Automated late fee calculation
+✓ Search algorithms (linear and binary)
+✓ Sorting algorithms (bubble sort and quick sort)
+✓ File-based database persistence
+✓ Transaction history tracking
+✓ Reports and statistics
+
+TECHNOLOGY STACK:
+- Programming Language: Java (JDK 8+)
+- Database: Text files (pipe-delimited format)
+- User Interface: Console-based menu system
+- Version Control: Git
+
+SYSTEM ARCHITECTURE:
+- Package-based organization (models, managers, database, utils)
+- Abstract base classes (User, MediaItem)
+- Concrete implementations (Member, Librarian, Book, Magazine, DVD)
+- Manager pattern (Library class coordinates all operations)
+- Utility classes (SearchAlgorithms, SortAlgorithms, FileManager)
+
+
+================================================================================
+                  2. OBJECT-ORIENTED PROGRAMMING CONCEPTS
+================================================================================
+
+2.1 ABSTRACTION
+--------------------------------------------------------------------------------
+
+DEFINITION:
+Abstraction is the process of hiding complex implementation details while
+exposing only essential features to the user. It focuses on WHAT an object
+does rather than HOW it does it.
+
+IMPLEMENTATION IN OUR SYSTEM:
+
+1. Abstract User Class:
+   - Defines common properties (id, name, email, phone)
+   - Declares abstract methods: displayInfo(), getUserType()
+   - Forces subclasses to implement user-specific behavior
+
+   SOURCE CODE (User.java):
+   --------------------------------------------------------------------
+   public abstract class User {
+       private String id;
+       private String name;
+       private String email;
+       private String phone;
+
+       // Abstract methods - must be implemented by subclasses
+       public abstract void displayInfo();
+       public abstract String getUserType();
+   }
+   --------------------------------------------------------------------
+
+2. Abstract MediaItem Class:
+   - Defines common media properties (id, title, available)
+   - Declares abstract methods: getMediaType(), calculateLateFee()
+   - Each media type implements its own late fee calculation
+
+   SOURCE CODE (MediaItem.java):
+   --------------------------------------------------------------------
+   public abstract class MediaItem {
+       public static final double BASE_LATE_FEE_PER_DAY = 1.0;
+       private String id;
+       private String title;
+       private boolean available;
+
+       // Abstract methods
+       public abstract String getMediaType();
+       public abstract double calculateLateFee(int daysLate);
+       public abstract void displayDetails();
+   }
+   --------------------------------------------------------------------
+
+BENEFITS DEMONSTRATED:
+- Enforces consistent interface across different types
+- Allows polymorphic behavior (treating different types uniformly)
+- Prevents instantiation of incomplete objects
+- Provides a clear contract for subclasses
+
+
+2.2 ENCAPSULATION
+--------------------------------------------------------------------------------
+
+DEFINITION:
+Encapsulation is the bundling of data and methods that operate on that data
+within a single unit (class), while restricting direct access to some
+components. It protects object integrity through data hiding.
+
+IMPLEMENTATION IN OUR SYSTEM:
+
+1. Private Fields with Public Getters/Setters:
+
+   SOURCE CODE (Member.java):
+   --------------------------------------------------------------------
+   public class Member extends User {
+       private LocalDate membershipDate;  // Private - cannot be accessed directly
+       private double fines;               // Private - protected from invalid values
+       private List<String> borrowedItems; // Private - controlled access
+
+       // Public getter - controlled read access
+       public double getFines() {
+           return fines;
+       }
+
+       // Public setter - validation before modification
+       public void addFine(double amount) {
+           if (amount > 0) {
+               this.fines += amount;
+           }
+       }
+
+       // Business logic method - encapsulates behavior
+       public boolean canBorrow() {
+           return fines == 0;
+       }
+   }
+   --------------------------------------------------------------------
+
+2. Data Protection in Transaction Class:
+
+   SOURCE CODE (Transaction.java):
+   --------------------------------------------------------------------
+   public class Transaction {
+       private String transactionId;  // Cannot be changed after creation
+       private String userId;
+       private String mediaId;
+       private LocalDate borrowDate;
+       private LocalDate dueDate;
+       private LocalDate returnDate;
+       private double lateFee;
+
+       // No setters for critical fields like transactionId, borrowDate
+       // Only controlled methods for updates
+
+       public void processReturn(LocalDate returnDate, double fee) {
+           this.returnDate = returnDate;
+           this.lateFee = fee;
+       }
+   }
+   --------------------------------------------------------------------
+
+BENEFITS DEMONSTRATED:
+- Data integrity (fines cannot be negative)
+- Controlled modification (only through validated methods)
+- Information hiding (internal implementation can change)
+- Reduced coupling between classes
+
+
+2.3 POLYMORPHISM
+--------------------------------------------------------------------------------
+
+DEFINITION:
+Polymorphism allows objects of different types to be treated as objects of a
+common parent type. It enables a single interface to represent different
+underlying forms (data types).
+
+TYPES DEMONSTRATED:
+
+1. RUNTIME POLYMORPHISM (Method Overriding):
+   Different classes provide their own implementation of inherited methods.
+
+   SOURCE CODE - displayInfo() method:
+   --------------------------------------------------------------------
+   // In User.java (abstract parent)
+   public abstract void displayInfo();
+
+   // In Member.java (child implementation)
+   @Override
+   public void displayInfo() {
+       System.out.println("\n--- Member Information ---");
+       System.out.println("Member ID: " + getId());
+       System.out.println("Outstanding Fines: $" + fines);
+       System.out.println("Borrowing Status: " +
+           (canBorrow() ? "Active" : "Suspended"));
+   }
+
+   // In Librarian.java (different child implementation)
+   @Override
+   public void displayInfo() {
+       System.out.println("\n--- Librarian Information ---");
+       System.out.println("User ID: " + getId());
+       System.out.println("Employee ID: " + employeeId);
+       System.out.println("Position: " + position);
+       System.out.println("Role: System Administrator");
+   }
+   --------------------------------------------------------------------
+
+   USAGE EXAMPLE:
+   --------------------------------------------------------------------
+   User user1 = new Member("M001", "John", "john@email.com", "555-0101");
+   User user2 = new Librarian("L001", "Alice", "alice@lib.com", "555-0201");
+
+   // Both work with User reference, but call different implementations
+   user1.displayInfo();  // Calls Member's version
+   user2.displayInfo();  // Calls Librarian's version
+   --------------------------------------------------------------------
+
+2. POLYMORPHIC LATE FEE CALCULATION:
+   Each media type calculates late fees differently.
+
+   SOURCE CODE:
+   --------------------------------------------------------------------
+   // In Book.java
+   @Override
+   public double calculateLateFee(int daysLate) {
+       return BASE_LATE_FEE_PER_DAY * daysLate;  // $1.00/day
+   }
+
+   // In Magazine.java
+   @Override
+   public double calculateLateFee(int daysLate) {
+       return BASE_LATE_FEE_PER_DAY * 0.5 * daysLate;  // $0.50/day
+   }
+
+   // In DVD.java
+   @Override
+   public double calculateLateFee(int daysLate) {
+       return BASE_LATE_FEE_PER_DAY * 2.0 * daysLate;  // $2.00/day
+   }
+   --------------------------------------------------------------------
+
+3. COMPILE-TIME POLYMORPHISM (Method Overloading):
+   Same method name with different parameters.
+
+   SOURCE CODE (SearchAlgorithms.java):
+   --------------------------------------------------------------------
+   // Search by title (String parameter)
+   public static List<MediaItem> linearSearch(
+       List<MediaItem> list, String searchTerm) { ... }
+
+   // Search by ISBN (String parameter, different behavior)
+   public static Book binarySearchByISBN(
+       List<Book> list, String isbn) { ... }
+   --------------------------------------------------------------------
+
+BENEFITS DEMONSTRATED:
+- Code reusability (same method name for different types)
+- Flexibility (easy to add new media types)
+- Maintainability (changes localized to specific classes)
+
+
+2.4 INHERITANCE
+--------------------------------------------------------------------------------
+
+DEFINITION:
+Inheritance is a mechanism where a new class (child/subclass) derives
+properties and behaviors from an existing class (parent/superclass). It
+promotes code reuse and establishes a hierarchical relationship.
+
+IMPLEMENTATION IN OUR SYSTEM:
+
+1. USER HIERARCHY:
+
+   User (Abstract Parent)
+   ├── Member (Child)
+   └── Librarian (Child)
+
+   SOURCE CODE:
+   --------------------------------------------------------------------
+   // Parent class
+   public abstract class User {
+       private String id;
+       private String name;
+       private String email;
+       private String phone;
+
+       public User(String id, String name, String email, String phone) {
+           this.id = id;
+           this.name = name;
+           this.email = email;
+           this.phone = phone;
+       }
+
+       // Getters inherited by all subclasses
+       public String getId() { return id; }
+       public String getName() { return name; }
+   }
+
+   // Child class - inherits all User properties and methods
+   public class Member extends User {
+       private double fines;  // Additional member-specific field
+
+       public Member(String id, String name, String email, String phone) {
+           super(id, name, email, phone);  // Call parent constructor
+           this.fines = 0.0;
+       }
+
+       // Member-specific method
+       public boolean canBorrow() {
+           return fines == 0;
+       }
+   }
+   --------------------------------------------------------------------
+
+2. MEDIA ITEM HIERARCHY:
+
+   MediaItem (Abstract Parent)
+   ├── Book (Child)
+   ├── Magazine (Child)
+   └── DVD (Child)
+
+   SOURCE CODE:
+   --------------------------------------------------------------------
+   // Parent class
+   public abstract class MediaItem {
+       private String id;
+       private String title;
+       private boolean available;
+
+       public MediaItem(String id, String title) {
+           this.id = id;
+           this.title = title;
+           this.available = true;
+       }
+   }
+
+   // Child class - inherits MediaItem properties
+   public class Book extends MediaItem {
+       private String author;  // Book-specific field
+       private String isbn;    // Book-specific field
+
+       public Book(String id, String title, String author, String isbn) {
+           super(id, title);  // Initialize parent fields
+           this.author = author;
+           this.isbn = isbn;
+       }
+
+       @Override
+       public String getMediaType() {
+           return "BOOK";
+       }
+   }
+   --------------------------------------------------------------------
+
+INHERITANCE FEATURES USED:
+
+1. Constructor Chaining (super()):
+   --------------------------------------------------------------------
+   public Member(String id, String name, String email, String phone) {
+       super(id, name, email, phone);  // Calls User constructor
+       this.fines = 0.0;
+   }
+   --------------------------------------------------------------------
+
+2. Method Overriding (@Override):
+   --------------------------------------------------------------------
+   @Override
+   public void displayInfo() {
+       // Member-specific implementation replaces abstract version
+   }
+   --------------------------------------------------------------------
+
+3. Access to Parent Methods:
+   --------------------------------------------------------------------
+   public String toString() {
+       // Can use inherited getter methods
+       return getId() + "|" + getName() + "|" + getUserType();
+   }
+   --------------------------------------------------------------------
+
+BENEFITS DEMONSTRATED:
+- Code reuse (common fields in parent class)
+- Logical hierarchy (is-a relationship: Member IS-A User)
+- Polymorphism enabler (treat children as parent type)
+- Extensibility (easy to add new user/media types)
+
+
+================================================================================
+                        3. SYSTEM ARCHITECTURE
+================================================================================
+
+3.1 CLASS DIAGRAM OVERVIEW
+--------------------------------------------------------------------------------
+
+The system consists of 13 classes organized into 4 packages:
+
+PACKAGE: models
+├── User.java (Abstract)
+│   ├── Member.java
+│   └── Librarian.java
+├── MediaItem.java (Abstract)
+│   ├── Book.java
+│   ├── Magazine.java
+│   └── DVD.java
+└── Transaction.java
+
+PACKAGE: managers
+└── Library.java
+
+PACKAGE: database
+└── FileManager.java
+
+PACKAGE: utils
+├── SearchAlgorithms.java
+└── SortAlgorithms.java
+
+MAIN CLASS:
+└── Main.java
+
+
+3.2 PACKAGE STRUCTURE
+--------------------------------------------------------------------------------
+
+1. MODELS PACKAGE - Domain entities
+   - User, Member, Librarian (user types)
+   - MediaItem, Book, Magazine, DVD (catalog items)
+   - Transaction (borrowing records)
+
+2. MANAGERS PACKAGE - Business logic
+   - Library.java: Coordinates all operations, manages collections
+
+3. DATABASE PACKAGE - Data persistence
+   - FileManager.java: Handles file I/O, data loading/saving
+
+4. UTILS PACKAGE - Algorithms and utilities
+   - SearchAlgorithms.java: Linear and binary search
+   - SortAlgorithms.java: Bubble sort and quick sort
+
+
+3.3 DESIGN PATTERNS
+--------------------------------------------------------------------------------
+
+PATTERN 1: MANAGER PATTERN (Library class)
+- Centralizes business logic
+- Manages collections of users, media, transactions
+- Provides high-level operations (borrowMedia, returnMedia)
+
+PATTERN 2: DATA ACCESS OBJECT (FileManager class)
+- Separates data access logic from business logic
+- Provides CRUD operations for all entities
+- Handles file I/O complexity
+
+PATTERN 3: TEMPLATE METHOD (Abstract classes)
+- Defines skeleton in base class
+- Subclasses fill in specific details
+- Example: User.displayInfo() implemented differently by children
+
+
+================================================================================
+                           4. ALGORITHMS
+================================================================================
+
+4.1 LINEAR SEARCH ALGORITHM
+--------------------------------------------------------------------------------
+
+PURPOSE:
+Search for media items by title using substring matching. Works on unsorted
+data and finds all matches.
+
+TIME COMPLEXITY: O(n) - must check every element
+SPACE COMPLEXITY: O(k) - where k is number of matching results
+
+PSEUDOCODE:
+--------------------------------------------------------------------------------
+ALGORITHM LinearSearchByTitle(mediaList, searchTerm)
+
+INPUT:
+    mediaList: List of MediaItem objects
+    searchTerm: String to search for in titles
+
+OUTPUT:
+    results: List of MediaItem objects that match the search term
+
+BEGIN
+    1. SET searchTerm = LOWERCASE(searchTerm)
+    2. INITIALIZE results = empty list
+    3. INITIALIZE index = 0
+
+    4. WHILE index < SIZE(mediaList) DO
+        4.1 SET currentItem = mediaList[index]
+        4.2 SET currentTitle = LOWERCASE(currentItem.title)
+
+        4.3 IF currentTitle CONTAINS searchTerm THEN
+            4.3.1 ADD currentItem TO results
+        END IF
+
+        4.4 INCREMENT index by 1
+    END WHILE
+
+    5. IF results is empty THEN
+        5.1 DISPLAY "No matches found"
+    ELSE
+        5.2 DISPLAY "Found " + SIZE(results) + " results"
+    END IF
+
+    6. RETURN results
+END
+--------------------------------------------------------------------------------
+
+JAVA IMPLEMENTATION:
+--------------------------------------------------------------------------------
+public static List<MediaItem> linearSearchByTitle(
+    List<MediaItem> mediaList, String searchTerm) {
+
+    List<MediaItem> results = new ArrayList<>();
+    searchTerm = searchTerm.toLowerCase();
+
+    // Sequential search through entire list
+    for (MediaItem item : mediaList) {
+        if (item.getTitle().toLowerCase().contains(searchTerm)) {
+            results.add(item);
+        }
+    }
+    return results;
+}
+--------------------------------------------------------------------------------
+
+FLOWCHART:
+[INSERT SCREENSHOT: docs/flowcharts/3_linear_search_algorithm.png]
+Screenshot location: /home/musyonchez/Code/OOP/project/docs/flowcharts/
+File: 3_linear_search_algorithm.png
+
+EXAMPLE TRACE:
+Given: ["Harry Potter", "The Hobbit", "1984", "The Great Gatsby"]
+Search: "the"
+
+Step 1: Convert "the" to lowercase
+Step 2: results = []
+Step 3: index = 0
+
+Iteration 1: "harry potter" contains "the"? NO
+Iteration 2: "the hobbit" contains "the"? YES → Add to results
+Iteration 3: "1984" contains "the"? NO
+Iteration 4: "the great gatsby" contains "the"? YES → Add to results
+
+Result: ["The Hobbit", "The Great Gatsby"]
+
+USE CASE IN SYSTEM:
+- Search books by partial title
+- Find media by author name
+- Flexible, user-friendly search
+
+
+4.2 BINARY SEARCH ALGORITHM
+--------------------------------------------------------------------------------
+
+PURPOSE:
+Efficiently search for a book by exact ISBN in a sorted list. Much faster than
+linear search for large datasets.
+
+TIME COMPLEXITY: O(log n) - halves search space each iteration
+SPACE COMPLEXITY: O(1) - constant space
+
+PREREQUISITE: List must be sorted by ISBN
+
+PSEUDOCODE:
+--------------------------------------------------------------------------------
+ALGORITHM BinarySearchByISBN(bookList, targetISBN)
+
+INPUT:
+    bookList: List of Book objects (must be sorted by ISBN)
+    targetISBN: String ISBN to find
+
+OUTPUT:
+    Book object if found, NULL if not found
+
+BEGIN
+    1. SORT bookList by ISBN in ascending order
+
+    2. INITIALIZE left = 0
+    3. INITIALIZE right = SIZE(bookList) - 1
+
+    4. WHILE left <= right DO
+        4.1 SET mid = left + (right - left) / 2
+        4.2 SET midBook = bookList[mid]
+        4.3 SET midISBN = midBook.isbn
+
+        4.4 IF midISBN == targetISBN THEN
+            4.4.1 RETURN midBook  // Found!
+        ELSE IF midISBN < targetISBN THEN
+            4.5.1 SET left = mid + 1  // Search right half
+        ELSE
+            4.6.1 SET right = mid - 1  // Search left half
+        END IF
+    END WHILE
+
+    5. RETURN NULL  // Not found
+END
+--------------------------------------------------------------------------------
+
+JAVA IMPLEMENTATION:
+--------------------------------------------------------------------------------
+public static Book binarySearchByISBN(List<Book> bookList, String isbn) {
+    // Sort the list first
+    bookList.sort((b1, b2) -> b1.getIsbn().compareTo(b2.getIsbn()));
+
+    int left = 0;
+    int right = bookList.size() - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        Book midBook = bookList.get(mid);
+        int comparison = midBook.getIsbn().compareTo(isbn);
+
+        if (comparison == 0) {
+            return midBook;  // Found
+        } else if (comparison < 0) {
+            left = mid + 1;  // Search right
+        } else {
+            right = mid - 1;  // Search left
+        }
+    }
+
+    return null;  // Not found
+}
+--------------------------------------------------------------------------------
+
+FLOWCHART:
+[INSERT SCREENSHOT: docs/flowcharts/4_binary_search_algorithm.png]
+Screenshot location: /home/musyonchez/Code/OOP/project/docs/flowcharts/
+File: 4_binary_search_algorithm.png
+
+EXAMPLE TRACE:
+Given sorted ISBNs: [111-1, 222-2, 333-3, 444-4, 555-5, 666-6, 777-7]
+Search for: "555-5"
+
+Iteration 1: left=0, right=6, mid=3
+    midISBN="444-4" < "555-5" → Search right half
+    left=4
+
+Iteration 2: left=4, right=6, mid=5
+    midISBN="666-6" > "555-5" → Search left half
+    right=4
+
+Iteration 3: left=4, right=4, mid=4
+    midISBN="555-5" == "555-5" → FOUND!
+
+Total comparisons: 3 (vs 5 for linear search)
+
+EFFICIENCY COMPARISON:
+For 1,000,000 books:
+- Linear search: up to 1,000,000 comparisons
+- Binary search: max 20 comparisons (log₂ 1,000,000 ≈ 20)
+
+Performance gain: 50,000x faster!
+
+
+4.3 QUICK SORT ALGORITHM
+--------------------------------------------------------------------------------
+
+PURPOSE:
+Sort media catalog by title using divide-and-conquer approach. Efficient
+in-place sorting algorithm.
+
+TIME COMPLEXITY: O(n log n) average case, O(n²) worst case
+SPACE COMPLEXITY: O(log n) - recursive call stack
+
+PSEUDOCODE - MAIN ALGORITHM:
+--------------------------------------------------------------------------------
+ALGORITHM QuickSort(mediaList, low, high)
+
+INPUT:
+    mediaList: List of MediaItem objects to sort
+    low: Starting index
+    high: Ending index
+
+OUTPUT:
+    mediaList sorted in-place by title
+
+BEGIN
+    1. IF low < high THEN
+        1.1 SET pivotIndex = PARTITION(mediaList, low, high)
+        1.2 CALL QuickSort(mediaList, low, pivotIndex - 1)      // Sort left
+        1.3 CALL QuickSort(mediaList, pivotIndex + 1, high)     // Sort right
+    END IF
+END
+--------------------------------------------------------------------------------
+
+PSEUDOCODE - PARTITION SUBROUTINE:
+--------------------------------------------------------------------------------
+ALGORITHM Partition(mediaList, low, high)
+
+PURPOSE:
+    Place pivot in correct position and partition list
+
+BEGIN
+    1. SET pivot = mediaList[high]  // Choose last element
+    2. SET i = low - 1
+
+    3. FOR j = low TO high - 1 DO
+        3.1 IF mediaList[j].title <= pivot.title THEN
+            3.1.1 INCREMENT i
+            3.1.2 SWAP mediaList[i] WITH mediaList[j]
+        END IF
+    END FOR
+
+    4. SWAP mediaList[i + 1] WITH mediaList[high]  // Place pivot
+    5. RETURN i + 1  // Return pivot index
+END
+--------------------------------------------------------------------------------
+
+JAVA IMPLEMENTATION:
+--------------------------------------------------------------------------------
+public static void quickSort(List<MediaItem> list, int low, int high) {
+    if (low < high) {
+        int pivotIndex = partition(list, low, high);
+
+        // Recursively sort left and right partitions
+        quickSort(list, low, pivotIndex - 1);
+        quickSort(list, pivotIndex + 1, high);
+    }
+}
+
+private static int partition(List<MediaItem> list, int low, int high) {
+    MediaItem pivot = list.get(high);
+    int i = low - 1;
+
+    for (int j = low; j < high; j++) {
+        if (list.get(j).getTitle().compareTo(pivot.getTitle()) <= 0) {
+            i++;
+            // Swap elements
+            MediaItem temp = list.get(i);
+            list.set(i, list.get(j));
+            list.set(j, temp);
+        }
+    }
+
+    // Place pivot in correct position
+    MediaItem temp = list.get(i + 1);
+    list.set(i + 1, list.get(high));
+    list.set(high, temp);
+
+    return i + 1;
+}
+--------------------------------------------------------------------------------
+
+FLOWCHART:
+[INSERT SCREENSHOT: docs/flowcharts/5_quick_sort_algorithm.png]
+Screenshot location: /home/musyonchez/Code/OOP/project/docs/flowcharts/
+File: 5_quick_sort_algorithm.png
+
+HOW IT WORKS:
+1. Choose a pivot element (last element in our implementation)
+2. Partition: move smaller elements left, larger elements right
+3. Recursively sort left and right partitions
+4. Combine (no work needed - sorting is in-place)
+
+ADVANTAGES:
+✓ Fast average-case performance O(n log n)
+✓ In-place sorting (minimal extra memory)
+✓ Cache-efficient
+✓ Industry standard for general-purpose sorting
+
+USE CASE IN SYSTEM:
+- Display catalog sorted alphabetically
+- Prepare data for binary search
+- Generate sorted reports
+
+
+================================================================================
+                      5. DATABASE IMPLEMENTATION
+================================================================================
+
+5.1 FILE-BASED DATABASE DESIGN
+--------------------------------------------------------------------------------
+
+RATIONALE:
+Instead of SQL database, we use text files for simplicity and portability:
+✓ No external dependencies
+✓ Easy to debug and inspect
+✓ Human-readable format
+✓ Cross-platform compatibility
+✓ Satisfies "database access" requirement
+
+DATABASE FILES:
+1. users.txt - Stores all user accounts (members and librarians)
+2. media.txt - Stores all media items (books, magazines, DVDs)
+3. transactions.txt - Stores all borrowing transactions
+
+
+5.2 DATA FORMAT AND STRUCTURE
+--------------------------------------------------------------------------------
+
+FORMAT: Pipe-delimited (field1|field2|field3|...)
+
+1. USERS.TXT FORMAT:
+   --------------------------------------------------------------------
+   Member format:
+   ID|Name|Email|Phone|MEMBER|MembershipDate|Fines
+
+   Example:
+   M003|Michael Brown|m.brown@email.com|555-0103|MEMBER|2023-03-10|15.50
+
+   Librarian format:
+   ID|Name|Email|Phone|LIBRARIAN|EmployeeID|Position|HireDate
+
+   Example:
+   L001|Alice Cooper|alice@lib.com|555-0201|LIBRARIAN|EMP001|Head Librarian|2020-01-10
+   --------------------------------------------------------------------
+
+2. MEDIA.TXT FORMAT:
+   --------------------------------------------------------------------
+   Book format:
+   ID|Title|BOOK|Available|BorrowedBy|Author|ISBN|Pages|Publisher
+
+   Example:
+   B001|1984|BOOK|true||George Orwell|978-0-452-28423-4|328|Signet Classic
+
+   Magazine format:
+   ID|Title|MAGAZINE|Available|BorrowedBy|IssueNumber|Publisher|Date
+
+   Example:
+   M001|Time Magazine|MAGAZINE|false|M003|15|Time Inc.|2024-02-15
+
+   DVD format:
+   ID|Title|DVD|Available|BorrowedBy|Director|Duration|Genre|ReleaseYear
+
+   Example:
+   D001|Inception|DVD|true||Christopher Nolan|148|Sci-Fi|2010
+   --------------------------------------------------------------------
+
+3. TRANSACTIONS.TXT FORMAT:
+   --------------------------------------------------------------------
+   Format:
+   TransactionID|UserID|MediaID|BorrowDate|DueDate|ReturnDate|LateFee
+
+   Example (active transaction):
+   T001|M001|B003|2024-10-15|2024-10-29||0.0
+
+   Example (completed with late fee):
+   T013|M005|D002|2024-09-10|2024-09-24|2024-10-05|22.0
+   --------------------------------------------------------------------
+
+
+5.3 CRUD OPERATIONS
+--------------------------------------------------------------------------------
+
+FileManager class provides all database operations:
+
+1. CREATE (Save):
+   --------------------------------------------------------------------
+   public static void saveUser(User user) {
+       try (BufferedWriter writer =
+           new BufferedWriter(new FileWriter(USERS_FILE, true))) {
+           writer.write(user.toString());
+           writer.newLine();
+       } catch (IOException e) {
+           System.err.println("Error saving user: " + e.getMessage());
+       }
+   }
+   --------------------------------------------------------------------
+
+2. READ (Load):
+   --------------------------------------------------------------------
+   public static List<User> loadUsers() {
+       List<User> users = new ArrayList<>();
+       try (BufferedReader reader =
+           new BufferedReader(new FileReader(USERS_FILE))) {
+           String line;
+           while ((line = reader.readLine()) != null) {
+               String[] parts = line.split("\\|");
+               // Parse and create User objects
+               if (parts[4].equals("MEMBER")) {
+                   users.add(new Member(...));
+               } else if (parts[4].equals("LIBRARIAN")) {
+                   users.add(new Librarian(...));
+               }
+           }
+       }
+       return users;
+   }
+   --------------------------------------------------------------------
+
+3. UPDATE (Overwrite file):
+   --------------------------------------------------------------------
+   public static void updateAllUsers(List<User> users) {
+       try (BufferedWriter writer =
+           new BufferedWriter(new FileWriter(USERS_FILE))) {
+           for (User user : users) {
+               writer.write(user.toString());
+               writer.newLine();
+           }
+       }
+   }
+   --------------------------------------------------------------------
+
+4. DELETE (Remove from list and rewrite):
+   --------------------------------------------------------------------
+   // In Library.java
+   public void deleteUser(String userId) {
+       users.removeIf(u -> u.getId().equals(userId));
+       FileManager.updateAllUsers(users);
+   }
+   --------------------------------------------------------------------
+
+
+================================================================================
+                          6. SOURCE CODE
+================================================================================
+
+6.1 CORE CLASSES
+--------------------------------------------------------------------------------
+
+CLASS 1: User (Abstract Base Class)
+--------------------------------------------------------------------------------
+SOURCE CODE: models/User.java (51 lines)
+
+package models;
+
+public abstract class User {
+    private String id;
+    private String name;
+    private String email;
+    private String phone;
+
+    public User(String id, String name, String email, String phone) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    // Abstract methods - must be implemented by subclasses
+    public abstract void displayInfo();
+    public abstract String getUserType();
+
+    // Getters
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+    public String getPhone() { return phone; }
+
+    // Setters
+    public void setEmail(String email) { this.email = email; }
+    public void setPhone(String phone) { this.phone = phone; }
+}
+
+KEY FEATURES:
+- Abstraction: Cannot be instantiated directly
+- Encapsulation: Private fields with controlled access
+- Inheritance: Base class for Member and Librarian
+
+
+CLASS 2: Member (Extends User)
+--------------------------------------------------------------------------------
+SOURCE CODE: models/Member.java (120 lines)
+
+package models;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Member extends User {
+    private LocalDate membershipDate;
+    private double fines;
+    private List<String> borrowedItems;
+
+    public Member(String id, String name, String email, String phone,
+                  LocalDate membershipDate, double fines) {
+        super(id, name, email, phone);  // Call parent constructor
+        this.membershipDate = membershipDate;
+        this.fines = fines;
+        this.borrowedItems = new ArrayList<>();
+    }
+
+    // Business logic - encapsulated behavior
+    public boolean canBorrow() {
+        return fines == 0;
+    }
+
+    public void borrowItem(String mediaId) {
+        borrowedItems.add(mediaId);
+    }
+
+    public void returnItem(String mediaId) {
+        borrowedItems.remove(mediaId);
+    }
+
+    public void addFine(double amount) {
+        if (amount > 0) {
+            this.fines += amount;
+        }
+    }
+
+    public void payFine(double amount) {
+        if (amount > 0 && amount <= fines) {
+            this.fines -= amount;
+        }
+    }
+
+    // Polymorphism - override abstract method
+    @Override
+    public void displayInfo() {
+        System.out.println("\n--- Member Information ---");
+        System.out.println("Member ID: " + getId());
+        System.out.println("Name: " + getName());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Phone: " + getPhone());
+        System.out.println("Member Since: " + membershipDate);
+        System.out.println("Borrowed Items: " + borrowedItems.size());
+        System.out.println("Outstanding Fines: $" +
+            String.format("%.2f", fines));
+        System.out.println("Borrowing Status: " +
+            (canBorrow() ? "Active" : "Suspended - Pay fines"));
+        System.out.println("------------------------");
+    }
+
+    @Override
+    public String getUserType() {
+        return "MEMBER";
+    }
+
+    // Getters
+    public double getFines() { return fines; }
+    public List<String> getBorrowedItems() { return borrowedItems; }
+}
+
+KEY FEATURES:
+- Inheritance: Extends User, inherits common properties
+- Encapsulation: Business logic for borrowing, fines
+- Polymorphism: Custom displayInfo() implementation
+
+
+CLASS 3: Library (Manager Class)
+--------------------------------------------------------------------------------
+SOURCE CODE: managers/Library.java (400+ lines) - Key excerpts:
+
+package managers;
+
+import models.*;
+import database.FileManager;
+import java.time.LocalDate;
+import java.util.List;
+
+public class Library {
+    private List<User> users;
+    private List<MediaItem> mediaItems;
+    private List<Transaction> transactions;
+
+    public Library() {
+        // Load all data from files
+        FileManager.initializeFiles();
+        this.users = FileManager.loadUsers();
+        this.mediaItems = FileManager.loadMedia();
+        this.transactions = FileManager.loadTransactions();
+    }
+
+    // BORROWING OPERATION - Demonstrates business logic
+    public Transaction borrowMedia(String userId, String mediaId) {
+        // 1. Find and validate user
+        User user = findUserById(userId);
+        if (user == null) {
+            System.out.println("Error: User not found.");
+            return null;
+        }
+
+        // 2. Check if user is a member (not librarian)
+        if (!(user instanceof Member)) {
+            System.out.println("Error: Only members can borrow items.");
+            return null;
+        }
+        Member member = (Member) user;
+
+        // 3. Check for outstanding fines
+        if (!member.canBorrow()) {
+            System.out.println("Error: Cannot borrow. Pay fines first.");
+            System.out.println("Outstanding fines: $" + member.getFines());
+            return null;
+        }
+
+        // 4. Find and validate media item
+        MediaItem item = findMediaById(mediaId);
+        if (item == null) {
+            System.out.println("Error: Media item not found.");
+            return null;
+        }
+
+        // 5. Check availability
+        if (!item.isAvailable()) {
+            System.out.println("Error: Item already borrowed.");
+            return null;
+        }
+
+        // 6. Create transaction
+        String transactionId = generateTransactionId();
+        Transaction transaction = new Transaction(
+            transactionId, userId, mediaId);
+
+        // 7. Update all entities
+        item.setAvailable(false);
+        item.setBorrowedBy(userId);
+        member.borrowItem(mediaId);
+        transactions.add(transaction);
+
+        // 8. Persist changes to files
+        FileManager.saveTransaction(transaction);
+        FileManager.updateAllMedia(mediaItems);
+        FileManager.updateAllUsers(users);
+
+        System.out.println("Success! Item borrowed.");
+        System.out.println("Due date: " + transaction.getDueDate());
+
+        return transaction;
+    }
+
+    // SEARCH OPERATION - Using linear search algorithm
+    public List<MediaItem> searchByTitle(String searchTerm) {
+        return SearchAlgorithms.linearSearchByTitle(
+            mediaItems, searchTerm);
+    }
+
+    // HELPER METHOD - Find user by ID
+    public User findUserById(String userId) {
+        for (User user : users) {
+            if (user.getId().equals(userId)) {
+                return user;
+            }
+        }
+        return null;
+    }
+}
+
+KEY FEATURES:
+- Manager Pattern: Centralizes all business logic
+- Encapsulation: Manages collections, coordinates operations
+- Integration: Uses algorithms, file manager, models together
+
+
+6.2 KEY METHODS
+--------------------------------------------------------------------------------
+
+METHOD 1: Polymorphic Late Fee Calculation
+--------------------------------------------------------------------------------
+// In MediaItem.java (abstract)
+public abstract double calculateLateFee(int daysLate);
+
+// In Book.java
+@Override
+public double calculateLateFee(int daysLate) {
+    return BASE_LATE_FEE_PER_DAY * daysLate;  // $1/day
+}
+
+// In Magazine.java
+@Override
+public double calculateLateFee(int daysLate) {
+    return BASE_LATE_FEE_PER_DAY * 0.5 * daysLate;  // $0.50/day
+}
+
+// In DVD.java
+@Override
+public double calculateLateFee(int daysLate) {
+    return BASE_LATE_FEE_PER_DAY * 2.0 * daysLate;  // $2/day
+}
+
+DEMONSTRATES: Polymorphism - same method name, different implementations
+
+
+METHOD 2: Transaction Return Processing
+--------------------------------------------------------------------------------
+// In Library.java
+public void returnMedia(String transactionId) {
+    Transaction transaction = findTransactionById(transactionId);
+    if (transaction == null || transaction.isCompleted()) return;
+
+    MediaItem item = findMediaById(transaction.getMediaId());
+    Member member = (Member) findUserById(transaction.getUserId());
+
+    // Calculate late fee
+    int daysLate = transaction.calculateDaysLate();
+    double lateFee = 0.0;
+
+    if (daysLate > 0) {
+        lateFee = item.calculateLateFee(daysLate);  // Polymorphic call
+        member.addFine(lateFee);
+    }
+
+    // Update transaction
+    transaction.processReturn(LocalDate.now(), lateFee);
+
+    // Update media and member
+    item.setAvailable(true);
+    item.setBorrowedBy(null);
+    member.returnItem(transaction.getMediaId());
+
+    // Persist changes
+    FileManager.updateAllTransactions(transactions);
+    FileManager.updateAllMedia(mediaItems);
+    FileManager.updateAllUsers(users);
+
+    System.out.println("Item returned successfully.");
+    if (lateFee > 0) {
+        System.out.println("Late fee: $" + lateFee);
+    }
+}
+
+DEMONSTRATES: Business logic, polymorphism, data persistence
+
+
+6.3 CODE COMMENTS
+--------------------------------------------------------------------------------
+
+Our code includes three types of comments:
+
+1. JAVADOC COMMENTS - For classes and methods:
+   /**
+    * Library class - Main manager for the library system
+    * Coordinates all operations: users, media, transactions
+    * Demonstrates encapsulation and business logic
+    */
+
+2. INLINE COMMENTS - For complex logic:
+   // Calculate next ID based on existing items
+   private int calculateNextId(List<?> items, String prefix) { ... }
+
+3. SECTION COMMENTS - For organization:
+   // ==================== USER OPERATIONS ====================
+
+
+================================================================================
+                      7. SYSTEM DEMONSTRATION
+================================================================================
+
+7.1 SCREENSHOTS - USER MANAGEMENT
+--------------------------------------------------------------------------------
+
+SCREENSHOT 1: Main Menu
+[INSERT SCREENSHOT HERE]
+How to capture: Run java Main, screenshot the main menu showing all 6 options
+File location: Take fresh screenshot from running program
+
+SCREENSHOT 2: User Management Menu
+[INSERT SCREENSHOT HERE]
+How to capture: Select option 1 from main menu
+Shows: Register Member, Register Librarian, View Profile, Login options
+
+SCREENSHOT 3: View Member Profile (Clean Account)
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 3 from User Management
+- Enter user ID: M001
+Shows: Member info with $0.00 fines, Active status
+
+SCREENSHOT 4: View Member Profile (With Fines)
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 3 from User Management
+- Enter user ID: M003
+Shows: Member info with $15.50 fines, Suspended status
+
+SCREENSHOT 5: View Librarian Profile
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 3 from User Management
+- Enter user ID: L001
+Shows: Librarian info with employee ID, position, hire date
+
+SCREENSHOT 6: Login as Member
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 4 from User Management
+- Enter user ID: M001
+Shows: "Logged in as: John Smith"
+
+SCREENSHOT 7: Register New Member
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 1 from User Management
+- Enter name, email, phone
+Shows: Success message with new member ID
+
+
+7.2 SCREENSHOTS - MEDIA MANAGEMENT
+--------------------------------------------------------------------------------
+
+SCREENSHOT 8: Media Management Menu (Librarian Only)
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Login as L001 first
+- Select option 2 from main menu
+Shows: Add Book, Add Magazine, Add DVD, View All Media options
+
+SCREENSHOT 9: Add New Book
+[INSERT SCREENSHOT HERE]
+How to capture:
+- From Media Management, select option 1
+- Enter title, author, ISBN, pages, publisher
+Shows: Success message with new book ID
+
+SCREENSHOT 10: View All Media (Sorted)
+[INSERT SCREENSHOT HERE]
+How to capture:
+- From Media Management, select option 4
+Shows: All books, magazines, DVDs sorted alphabetically by title
+
+
+7.3 SCREENSHOTS - BORROWING OPERATIONS
+--------------------------------------------------------------------------------
+
+SCREENSHOT 11: Borrowing Operations Menu
+[INSERT SCREENSHOT HERE]
+How to capture: Select option 3 from main menu
+Shows: Borrow, Return, View Transactions options
+
+SCREENSHOT 12: Successful Borrow
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Login as M002
+- Select option 1 (Borrow Media)
+- Enter user ID: M002
+- Enter media ID: B007 (available book)
+Shows: Success message with due date (14 days from today)
+
+SCREENSHOT 13: Failed Borrow - Fines Block
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 1 (Borrow Media)
+- Enter user ID: M005 (has $25 fines)
+- Enter any media ID
+Shows: Error message "Cannot borrow. Pay fines first. Outstanding fines: $25.00"
+
+SCREENSHOT 14: Failed Borrow - Already Borrowed
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 1 (Borrow Media)
+- Enter user ID: M002
+- Enter media ID: B003 (already borrowed)
+Shows: Error message "Item already borrowed"
+
+SCREENSHOT 15: Return Media (On Time)
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 2 (Return Media)
+- Enter transaction ID: T001
+Shows: "Item returned successfully." with $0 late fee
+
+SCREENSHOT 16: Return Media (Late - With Fee)
+[INSERT SCREENSHOT HERE]
+How to capture:
+NOTE: This requires a transaction that's actually late.
+You may need to manually edit transactions.txt to set an old due date.
+- Select option 2 (Return Media)
+- Enter transaction ID of overdue item
+Shows: "Item returned successfully. Late fee: $XX.XX"
+
+SCREENSHOT 17: View Transaction History
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 3 (View My Transactions)
+- Enter user ID: M001
+Shows: List of all transactions for that user with status
+
+
+7.4 SCREENSHOTS - SEARCH AND SORT
+--------------------------------------------------------------------------------
+
+SCREENSHOT 18: Search & Sort Menu
+[INSERT SCREENSHOT HERE]
+How to capture: Select option 4 from main menu
+Shows: Linear Search, Binary Search, Sort options
+
+SCREENSHOT 19: Linear Search by Title (Multiple Results)
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 1 (Search by Title - Linear)
+- Enter search term: "the"
+Shows: All books/media containing "the" in title (The Hobbit, The Great Gatsby, etc.)
+
+SCREENSHOT 20: Linear Search (No Results)
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 1 (Search by Title - Linear)
+- Enter search term: "xyz123"
+Shows: "No matches found."
+
+SCREENSHOT 21: Binary Search by ISBN (Found)
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 2 (Search by ISBN - Binary)
+- Enter ISBN: 978-0-439-70818-8 (Harry Potter)
+Shows: Book details with "Found in X comparisons"
+
+SCREENSHOT 22: Binary Search by ISBN (Not Found)
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 2 (Search by ISBN - Binary)
+- Enter ISBN: 999-9-99-999999-9 (doesn't exist)
+Shows: "Book not found."
+
+SCREENSHOT 23: Quick Sort - Before Sorting
+[INSERT SCREENSHOT HERE]
+How to capture:
+- First view unsorted media (option 4 in Media Management)
+Shows: Media items in file order (unsorted)
+
+SCREENSHOT 24: Quick Sort - After Sorting
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 3 (Sort Media by Title - Quick Sort)
+- Then view all media
+Shows: All media sorted alphabetically (1984, Animal Farm, Brave New World, etc.)
+
+
+7.5 SCREENSHOTS - REPORTS AND STATISTICS
+--------------------------------------------------------------------------------
+
+SCREENSHOT 25: Reports Menu
+[INSERT SCREENSHOT HERE]
+How to capture: Select option 5 from main menu
+Shows: System statistics, overdue items, member reports options
+
+SCREENSHOT 26: System Statistics
+[INSERT SCREENSHOT HERE]
+How to capture: Select option 1 from Reports menu
+Shows: Total users, total media, available vs borrowed counts, total transactions
+
+SCREENSHOT 27: Overdue Items Report
+[INSERT SCREENSHOT HERE]
+How to capture: Select option 2 from Reports menu
+Shows: List of all overdue transactions with days late
+
+SCREENSHOT 28: Member Report (With Borrowed Items)
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Select option 3 from Reports menu
+- Enter user ID: M003
+Shows: Member details, list of currently borrowed items, fines
+
+
+7.6 SCREENSHOTS - ERROR HANDLING
+--------------------------------------------------------------------------------
+
+SCREENSHOT 29: Invalid User ID
+[INSERT SCREENSHOT HERE]
+How to capture:
+- View User Profile
+- Enter: XXX999
+Shows: "User not found."
+
+SCREENSHOT 30: Invalid Menu Choice
+[INSERT SCREENSHOT HERE]
+How to capture:
+- At main menu, enter: 99
+Shows: Returns to menu (handled gracefully)
+
+SCREENSHOT 31: Non-Member Trying to Borrow
+[INSERT SCREENSHOT HERE]
+How to capture:
+- Borrow Media
+- Enter user ID: L001 (librarian)
+Shows: "Error: Only members can borrow items."
+
+
+================================================================================
+                    8. CHALLENGES AND SOLUTIONS
+================================================================================
+
+8.1 TECHNICAL CHALLENGES
+--------------------------------------------------------------------------------
+
+CHALLENGE 1: File I/O Data Persistence
+--------------------------------------------------------------------------------
+PROBLEM:
+When implementing file-based database, we faced several issues:
+- Reading/writing different object types (Member, Librarian, Book, Magazine, DVD)
+- Parsing pipe-delimited format correctly
+- Handling missing or malformed data
+- Keeping file data synchronized with in-memory collections
+
+SOLUTION:
+1. Created FileManager class as single point of data access
+2. Implemented toString() methods in all model classes for consistent serialization
+3. Used try-catch blocks for robust error handling
+4. Split parsing logic by type using if-else chains
+5. Created updateAll methods to rewrite entire files when data changes
+
+CODE EXAMPLE:
+public static List<User> loadUsers() {
+    List<User> users = new ArrayList<>();
+    try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (line.trim().isEmpty()) continue;  // Skip empty lines
+
+            String[] parts = line.split("\\|");
+            if (parts.length < 5) continue;  // Validate minimum fields
+
+            // Type-specific parsing
+            if (parts[4].equals("MEMBER")) {
+                users.add(new Member(...));
+            } else if (parts[4].equals("LIBRARIAN")) {
+                users.add(new Librarian(...));
+            }
+        }
+    } catch (IOException e) {
+        System.err.println("Error loading users: " + e.getMessage());
+    }
+    return users;
+}
+
+LESSON LEARNED:
+Centralized data access with consistent format makes maintenance easier.
+
+
+CHALLENGE 2: Algorithm Integration
+--------------------------------------------------------------------------------
+PROBLEM:
+Integrating search and sort algorithms into the system presented challenges:
+- Binary search requires sorted data (adds overhead)
+- Quick sort is recursive (stack overflow risk for large datasets)
+- Linear search on large catalogs is slow
+- Algorithms needed to work with custom objects (MediaItem, Book)
+
+SOLUTION:
+1. Created separate utils package for algorithms (separation of concerns)
+2. Used Java Comparator for flexible sorting
+3. Implemented binary search only for ISBN (naturally unique and sortable)
+4. Used linear search for title (supports substring matching)
+5. Added complexity comments to educate users
+
+CODE EXAMPLE:
+// Linear search - works on any order, supports substring
+public static List<MediaItem> linearSearchByTitle(
+    List<MediaItem> mediaList, String searchTerm) {
+
+    List<MediaItem> results = new ArrayList<>();
+    searchTerm = searchTerm.toLowerCase();
+
+    for (MediaItem item : mediaList) {
+        if (item.getTitle().toLowerCase().contains(searchTerm)) {
+            results.add(item);
+        }
+    }
+    return results;
+}
+
+// Binary search - requires sorting first, but very fast
+public static Book binarySearchByISBN(List<Book> bookList, String isbn) {
+    bookList.sort((b1, b2) -> b1.getIsbn().compareTo(b2.getIsbn()));
+    // ... binary search implementation
+}
+
+LESSON LEARNED:
+Choose the right algorithm for the right use case. Not all algorithms fit
+all scenarios.
+
+
+CHALLENGE 3: Polymorphic Late Fee Calculation
+--------------------------------------------------------------------------------
+PROBLEM:
+Different media types should have different late fee rates:
+- Books: $1/day
+- Magazines: $0.50/day
+- DVDs: $2/day
+
+But we wanted to call calculateLateFee() uniformly without knowing the type.
+
+SOLUTION:
+1. Declared abstract calculateLateFee() in MediaItem base class
+2. Each subclass (Book, Magazine, DVD) implements its own rate
+3. Used polymorphism to call correct version at runtime
+
+CODE EXAMPLE:
+// In MediaItem (abstract)
+public abstract double calculateLateFee(int daysLate);
+
+// In Book
+@Override
+public double calculateLateFee(int daysLate) {
+    return BASE_LATE_FEE_PER_DAY * daysLate;
+}
+
+// In DVD
+@Override
+public double calculateLateFee(int daysLate) {
+    return BASE_LATE_FEE_PER_DAY * 2.0 * daysLate;
+}
+
+// Usage - don't need to know the type!
+MediaItem item = findMediaById(mediaId);
+double fee = item.calculateLateFee(daysLate);  // Calls correct version
+
+LESSON LEARNED:
+Polymorphism eliminates the need for type checking (instanceof) and makes
+code extensible.
+
+
+8.2 DESIGN CHALLENGES
+--------------------------------------------------------------------------------
+
+CHALLENGE 4: Class Hierarchy Design
+--------------------------------------------------------------------------------
+PROBLEM:
+Deciding what should be abstract vs concrete, and how to structure inheritance:
+- Should User be abstract or concrete?
+- Should we have one generic MediaItem or separate Book/Magazine/DVD?
+- How much code should be in base classes vs subclasses?
+
+SOLUTION:
+1. Made User and MediaItem abstract (never instantiated directly)
+2. Put common fields/methods in base classes
+3. Put type-specific behavior in subclasses
+4. Used abstract methods to enforce implementation
+
+DESIGN DECISIONS:
+✓ User (abstract) → Member, Librarian (concrete)
+✓ MediaItem (abstract) → Book, Magazine, DVD (concrete)
+✓ Transaction (concrete) - no need for inheritance
+
+RATIONALE:
+- Abstract classes prevent incomplete objects
+- Subclasses provide type-specific behavior
+- Clear separation of responsibilities
+
+LESSON LEARNED:
+If a class won't be instantiated directly, make it abstract.
+
+
+CHALLENGE 5: Data Validation
+--------------------------------------------------------------------------------
+PROBLEM:
+Preventing invalid data from corrupting the system:
+- Negative fines
+- Empty user IDs
+- Invalid dates
+- Duplicate IDs
+
+SOLUTION:
+1. Validation in constructors
+2. Defensive programming in setters
+3. Try-catch for user input
+4. Null checks before operations
+
+CODE EXAMPLE:
+public void addFine(double amount) {
+    if (amount > 0) {  // Validation
+        this.fines += amount;
+    }
+}
+
+public Transaction borrowMedia(String userId, String mediaId) {
+    // Null checks
+    User user = findUserById(userId);
+    if (user == null) {
+        System.out.println("Error: User not found.");
+        return null;
+    }
+
+    // Type validation
+    if (!(user instanceof Member)) {
+        System.out.println("Error: Only members can borrow.");
+        return null;
+    }
+
+    // Business rule validation
+    Member member = (Member) user;
+    if (!member.canBorrow()) {
+        System.out.println("Error: Pay fines first.");
+        return null;
+    }
+
+    // ... proceed with borrow
+}
+
+LESSON LEARNED:
+Validate early, fail gracefully with clear error messages.
+
+
+CHALLENGE 6: Menu System Navigation
+--------------------------------------------------------------------------------
+PROBLEM:
+Creating intuitive console menu with proper flow control:
+- Nested menus (main → submenu → action)
+- Back button functionality
+- Invalid input handling
+- Exit from any level
+
+SOLUTION:
+1. Used while loops for menu persistence
+2. Switch statements for menu choices
+3. Separate method for each menu (userManagementMenu, mediaManagementMenu)
+4. Break statements to exit menus
+5. getIntInput() helper for validated number input
+
+CODE EXAMPLE:
+private static void mainMenu() {
+    while (true) {
+        displayMainMenu();
+        int choice = getIntInput();
+
+        switch (choice) {
+            case 1:
+                userManagementMenu();  // Nested menu
+                break;
+            case 2:
+                mediaManagementMenu();
+                break;
+            case 6:
+                System.out.println("Goodbye!");
+                return;  // Exit
+            default:
+                System.out.println("Invalid choice.");
+        }
+    }
+}
+
+LESSON LEARNED:
+Modular menu methods with clear entry/exit points improve maintainability.
+
+
+8.3 LESSONS LEARNED
+--------------------------------------------------------------------------------
+
+1. ABSTRACTION BENEFITS:
+   - Forces consistent interface across types
+   - Prevents incomplete objects
+   - Enables polymorphism
+
+2. ENCAPSULATION IMPORTANCE:
+   - Private fields prevent invalid data
+   - Public methods provide controlled access
+   - Business logic stays in appropriate classes
+
+3. POLYMORPHISM POWER:
+   - Eliminate type checking (instanceof)
+   - Add new types without changing existing code
+   - Runtime flexibility
+
+4. INHERITANCE CLARITY:
+   - Use for "is-a" relationships only
+   - Put common code in parent
+   - Keep type-specific code in children
+
+5. FILE I/O ROBUSTNESS:
+   - Always use try-catch
+   - Validate data before parsing
+   - Centralize file access
+
+6. ALGORITHM SELECTION:
+   - Linear search: unsorted data, substring matching
+   - Binary search: sorted data, exact match, large datasets
+   - Quick sort: general-purpose sorting
+
+7. USER EXPERIENCE:
+   - Clear error messages
+   - Input validation
+   - Graceful failure
+
+
+================================================================================
+                           9. CONCLUSION
+================================================================================
+
+SUMMARY
+--------------------------------------------------------------------------------
+
+The Library Management System successfully demonstrates all required
+Object-Oriented Programming concepts:
+
+✓ ABSTRACTION - Abstract User and MediaItem classes with enforced contracts
+✓ ENCAPSULATION - Private fields with controlled access via methods
+✓ POLYMORPHISM - Method overriding (displayInfo, calculateLateFee)
+✓ INHERITANCE - Clear class hierarchies (User→Member/Librarian)
+
+The system also implements:
+✓ Search algorithms (linear O(n), binary O(log n))
+✓ Sort algorithms (quick sort O(n log n))
+✓ Database access (file-based persistence)
+✓ Robust error handling
+✓ User-friendly menu interface
+
+
+PROJECT ACHIEVEMENTS
+--------------------------------------------------------------------------------
+
+1. COMPREHENSIVE FUNCTIONALITY
+   - User management (registration, login, profiles)
+   - Media catalog (books, magazines, DVDs)
+   - Borrowing operations (borrow, return, fines)
+   - Search and sort capabilities
+   - Reports and statistics
+
+2. TECHNICAL EXCELLENCE
+   - Clean architecture (package organization)
+   - Design patterns (Manager, DAO)
+   - Well-commented code
+   - Robust error handling
+   - Efficient algorithms
+
+3. EDUCATIONAL VALUE
+   - Demonstrates all OOP concepts clearly
+   - Shows real-world application
+   - Includes algorithm complexity analysis
+   - Provides reusable patterns
+
+
+FUTURE ENHANCEMENTS
+--------------------------------------------------------------------------------
+
+Given more time, the system could be improved with:
+
+1. GRAPHICAL USER INTERFACE
+   - Replace console with JavaFX or Swing GUI
+   - Better user experience
+
+2. SQL DATABASE
+   - Replace text files with MySQL/PostgreSQL
+   - Better performance and data integrity
+
+3. ADVANCED FEATURES
+   - Email notifications for due dates
+   - Reservation system for borrowed items
+   - Fine payment processing
+   - Book recommendations
+
+4. ADDITIONAL ALGORITHMS
+   - Merge sort for stable sorting
+   - Hash table for O(1) lookups
+   - Graph algorithms for book relationships
+
+5. TESTING
+   - Unit tests for all classes
+   - Integration tests for workflows
+   - Performance testing
+
+
+REFLECTION
+--------------------------------------------------------------------------------
+
+This project provided hands-on experience with:
+- Designing class hierarchies
+- Implementing abstract concepts
+- Choosing appropriate algorithms
+- File I/O and data persistence
+- User interface design
+- Problem-solving and debugging
+
+The most valuable lesson was understanding how OOP principles work together:
+abstraction defines the contract, encapsulation protects the data, inheritance
+enables code reuse, and polymorphism provides flexibility.
+
+
+================================================================================
+                          10. REFERENCES
+================================================================================
+
+JAVA DOCUMENTATION
+--------------------------------------------------------------------------------
+
+Oracle. (2024). Java SE 8 documentation. Oracle Technology Network.
+    https://docs.oracle.com/javase/8/docs/
+
+Oracle. (2024). Java collections framework. Oracle Technology Network.
+    https://docs.oracle.com/javase/8/docs/technotes/guides/collections/
+
+Oracle. (2024). Java I/O, NIO, and NIO.2. Oracle Technology Network.
+    https://docs.oracle.com/javase/tutorial/essential/io/
+
+
+OBJECT-ORIENTED PROGRAMMING
+--------------------------------------------------------------------------------
+
+Bloch, J. (2018). Effective Java (3rd ed.). Addison-Wesley Professional.
+
+Gamma, E., Helm, R., Johnson, R., & Vlissides, J. (1994). Design patterns:
+    Elements of reusable object-oriented software. Addison-Wesley
+    Professional.
+
+Sierra, K., & Bates, B. (2005). Head first Java (2nd ed.). O'Reilly Media.
+
+Deitel, P., & Deitel, H. (2017). Java how to program (11th ed.). Pearson.
+
+
+ALGORITHMS AND DATA STRUCTURES
+--------------------------------------------------------------------------------
+
+Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2022).
+    Introduction to algorithms (4th ed.). MIT Press.
+
+Sedgewick, R., & Wayne, K. (2011). Algorithms (4th ed.). Addison-Wesley
+    Professional.
+
+Knuth, D. E. (1998). The art of computer programming, Volume 3: Sorting and
+    searching (2nd ed.). Addison-Wesley Professional.
+
+Hoare, C. A. R. (1962). Quicksort. The Computer Journal, 5(1), 10-16.
+    https://doi.org/10.1093/comjnl/5.1.10
+
+
+DESIGN PATTERNS
+--------------------------------------------------------------------------------
+
+Freeman, E., Robson, E., Bates, B., & Sierra, K. (2004). Head first design
+    patterns. O'Reilly Media.
+
+Fowler, M. (2002). Patterns of enterprise application architecture.
+    Addison-Wesley Professional.
+
+
+SOFTWARE ENGINEERING
+--------------------------------------------------------------------------------
+
+Martin, R. C. (2008). Clean code: A handbook of agile software craftsmanship.
+    Prentice Hall.
+
+Hunt, A., & Thomas, D. (1999). The pragmatic programmer: From journeyman to
+    master. Addison-Wesley Professional.
+
+
+ONLINE RESOURCES
+--------------------------------------------------------------------------------
+
+Baeldung. (2024). Java tutorials. https://www.baeldung.com/
+
+GeeksforGeeks. (2024). Java programming language.
+    https://www.geeksforgeeks.org/java/
+
+Stack Overflow. (2024). Java questions and answers.
+    https://stackoverflow.com/questions/tagged/java
+
+W3Schools. (2024). Java tutorial. https://www.w3schools.com/java/
+
+
+FILE I/O REFERENCES
+--------------------------------------------------------------------------------
+
+Horstmann, C. S. (2019). Core Java Volume I: Fundamentals (11th ed.).
+    Pearson.
+
+Oracle. (2024). Reading, writing, and creating files. Oracle Technology
+    Network.
+    https://docs.oracle.com/javase/tutorial/essential/io/file.html
+
+
+MERMAID FLOWCHARTS
+--------------------------------------------------------------------------------
+
+Mermaid. (2024). Mermaid documentation. https://mermaid.js.org/
+
+Mermaid Live Editor. (2024). https://mermaid.live/
+
+
+================================================================================
+                              END OF REPORT
+================================================================================
+
+Total Lines of Code: 2,335 lines across 13 Java files
+Total Classes: 13
+Total Packages: 4
+Development Time: [Fill in actual time spent]
+Team Members: [List all group members]
+
+Submitted: [Date]
+Course: Object-Oriented Programming
+Instructor: [Instructor Name]
+Institution: [University Name]
+
+================================================================================

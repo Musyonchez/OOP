@@ -12,8 +12,8 @@ import java.util.List;
  * Uses pipe-delimited format for data storage
  */
 public class FileManager {
-    // File paths
-    private static final String DATA_DIR = "project/data/";
+    // File paths (relative to src/ directory)
+    private static final String DATA_DIR = "../data/";
     private static final String USERS_FILE = DATA_DIR + "users.txt";
     private static final String MEDIA_FILE = DATA_DIR + "media.txt";
     private static final String TRANSACTIONS_FILE = DATA_DIR + "transactions.txt";

@@ -1,0 +1,12 @@
+S001|Programming|95.0|Fall 2024
+S001|Data Structures|88.5|Fall 2024
+S001|Algorithms|92.0|Fall 2024
+S002|Calculus|78.0|Fall 2024
+S002|Linear Algebra|85.5|Fall 2024
+S002|Statistics|80.0|Fall 2024
+S003|Quantum Mechanics|90.0|Fall 2024
+S003|Classical Mechanics|87.5|Fall 2024
+S004|Object-Oriented Programming|91.0|Fall 2024
+S004|Database Systems|86.0|Fall 2024
+S005|Thermodynamics|75.5|Fall 2024
+S005|Mechanics|82.0|Fall 2024

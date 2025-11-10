@@ -1,0 +1,5 @@
+S001|Alice Johnson|alice.j@university.edu|Computer Science
+S002|Bob Smith|bob.smith@university.edu|Mathematics
+S003|Carol White|carol.w@university.edu|Physics
+S004|David Brown|david.b@university.edu|Computer Science
+S005|Eva Davis|eva.davis@university.edu|Engineering
