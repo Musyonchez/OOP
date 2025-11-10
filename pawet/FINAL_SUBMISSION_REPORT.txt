@@ -453,24 +453,11 @@ found or the list ends. It has O(n) time complexity.
 
 IMPLEMENTATION:
 
-PSEUDOCODE:
-┌────────────────────────────────────────────────────────────────────┐
-│ FUNCTION LinearSearchById(employeeList, targetId):                │
-│     comparisons ← 0                                                │
-│                                                                    │
-│     FOR EACH employee IN employeeList DO                           │
-│         comparisons ← comparisons + 1                              │
-│                                                                    │
-│         IF employee.id EQUALS targetId THEN                        │
-│             PRINT "Found in " + comparisons + " comparisons"      │
-│             RETURN employee                                        │
-│         END IF                                                     │
-│     END FOR                                                        │
-│                                                                    │
-│     PRINT "Not found after " + comparisons + " comparisons"       │
-│     RETURN null                                                    │
-│ END FUNCTION                                                       │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Linear Search Algorithm Pseudocode]
+File: docs/pseudocode/1_search_algorithms.txt
+Section: Lines 1-50 (Linear Search by ID pseudocode)
+Description: Shows step-by-step pseudocode for linear search implementation with
+comparison counting. Includes algorithm logic and return conditions.
 
 COMPLEXITY ANALYSIS:
 • Time Complexity: O(n)
@@ -509,34 +496,11 @@ sorted data. It has O(log n) time complexity.
 
 IMPLEMENTATION:
 
-PSEUDOCODE:
-┌────────────────────────────────────────────────────────────────────┐
-│ FUNCTION BinarySearchById(sortedList, targetId):                  │
-│     left ← 0                                                       │
-│     right ← sortedList.size() - 1                                 │
-│     comparisons ← 0                                                │
-│                                                                    │
-│     WHILE left <= right DO                                         │
-│         comparisons ← comparisons + 1                              │
-│         mid ← left + (right - left) / 2                           │
-│         midEmployee ← sortedList.get(mid)                         │
-│                                                                    │
-│         IF targetId EQUALS midEmployee.id THEN                     │
-│             PRINT "Found in " + comparisons + " comparisons"      │
-│             PRINT "vs " + sortedList.size() + " with linear"      │
-│             RETURN midEmployee                                     │
-│                                                                    │
-│         ELSE IF targetId < midEmployee.id THEN                     │
-│             right ← mid - 1  // Search left half                  │
-│                                                                    │
-│         ELSE                                                       │
-│             left ← mid + 1   // Search right half                 │
-│         END IF                                                     │
-│     END WHILE                                                      │
-│                                                                    │
-│     RETURN null                                                    │
-│ END FUNCTION                                                       │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Binary Search Algorithm Pseudocode]
+File: docs/pseudocode/1_search_algorithms.txt
+Section: Lines 80-140 (Binary Search by ID pseudocode)
+Description: Shows divide-and-conquer pseudocode for binary search with comparison
+counting and efficiency messaging. Includes left/right pointer logic.
 
 COMPLEXITY ANALYSIS:
 • Time Complexity: O(log n)
@@ -571,36 +535,11 @@ swaps them if they're in wrong order. It has O(n²) time complexity.
 
 IMPLEMENTATION:
 
-PSEUDOCODE:
-┌────────────────────────────────────────────────────────────────────┐
-│ FUNCTION BubbleSortByName(employeeList):                          │
-│     n ← employeeList.size()                                        │
-│     comparisons ← 0                                                │
-│     swaps ← 0                                                      │
-│                                                                    │
-│     FOR i ← 0 TO n-2 DO                                           │
-│         swapped ← false                                            │
-│                                                                    │
-│         FOR j ← 0 TO n-i-2 DO                                     │
-│             comparisons ← comparisons + 1                          │
-│                                                                    │
-│             IF employeeList[j].name > employeeList[j+1].name THEN  │
-│                 SWAP(employeeList[j], employeeList[j+1])          │
-│                 swaps ← swaps + 1                                  │
-│                 swapped ← true                                     │
-│             END IF                                                 │
-│         END FOR                                                    │
-│                                                                    │
-│         IF NOT swapped THEN                                        │
-│             BREAK  // Early termination optimization              │
-│         END IF                                                     │
-│     END FOR                                                        │
-│                                                                    │
-│     PRINT "Comparisons: " + comparisons                           │
-│     PRINT "Swaps: " + swaps                                       │
-│     RETURN employeeList                                            │
-│ END FUNCTION                                                       │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Bubble Sort Algorithm Pseudocode]
+File: docs/pseudocode/2_sort_algorithms.txt
+Section: Lines 1-60 (Bubble Sort by Name pseudocode)
+Description: Shows nested loop structure for bubble sort with comparison and swap
+counting. Includes early termination optimization logic.
 
 COMPLEXITY ANALYSIS:
 • Time Complexity: O(n²)
@@ -633,31 +572,11 @@ pivot, recursively sorts subarrays. Average O(n log n) complexity.
 
 IMPLEMENTATION:
 
-PSEUDOCODE:
-┌────────────────────────────────────────────────────────────────────┐
-│ FUNCTION QuickSort(employeeList, low, high):                      │
-│     IF low < high THEN                                             │
-│         pivotIndex ← Partition(employeeList, low, high)           │
-│         QuickSort(employeeList, low, pivotIndex - 1)              │
-│         QuickSort(employeeList, pivotIndex + 1, high)             │
-│     END IF                                                         │
-│ END FUNCTION                                                       │
-│                                                                    │
-│ FUNCTION Partition(list, low, high):                              │
-│     pivot ← list[high]                                             │
-│     i ← low - 1                                                    │
-│                                                                    │
-│     FOR j ← low TO high-1 DO                                      │
-│         IF list[j].name <= pivot.name THEN                         │
-│             i ← i + 1                                              │
-│             SWAP(list[i], list[j])                                │
-│         END IF                                                     │
-│     END FOR                                                        │
-│                                                                    │
-│     SWAP(list[i+1], list[high])                                   │
-│     RETURN i + 1                                                   │
-│ END FUNCTION                                                       │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Quick Sort Algorithm Pseudocode]
+File: docs/pseudocode/2_sort_algorithms.txt
+Section: Lines 90-150 (Quick Sort by Name pseudocode)
+Description: Shows recursive divide-and-conquer approach with partition function.
+Includes pivot selection and array partitioning logic.
 
 COMPLEXITY ANALYSIS:
 • Time Complexity: O(n log n) average
