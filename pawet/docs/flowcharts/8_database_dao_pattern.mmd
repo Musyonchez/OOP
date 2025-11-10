@@ -1,0 +1,22 @@
+---
+title: PAWET-B Database - DAO Pattern
+---
+graph TD
+    subgraph "Application Layer"
+    Org["Organization<br/>(Business Logic)"]
+    end
+
+    subgraph "Data Access Layer"
+    DAO["<b>DatabaseManager</b><br/>(Data Access Object)<br/>────────────────<br/>• loadEmployees() → List&lt;Employee&gt;<br/>• saveEmployee(Employee)<br/>• updateEmployee(Employee)<br/>• deleteEmployee(String id)<br/>• loadDepartments()<br/>• loadProjects()<br/>• loadEquipment()<br/>• CRUD operations"]
+    end
+
+    subgraph "Data Storage Layer"
+    DB[("SQLite Database<br/>pawet.db<br/>────────────────<br/>Tables:<br/>• employees<br/>• departments<br/>• projects<br/>• equipment")]
+    end
+
+    Org -->|"uses"| DAO
+    DAO -->|"JDBC SQL"| DB
+
+    style Org fill:#e1f5ff,stroke:#333,stroke-width:2px
+    style DAO fill:#fff4e1,stroke:#333,stroke-width:3px
+    style DB fill:#f0f0f0,stroke:#333,stroke-width:2px

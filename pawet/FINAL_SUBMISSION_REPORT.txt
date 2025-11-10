@@ -265,27 +265,15 @@ IMPLEMENTATION IN PAWET-B:
 
 The employee hierarchy demonstrates inheritance:
 
-HIERARCHY DIAGRAM:
-┌──────────────────────────────────────────────────────────────┐
-│                         Employee                              │
-│                       (Abstract Base)                         │
-│  • id, name, email, phone, departmentId, role, salary, date  │
-│  • displayInfo() [abstract]                                   │
-│  • getRoleType() [abstract]                                   │
-│  • getYearsOfService() [concrete]                            │
-└──────────────────┬───────────────────────────────────────────┘
-                   │
-         ┌─────────┴─────────┬─────────────┐
-         │                   │             │
-    ┌────▼────┐        ┌─────▼─────┐  ┌──▼────────┐
-    │ Manager │        │ Scientist │  │Technician │
-    │         │        │           │  │           │
-    │+teamList│        │+special-  │  │+equipment │
-    │+budget  │        │ ization   │  │+certifi-  │
-    │Authority│        │+projectLst│  │ cations   │
-    └─────────┘        └───────────┘  └───────────┘
+[SCREENSHOT: Inheritance Hierarchy Diagram]
+File: docs/flowcharts/6_inheritance_hierarchy.mmd (rendered as PNG)
+Description: UML class diagram showing Employee abstract base class with Manager,
+Scientist, and Technician subclasses. Shows inherited fields/methods and
+specialized fields for each subclass.
+Rendering: Use Mermaid Live Editor (https://mermaid.live/) or VS Code Mermaid
+extension to render the diagram, then capture screenshot.
 
-[SCREENSHOT: Inheritance - Manager extends Employee]
+[SCREENSHOT: Inheritance - Manager extends Employee Code]
 File: src/models/Manager.java
 Lines: 1-45 (showing class declaration, inheritance, constructor with super() call)
 Highlight: Line 12 (extends Employee) and Lines 25-30 (super() call to parent constructor)
@@ -436,47 +424,20 @@ MANAGER/FACADE PATTERN:
 The Organization class serves as a facade, providing a simplified interface
 to the complex subsystems (database, search, sort, entities):
 
-┌────────────────────────────────────────────────────────────────────┐
-│                         Organization                               │
-│              (Facade/Manager Coordinator)                          │
-│                                                                    │
-│  ┌──────────────────────────────────────────────────────┐        │
-│  │ • manages employees, departments, projects, equipment│        │
-│  │ • coordinates database operations                    │        │
-│  │ • delegates to search algorithms                     │        │
-│  │ • delegates to sort algorithms                       │        │
-│  │ • enforces business rules                            │        │
-│  └──────────────────────────────────────────────────────┘        │
-│                          │                                         │
-│           ┌──────────────┼──────────────┬───────────────┐        │
-│           │              │              │               │         │
-│      ┌────▼────┐   ┌─────▼─────┐  ┌────▼────┐   ┌─────▼─────┐  │
-│      │Database │   │  Search   │  │  Sort   │   │  Models   │  │
-│      │ Manager │   │Algorithms │  │Algorithms│   │(Entities) │  │
-│      └─────────┘   └───────────┘  └─────────┘   └───────────┘  │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: System Architecture - Facade Pattern]
+File: docs/flowcharts/7_system_architecture.mmd (rendered as PNG)
+Description: Architecture diagram showing Organization class as facade coordinating
+DatabaseManager, SearchAlgorithms, SortAlgorithms, and Model classes.
+Rendering: Use Mermaid Live Editor or VS Code extension to render.
 
 DATA ACCESS OBJECT (DAO) PATTERN:
 DatabaseManager encapsulates all database operations:
 
-┌────────────────────────────────────────────────────────────────────┐
-│                      DatabaseManager                               │
-│                     (Data Access Layer)                            │
-│                                                                    │
-│  ┌──────────────────────────────────────────────────────┐        │
-│  │ • loadEmployees() → List<Employee>                   │        │
-│  │ • saveEmployee(Employee)                             │        │
-│  │ • updateEmployee(Employee)                           │        │
-│  │ • deleteEmployee(String id)                          │        │
-│  │ • loadDepartments(), loadProjects(), loadEquipment() │        │
-│  └──────────────────────────────────────────────────────┘        │
-│                          │                                         │
-│                    ┌─────▼─────┐                                  │
-│                    │  SQLite   │                                  │
-│                    │ Database  │                                  │
-│                    │ (pawet.db)│                                  │
-│                    └───────────┘                                  │
-└────────────────────────────────────────────────────────────────────┘
+[SCREENSHOT: Database Architecture - DAO Pattern]
+File: docs/flowcharts/8_database_dao_pattern.mmd (rendered as PNG)
+Description: Layered architecture showing Organization → DatabaseManager → SQLite.
+Shows separation of business logic, data access, and storage layers.
+Rendering: Use Mermaid Live Editor or VS Code extension to render.
 
 
 ================================================================================

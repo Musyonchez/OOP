@@ -1,0 +1,24 @@
+---
+title: PAWET-B System Architecture - Facade Pattern
+---
+graph TD
+    Organization["<b>Organization</b><br/>(Facade/Manager Coordinator)<br/>────────────────<br/>• manages employees, departments<br/>• manages projects, equipment<br/>• coordinates database operations<br/>• delegates to search algorithms<br/>• delegates to sort algorithms<br/>• enforces business rules"]
+
+    Database["<b>DatabaseManager</b><br/>SQL Operations"]
+    Search["<b>SearchAlgorithms</b><br/>Linear & Binary"]
+    Sort["<b>SortAlgorithms</b><br/>Bubble & Quick"]
+    Models["<b>Model Classes</b><br/>Employee, Department<br/>Project, Equipment"]
+
+    Organization --> Database
+    Organization --> Search
+    Organization --> Sort
+    Organization --> Models
+
+    Database --> SQLite[("SQLite<br/>pawet.db")]
+
+    style Organization fill:#e1f5ff,stroke:#333,stroke-width:3px
+    style Database fill:#fff4e1,stroke:#333,stroke-width:2px
+    style Search fill:#ffe1f0,stroke:#333,stroke-width:2px
+    style Sort fill:#ffe1f0,stroke:#333,stroke-width:2px
+    style Models fill:#e1ffe1,stroke:#333,stroke-width:2px
+    style SQLite fill:#f0f0f0,stroke:#333,stroke-width:2px

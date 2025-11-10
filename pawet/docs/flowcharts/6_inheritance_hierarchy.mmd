@@ -1,0 +1,55 @@
+---
+title: PAWET-B Employee Inheritance Hierarchy
+---
+classDiagram
+    class Employee {
+        <<abstract>>
+        -String id
+        -String name
+        -String email
+        -String phone
+        -String departmentId
+        -String role
+        -double salary
+        -LocalDate hireDate
+        +displayInfo()* void
+        +getRoleType()* String
+        +getYearsOfService() int
+    }
+
+    class Manager {
+        -List~String~ teamList
+        -double budgetAuthority
+        +addTeamMember(String) void
+        +removeTeamMember(String) void
+        +canApproveBudget(double) boolean
+        +displayInfo() void
+        +getRoleType() String
+    }
+
+    class Scientist {
+        -String specialization
+        -List~String~ projectList
+        +addProject(String) void
+        +removeProject(String) void
+        +displayInfo() void
+        +getRoleType() String
+    }
+
+    class Technician {
+        -List~String~ equipmentHandled
+        -String certifications
+        +addEquipment(String) void
+        +removeEquipment(String) void
+        +displayInfo() void
+        +getRoleType() String
+    }
+
+    Employee <|-- Manager : extends
+    Employee <|-- Scientist : extends
+    Employee <|-- Technician : extends
+
+    note for Employee "Abstract base class\nDefines common structure\nEnforces contracts via abstract methods"
+    note for Manager "Manages teams\nHas budget authority"
+    note for Scientist "Specialized research\nLeads projects"
+    note for Technician "Equipment operation\nCertified skills"

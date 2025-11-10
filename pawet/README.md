@@ -395,7 +395,12 @@ rm data/pawet.db
 
 - **PROJECT_VISION.md** - Complete project vision and conceptual framework
 - **IMPLEMENTATION_PLAN.md** - Detailed implementation specifications
-- **docs/flowcharts/** - Mermaid flowcharts (5 diagrams)
+- **docs/flowcharts/** - Mermaid flowcharts (8 diagrams):
+  - Main program flow, Borrow media algorithm
+  - Linear search, Binary search, Quick sort algorithms
+  - Employee inheritance hierarchy (UML class diagram)
+  - System architecture (Facade pattern)
+  - Database architecture (DAO pattern)
 - **docs/pseudocode/** - Algorithm pseudocode (3 files)
 - **docs/PROJECT_REPORT.txt** - Comprehensive project report
 - **docs/SCREENSHOT_GUIDE.txt** - Screenshot requirements for submission
