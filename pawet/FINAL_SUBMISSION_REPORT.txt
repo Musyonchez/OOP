@@ -1162,13 +1162,12 @@ a single database table while preserving type-specific attributes?
 SOLUTION:
 Created a single employees table with a role_type column and nullable
 type-specific columns. When loading from database, use role_type to
-instantiate the correct subclass:
+instantiate the correct subclass.
 
-  if (roleType.equals("MANAGER")) {
-      employee = new Manager(...);
-  } else if (roleType.equals("SCIENTIST")) {
-      employee = new Scientist(...);
-  }
+[SCREENSHOT: Challenge 1 Solution - Polymorphic Object Creation]
+File: src/database/DatabaseManager.java
+Lines: 165-180 (loadEmployees method showing role_type-based instantiation)
+Highlight: Lines 172-178 (if-else chain creating Manager, Scientist, or Technician)
 
 RESULT: Successfully stores and retrieves polymorphic objects.
 
@@ -1180,17 +1179,15 @@ SQLite doesn't have native array/list type. How to store Manager's teamList,
 Scientist's projectList, Technician's equipmentList?
 
 SOLUTION:
-Store as comma-separated strings in TEXT columns. Implement helper methods:
+Store as comma-separated strings in TEXT columns. Implement helper methods
+for serialization (List → String) and deserialization (String → List).
 
-  // Serialize: List → String
-  public String getTeamListAsString() {
-      return String.join(",", teamList);
-  }
+[SCREENSHOT: Challenge 2 Solution - List Serialization Helper Methods]
+File: src/models/Manager.java
+Lines: 110-125 (getTeamListAsString and parseTeamList helper methods)
+Highlight: String.join(",", teamList) and Arrays.asList(str.split(","))
 
-  // Deserialize: String → List
-  public static List<String> parseTeamList(String str) {
-      return Arrays.asList(str.split(","));
-  }
+Alternative: Similar implementation in Scientist.java and Technician.java
 
 RESULT: Seamless conversion between in-memory lists and database storage.
 
@@ -1201,13 +1198,14 @@ PROBLEM:
 Binary search requires sorted data, but users might not realize this.
 
 SOLUTION:
-Automatically sort before binary search and inform user:
+Automatically sort before binary search and inform user.
 
-  public Employee binarySearchById(String id) {
-      List<Employee> sorted = quickSortById(employees);
-      System.out.println("(List sorted automatically for binary search)");
-      return binarySearch(sorted, id);
-  }
+[SCREENSHOT: Challenge 3 Solution - Auto-Sort for Binary Search]
+File: src/managers/Organization.java
+Lines: 200-210 (binarySearchById method with automatic sorting)
+Highlight: Lines 202-204 (sort operation and user notification)
+
+Alternative: src/utils/SearchAlgorithms.java showing the implementation
 
 RESULT: User gets correct results without needing to sort manually.
 
@@ -1218,19 +1216,13 @@ PROBLEM:
 Deleting an employee should update departments, projects, equipment.
 
 SOLUTION:
-Cascade updates through Organization coordinator:
+Cascade updates through Organization coordinator to maintain referential
+integrity across departments, projects, and equipment.
 
-  public boolean removeEmployee(String id) {
-      Employee emp = searchEmployeeById(id);
-      // Update department count
-      updateDepartmentEmployeeCount(emp.getDepartmentId(), -1);
-      // Remove from manager's team lists
-      // Unassign equipment
-      // Update projects
-      // Finally delete from database
-      employees.remove(emp);
-      dbManager.deleteEmployee(id);
-  }
+[SCREENSHOT: Challenge 4 Solution - Cascade Delete Operations]
+File: src/managers/Organization.java
+Lines: 135-155 (removeEmployee method showing cascade updates)
+Highlight: Lines 138-148 (updating department count, removing from teams, unassigning equipment)
 
 RESULT: Data consistency maintained across all entities.
 
@@ -1241,18 +1233,14 @@ PROBLEM:
 Invalid user input (non-numeric, wrong date format) causes crashes.
 
 SOLUTION:
-Try-catch blocks with re-prompting:
+Try-catch blocks with re-prompting loop for robust input validation.
 
-  private int getIntInput(String prompt) {
-      while (true) {
-          try {
-              System.out.print(prompt);
-              return Integer.parseInt(scanner.nextLine());
-          } catch (NumberFormatException e) {
-              System.out.println("Invalid input. Enter a number.");
-          }
-      }
-  }
+[SCREENSHOT: Challenge 5 Solution - Input Validation with Try-Catch]
+File: src/Main.java
+Lines: 660-675 (getIntInput method showing exception handling)
+Highlight: Lines 663-670 (while loop with try-catch and NumberFormatException)
+
+Similar implementations: getDoubleInput(), getDateInput() methods
 
 RESULT: Robust input handling, no crashes from bad input.
 
